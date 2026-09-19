@@ -598,20 +598,27 @@ function initProductStory() {
 function initShowcase() {
   const btn = $('#showcasePlay');
   const video = $('#showcaseVideo');
-  const text = $('.play__text', btn);
+
   if (!btn || !video) return;
+
+  const text = $('.play__text', btn);
+
   btn.addEventListener('click', async () => {
     if (video.paused) {
       try {
         if (video.readyState === 0) video.load();
         await video.play();
-        btn.classList.add('is-playing'); text.textContent = 'Pause showreel'; btn.setAttribute('aria-label', 'Pause showreel');
+        btn.classList.add('is-playing');
+        text.textContent = 'Pause showreel';
+        btn.setAttribute('aria-label', 'Pause showreel');
       } catch (_) {
         text.textContent = 'Showreel coming soon';
       }
     } else {
       video.pause();
-      btn.classList.remove('is-playing'); text.textContent = 'Play showreel'; btn.setAttribute('aria-label', 'Play showreel');
+      btn.classList.remove('is-playing');
+      text.textContent = 'Play showreel';
+      btn.setAttribute('aria-label', 'Play showreel');
     }
   });
 }
