@@ -443,6 +443,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1;
 .footer__col h3 { font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: 0; color: var(--ink-dim); margin-bottom: 8px; }
 .footer__col a { font-size: 15px; color: var(--ink-soft); transition: color .3s; width: fit-content; }
 .footer__col a:hover { color: var(--violet); }
+.footer__socials { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+.footer__social { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink-soft) !important; transition: color .25s ease, border-color .25s ease, transform .25s ease, background .25s ease; }
+.footer__social svg { width: 17px; height: 17px; fill: currentColor; stroke: currentColor; stroke-width: 0; }
+.footer__social svg rect { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.footer__social svg circle { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.footer__social .footer__social-fill { fill: currentColor; stroke: none; }
+.footer__social:hover { color: var(--violet) !important; border-color: var(--violet); transform: translateY(-2px); background: rgba(91,75,214,.05); }
 .footer__bottom { display: flex; justify-content: space-between; gap: 16px; padding-block: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-dim); }
 .footer__top { color: var(--ink-soft); }
 
