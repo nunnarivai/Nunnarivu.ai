@@ -1,0 +1,57 @@
+{
+  "exportedAt": "2026-10-27",
+  "siteKey": "nunnarivu",
+  "articles": [
+    {
+      "slug": "ai-automation-for-business",
+      "title": "How AI Automation Is Reshaping Business Operations",
+      "category": "AI Business",
+      "publishedAt": "2026-10-01",
+      "readTime": 5,
+      "author": "Nunnarivu.ai",
+      "coverImage": "/assets/images/AI Business Solutions.jpeg",
+      "ogImage": "https://www.nunnarivu.ai/assets/images/AI Business Solutions.jpeg",
+      "excerpt": "AI automation compounds differently from traditional software automation — here's how to make it work for your business.",
+      "related": [
+        "generative-ai-media-revolution",
+        "building-ai-first-products"
+      ],
+      "sourceFile": "blog/ai-automation-for-business.html",
+      "body": "<p>The most consistent mistake businesses make with AI automation is treating it like a faster version of the tools they already have...</p><h2>Why automation compounds differently with AI</h2><p>Traditional automation is deterministic. You define rules, the machine follows them. AI automation is probabilistic: it learns from data, adapts to new inputs and improves as it processes more information.</p><h2>The five categories of business automation</h2><ul><li>Document processing and data extraction</li><li>Customer communication and support</li><li>Workflow orchestration and approvals</li><li>Analysis, reporting and forecasting</li><li>Decision support and recommendation</li></ul><h2>Where to start</h2><p>Start with a process that is high-frequency, rule-bound and currently handled by humans reviewing documents or making simple decisions. Email triage, invoice processing and lead qualification are all strong candidates.</p><h2>Measuring the real impact</h2><p>The right metric is not hours saved. It is decisions improved per unit of cost. An AI agent that handles 80% of support tickets and escalates the difficult 20% to a human is not a cost-cutter — it is a quality multiplier.</p><blockquote><p>The question is not whether AI can automate this. The question is whether automating it makes the whole system smarter.</p></blockquote>"
+    },
+    {
+      "slug": "generative-ai-media-revolution",
+      "title": "The Generative AI Media Revolution: Cinema Without the Old Constraints",
+      "category": "Generative Media",
+      "publishedAt": "2026-09-01",
+      "readTime": 7,
+      "author": "Nunnarivu.ai",
+      "coverImage": "/assets/images/Generative AI Media.jpeg",
+      "ogImage": "https://www.nunnarivu.ai/assets/images/Generative AI Media.jpeg",
+      "excerpt": "Generative AI production removes the three constraints that made high-quality video inaccessible to most brands: budget, time and physical location.",
+      "related": [
+        "ai-automation-for-business",
+        "building-ai-first-products"
+      ],
+      "sourceFile": "blog/generative-ai-media-revolution.html",
+      "body": "<p>For most of cinema's history, a great-looking frame required a great-looking location, expensive equipment, and a large crew to operate it. Generative AI production removes all three constraints simultaneously.</p><h2>What generative production actually means</h2><p>It is not a filter applied to stock footage. It is not a ChatGPT prompt that outputs a video. It is a structured production process where every creative decision — world, character, camera, light, sound — is made deliberately and then generated frame by frame.</p><h2>The six stages of our production process</h2><ol><li><strong>Concept</strong> — A sentence, a mood, a reference.</li><li><strong>Script</strong> — Story, dialogue and shot list.</li><li><strong>Generative world</strong> — Environments, light and weather.</li><li><strong>Characters</strong> — Cast that holds its identity across angles.</li><li><strong>Camera</strong> — Lenses, movement and blocking.</li><li><strong>Final frame</strong> — Colour, sound and finish.</li></ol><h2>What this means for brands</h2><p>A brand that could previously afford one product film per year can now produce a film per campaign. A startup that could not afford any video can now have broadcast-quality content from its first month.</p><h2>The craft question</h2><p>The question we get most is: does it still require real creativity? Yes. More, not less. Generative tools are extraordinarily capable — they require direction.</p><blockquote><p>Any technology that removes the cost of execution raises the value of the idea.</p></blockquote>"
+    },
+    {
+      "slug": "building-ai-first-products",
+      "title": "Building AI-First: From Zero to Scalable Product",
+      "category": "Products & Innovation",
+      "publishedAt": "2026-08-01",
+      "readTime": 6,
+      "author": "Nunnarivu.ai",
+      "coverImage": "/assets/images/Flagship Products.jpeg",
+      "ogImage": "https://www.nunnarivu.ai/assets/images/Flagship Products.jpeg",
+      "excerpt": "An AI-first product uses machine learning not as a feature but as the core mechanism through which it delivers value.",
+      "related": [
+        "ai-automation-for-business",
+        "generative-ai-media-revolution"
+      ],
+      "sourceFile": "blog/building-ai-first-products.html",
+      "body": "<p>There is a difference between a product that uses AI and an AI-first product. The former adds AI as a feature: a search bar that autocompletes, a dashboard that flags anomalies. The latter uses machine learning as the core mechanism through which it delivers value.</p><h2>What AI-first product development actually looks like</h2><p>It starts from data, not from features. Before writing a line of product code, the team asks: what data do we have access to, what can be inferred from it, and what decision or action could that inference enable?</p><h2>The five principles we build from</h2><ul><li>Data before interface — understand the data model before designing the UI</li><li>Inference as the product — the model's output is the deliverable, not the wrapper</li><li>Human-in-the-loop by design — not as a fallback but as a deliberate constraint</li><li>Evaluation-first — define how you will know the model is working before you build it</li><li>Subscription over sale — AI products improve over time; the business model should reflect that</li></ul><h2>From zero to scale: the non-linear path</h2><p>The most counterintuitive thing about AI product development is that it doesn't scale linearly. The first version of a model is usually the worst it will ever be. Every subsequent version should be better, as long as you are collecting the right feedback.</p><h2>The products we are building</h2><p>At Nunnarivu.ai, we are building AI-first products across three categories: business intelligence platforms that replace reporting layers with inference, creative tools that augment generative production workflows, and hardware that puts AI processing at the edge.</p><blockquote><p>The best AI products feel inevitable in retrospect. The intelligence was always there in the data — the product just learned to surface it.</p></blockquote>"
+    }
+  ]
+}

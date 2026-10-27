@@ -1,0 +1,163 @@
+/* ─── React app supplemental styles ──────────────────────────────────────────
+   Styles that do NOT exist in styles.css or blog.css — blog state panels,
+   loading skeletons, pagination, 404 page, and aria/focus utilities.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* Skip link */
+.skip {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  background: var(--indigo);
+  color: #fff;
+  padding: .5rem 1rem;
+  border-radius: 4px;
+  font-size: .875rem;
+  text-decoration: none;
+  transition: top .15s;
+}
+.skip:focus { top: 1rem; }
+
+/* ─── Skeleton loading ──────────────────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+.skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    var(--mist) 25%,
+    color-mix(in srgb, var(--mist), var(--paper) 50%) 50%,
+    var(--mist) 75%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.6s infinite linear;
+  border-radius: 6px;
+}
+
+.skeleton-line { height: 14px; margin-bottom: 10px; }
+.skeleton-line--short { width: 40%; }
+.skeleton-line--mid   { width: 65%; }
+
+.post-card--skeleton .post-card__img-wrap { aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; }
+.post-card--skeleton .post-card__ph { height: 100%; }
+.post-card--skeleton .post-card__body { padding-top: 1rem; }
+
+.article-loading { padding-top: calc(var(--nav-h) + 3rem); }
+.article-skeleton__hero {
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 540px;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+.article-skeleton__line { height: 18px; max-width: 680px; margin-bottom: 14px; }
+
+/* ─── Blog state panels ─────────────────────────────────────────────────────── */
+.blog-state {
+  grid-column: 1 / -1;
+  padding: 5rem 0;
+  text-align: center;
+}
+.blog-state h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+.blog-state p {
+  color: var(--ink-soft);
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+.blog-state code {
+  background: var(--mist);
+  padding: .15em .45em;
+  border-radius: 4px;
+  font-size: .9em;
+  font-family: monospace;
+}
+.blog-state--info h2  { color: var(--indigo); }
+.blog-state--error h2 { color: #c0392b; }
+
+/* ─── Blog grid ─────────────────────────────────────────────────────────────── */
+.blog-grid { padding-top: 4rem; padding-bottom: 6rem; }
+.blog-grid__posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+/* ─── Pagination ────────────────────────────────────────────────────────────── */
+.blog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 0 4rem;
+}
+.blog-pagination__info {
+  color: var(--ink-soft);
+  font-size: .9rem;
+}
+
+/* ─── 404 / Not-Found ───────────────────────────────────────────────────────── */
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--nav-h) - 200px);
+  padding-top: var(--nav-h);
+}
+.not-found__inner { text-align: center; max-width: 480px; }
+.not-found__code {
+  display: block;
+  font-size: clamp(5rem, 18vw, 12rem);
+  font-weight: 700;
+  color: var(--mist);
+  line-height: 1;
+  margin-bottom: -.2em;
+  user-select: none;
+}
+.not-found__title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+.not-found__text {
+  color: var(--ink-soft);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.not-found__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ─── Article related section ───────────────────────────────────────────────── */
+.related { padding: 5rem 0 6rem; }
+.related__title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: 2.5rem;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* ─── Sol node active state ─────────────────────────────────────────────────── */
+.sol__nodes circle { transition: fill .3s, r .3s; }
+.sol__nodes circle.is-active { fill: var(--violet); r: 14; }
+.stage { transition: opacity .3s; opacity: .5; }
+.stage.is-active { opacity: 1; }
+
+/* ─── Reduced motion: respect OS preference ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-pulse { animation: none; }
+}
