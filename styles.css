@@ -108,7 +108,26 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1;
 /* ---------- Media placeholders ---------- */
 .media { position: relative; overflow: hidden; background: var(--mist); }
 .media--fill { position: absolute; inset: 0; }
-.media__video, .media__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+.media__video,
+.media__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+/* Images should be visible even without an is-loaded class */
+.media__img {
+  opacity: 1;
+}
+
+.media__video.is-loaded,
+.media__img.is-loaded {
+  opacity: 1;
+}
 .media__video.is-loaded, .media__img.is-loaded { opacity: 1; }
 .media__video--hover { z-index: 2; }
 .media__ph {
