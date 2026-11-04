@@ -21,7 +21,6 @@ function formatDate(dateStr) {
 
 export default function BlogArticlePage() {
   const { slug } = useParams()
-  const navigate = useNavigate()
   const [status, setStatus] = useState('loading')
   const [article, setArticle] = useState(null)
   const pageRef = useRef(null)
@@ -136,9 +135,9 @@ export default function BlogArticlePage() {
           {article.category && <span className="post-cat" data-reveal>{article.category}</span>}
           <h1 className="article-hero__title" itemProp="headline" data-reveal>{article.title}</h1>
           <div className="article-meta" data-reveal>
-            {article.author?.name && (
+            {(article.author?.name || article.authorName) && (
               <span itemProp="author" itemScope itemType="https://schema.org/Person">
-                <span itemProp="name">{article.author.name}</span>
+                <span itemProp="name">{article.author?.name ?? article.authorName}</span>
               </span>
             )}
             {article.publishedAt && (
@@ -146,17 +145,19 @@ export default function BlogArticlePage() {
                 {formatDate(article.publishedAt)}
               </time>
             )}
-            {article.readTime && <span>{article.readTime} min read</span>}
+            {(article.readTime ?? article.readingTimeMinutes) && <span>{article.readTime ?? article.readingTimeMinutes} min read</span>}
           </div>
         </header>
 
         {article.coverImage && (
-          <figure className="article-cover" data-reveal>
+          <figure className="article-cover container" data-reveal>
             <img
+              className="article-cover__img is-loaded"
               src={article.coverImage}
               alt={article.coverImageAlt ?? article.title}
               loading="eager"
               itemProp="image"
+              onError={(event) => { event.currentTarget.style.display = 'none' }}
             />
           </figure>
         )}
