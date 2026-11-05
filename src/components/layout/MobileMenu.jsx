@@ -1,80 +1,103 @@
 import { useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { gsap } from 'gsap'
 import { useLenis } from '../../contexts/LenisContext'
 
 export default function MobileMenu({ open, onClose }) {
-  const menuRef = useRef(null)
-  const tlRef = useRef(null)
+  const panelRef = useRef(null)
   const location = useLocation()
   const navigate = useNavigate()
   const lenisRef = useLenis()
   const isHome = location.pathname === '/'
 
+  // Lock background scrolling while keeping the drawer itself natively scrollable.
   useEffect(() => {
-    const el = menuRef.current
-    const links = el.querySelectorAll('.menu__links a')
+    if (!open) return undefined
 
-    tlRef.current = gsap.timeline({ paused: true })
-      .set(el, { display: 'flex' })
-      .fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'expo.inOut' })
-      .fromTo(links, { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.07, duration: 0.6, ease: 'power3.out' }, '-=0.3')
-      .fromTo('.menu__foot', { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2')
+    const previousOverflow = document.body.style.overflow
+    const previousPaddingRight = document.body.style.paddingRight
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
 
-    return () => { tlRef.current?.kill() }
-  }, [])
+    if (lenisRef?.current) lenisRef.current.stop()
+    document.body.classList.add('menu-open')
+    document.body.style.overflow = 'hidden'
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`
 
-  useEffect(() => {
-    const tl = tlRef.current
-    if (!tl) return
-    if (open) {
-      if (lenisRef?.current) lenisRef.current.stop()
-      document.body.classList.add('menu-open')
-      menuRef.current.setAttribute('aria-hidden', 'false')
-      tl.timeScale(1).play()
-    } else {
-      tl.timeScale(1.6).reverse().then(() => {
-        if (!open) {
-          menuRef.current?.setAttribute('aria-hidden', 'true')
-          gsap.set(menuRef.current, { display: 'none' })
-          if (lenisRef?.current) lenisRef.current.start()
-          document.body.classList.remove('menu-open')
-        }
-      })
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
     }
-  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
+    document.addEventListener('keydown', handleKeyDown)
+    panelRef.current?.focus()
 
-  const handleAnchor = (e, hash) => {
-    e.preventDefault()
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.classList.remove('menu-open')
+      document.body.style.overflow = previousOverflow
+      document.body.style.paddingRight = previousPaddingRight
+      if (lenisRef?.current) lenisRef.current.start()
+    }
+  }, [open, onClose, lenisRef])
+
+  useEffect(() => {
+    if (open) onClose()
+    // Close the drawer after route changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
+
+  const handleAnchor = (event, hash) => {
+    event.preventDefault()
     onClose()
-    setTimeout(() => {
+    window.setTimeout(() => {
       if (isHome) {
-        const el = document.querySelector(hash)
-        if (el) {
-          if (lenisRef?.current) lenisRef.current.scrollTo(el, { offset: -40, duration: 1.4 })
-          else el.scrollIntoView({ behavior: 'smooth' })
+        const target = document.querySelector(hash)
+        if (target) {
+          if (lenisRef?.current) lenisRef.current.scrollTo(target, { offset: -40, duration: 0.7 })
+          else target.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
       } else {
         navigate(`/${hash}`)
       }
-    }, 300)
+    }, 180)
   }
 
   return (
-    <div className="menu" id="mobileMenu" ref={menuRef} aria-hidden="true" style={{ display: 'none' }}>
-      <div className="menu__inner">
+    <div
+      className={`menu menu--drawer${open ? ' is-open' : ''}`}
+      id="mobileMenu"
+      aria-hidden={!open}
+      inert={!open}
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose()
+      }}
+    >
+      <aside
+        className="menu__panel"
+        ref={panelRef}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+      >
+        <div className="menu__panel-head">
+          <span className="menu__eyebrow">Nunnarivu.ai / Navigation</span>
+          <button className="menu__close" type="button" onClick={onClose} aria-label="Close navigation">
+            <span />
+            <span />
+          </button>
+        </div>
+
         <nav className="menu__links" aria-label="Mobile">
-          <a href="#solutions" onClick={(e) => handleAnchor(e, '#solutions')}><small>01</small>Solutions</a>
-          <a href="#products" onClick={(e) => handleAnchor(e, '#products')}><small>02</small>Products</a>
-          <a href="#about" onClick={(e) => handleAnchor(e, '#about')}><small>03</small>About</a>
+          <a href="#solutions" onClick={(event) => handleAnchor(event, '#solutions')}><small>01</small>Solutions</a>
+          <a href="#products" onClick={(event) => handleAnchor(event, '#products')}><small>02</small>Products</a>
+          <a href="#about" onClick={(event) => handleAnchor(event, '#about')}><small>03</small>About</a>
           <Link to="/blogs" onClick={onClose}><small>04</small>Blog</Link>
-          <a href="#contact" onClick={(e) => handleAnchor(e, '#contact')}><small>05</small>Start project</a>
+          <a href="#contact" onClick={(event) => handleAnchor(event, '#contact')}><small>05</small>Start project</a>
         </nav>
+
         <div className="menu__foot">
           <span>Nunnarivu.ai</span>
           <span>Orchestrating Artificial into Ficial Art</span>
         </div>
-      </div>
+      </aside>
     </div>
   )
 }
