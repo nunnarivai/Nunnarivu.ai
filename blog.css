@@ -510,3 +510,107 @@ body.article-page { background: var(--paper); }
   .post-card { transition: none; }
   .post-card__img { transition: opacity 1s ease; }
 }
+
+/* ==========================================================================
+   NUNNARIVU BLOG — CONSISTENT LEFT ALIGNMENT
+   Blog listing, article header and cover use the same centred content width.
+   Only blog components are targeted; global navigation/layout is untouched.
+   ========================================================================== */
+
+/* Prevent the blog sections from touching the viewport edges. */
+.journal-page .blog-hero__inner,
+.journal-page .journal-content > .container,
+.article > .article-hero.container,
+.article > .article-cover.container,
+.related.container {
+  box-sizing: border-box;
+  width: min(1160px, calc(100% - 96px));
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The supplied JSX uses journal-content and blog-grid__posts class names. */
+.journal-page .journal-content {
+  padding-block: clamp(64px, 8vw, 110px);
+  background: var(--paper);
+}
+
+.journal-page .journal-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.journal-page .blog-grid__posts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 36px);
+}
+
+/* Preserve a comfortable reading width on individual articles. */
+.article > .article-body.container {
+  box-sizing: border-box;
+  width: min(740px, calc(100% - 96px));
+  max-width: 740px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Match the margins used by the article's loading and error states. */
+.article-loading.container,
+.not-found.container,
+main.blog-state.container {
+  box-sizing: border-box;
+  width: min(1160px, calc(100% - 96px));
+  max-width: 1160px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1100px) {
+  .journal-page .blog-grid__posts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .journal-page .blog-hero__inner,
+  .journal-page .journal-content > .container,
+  .article > .article-hero.container,
+  .article > .article-cover.container,
+  .article > .article-body.container,
+  .related.container,
+  .article-loading.container,
+  .not-found.container,
+  main.blog-state.container {
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  .journal-page .blog-grid__posts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .journal-page .blog-hero__inner,
+  .journal-page .journal-content > .container,
+  .article > .article-hero.container,
+  .article > .article-cover.container,
+  .article > .article-body.container,
+  .related.container,
+  .article-loading.container,
+  .not-found.container,
+  main.blog-state.container {
+    width: calc(100% - 32px);
+  }
+
+  .journal-page .journal-section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+}
