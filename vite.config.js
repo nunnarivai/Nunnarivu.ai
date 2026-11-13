@@ -43,10 +43,10 @@ function serveLocalAssets() {
 }
 
 export default defineConfig({
-  // publicDir: false so Vite's index.html entry is never overwritten by a
-  // public-dir copy during build. Assets are served via the plugin above (dev)
-  // and via viteStaticCopy (build).
-  publicDir: false,
+  // Serve favicon files at / in development, and copy them into dist/
+  // during production builds. This folder contains no index.html, so it
+  // cannot replace the Vite application entry point.
+  publicDir: 'favicons',
   build: {
     outDir: 'dist',
     sourcemap: false,
