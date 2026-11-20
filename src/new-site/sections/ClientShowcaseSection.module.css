@@ -1,0 +1,184 @@
+.section {
+  width: 100%;
+  padding-block: clamp(64px, 8vw, 108px);
+  background: #000000;
+}
+
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding-inline: 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.heading {
+  text-align: center;
+}
+
+.carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-inline: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 338px;
+  height: 458px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  scroll-snap-align: start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  background: #121316;
+}
+
+.posterLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.socialMetricsOverlay {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  margin-top: 86px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(12, 13, 16, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.socialMetricsOverlay span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.centerBrandTitle {
+  position: relative;
+  z-index: 2;
+  margin-block: auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
+}
+
+.bottomMeta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.studioStamp {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+}
+
+.hoverStory {
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 260px;
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.navCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.16s ease;
+}
+
+.navCircle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.progressTrack {
+  width: 170px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 999px;
+  transition: transform 0.15s ease-out;
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex: 0 0 286px;
+    height: 396px;
+  }
+
+  .centerBrandTitle {
+    font-size: 22px;
+  }
+}

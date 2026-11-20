@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { LenisProvider, useLenis } from './contexts/LenisContext'
 
@@ -14,6 +14,8 @@ import HomePage from './pages/HomePage'
 import BlogListPage from './pages/BlogListPage'
 import BlogArticlePage from './pages/BlogArticlePage'
 import NotFoundPage from './pages/NotFoundPage'
+
+const NewSiteApp = lazy(() => import('./new-site/NewSiteApp'))
 
 // Scroll to top / hash target on every route change
 function ScrollHandler() {
@@ -88,12 +90,32 @@ function AppContent() {
   )
 }
 
+function AppRouter() {
+  const location = useLocation()
+  const isNewSite =
+    location.pathname === '/new' || location.pathname.startsWith('/new/')
+
+  if (isNewSite) {
+    return (
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+        <Routes>
+          <Route path="/new/*" element={<NewSiteApp />} />
+        </Routes>
+      </Suspense>
+    )
+  }
+
+  return (
+    <LenisProvider>
+      <AppContent />
+    </LenisProvider>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <LenisProvider>
-        <AppContent />
-      </LenisProvider>
+      <AppRouter />
     </BrowserRouter>
   )
 }

@@ -1,0 +1,186 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0;
+  margin: 0;
+  background: #000000;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Nunnarivu_Full_Film.mp4 is 1920x1080 with 138px baked-in CinemaScope (2.39:1)
+ * black letterbox bars at top (y: 0..137) and bottom (y: 942..1079), leaving an
+ * 804px active picture height (74.44% of frame). Sizing .heroVideo to cover the
+ * active picture across 0%..100% of .hero eliminates top/bottom black bars on
+ * every desktop, tablet, and mobile viewport without stretching or distortion.
+ */
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  top: -17.6%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 135.2%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: none;
+  border: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.03) 48%,
+    rgba(0, 0, 0, 0.1) 55%,
+    rgba(0, 0, 0, 0.22) 62%,
+    rgba(0, 0, 0, 0.36) 68%,
+    rgba(0, 0, 0, 0.52) 74%,
+    rgba(0, 0, 0, 0.68) 80%,
+    rgba(0, 0, 0, 0.83) 86%,
+    rgba(0, 0, 0, 0.93) 92%,
+    rgba(0, 0, 0, 0.98) 96%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 0;
+  padding-bottom: clamp(48px, 7vh, 84px);
+}
+
+.contentStack {
+  margin-inline: auto;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.titlePrimary {
+  color: #ffffff;
+}
+
+.titleSecondary {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.subtitle {
+  max-width: 520px;
+  font-size: clamp(0.9375rem, 1.1vw, 1rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ctaWrap {
+  margin-top: 6px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--radius-control);
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.ctaButton:hover {
+  background: #f0f0f2;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .hero {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .heroVideo {
+    top: -17.3%;
+    left: 0;
+    width: 100%;
+    height: 134.6%;
+    object-fit: cover;
+    object-position: 46% 50%;
+    transform: none;
+  }
+
+  .heroContainer {
+    padding-top: max(32px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(40px, calc(28px + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .contentStack {
+    gap: 14px;
+  }
+
+  .title {
+    font-size: clamp(1.32rem, 5.8vw, 1.85rem);
+    line-height: 1.16;
+  }
+
+  .subtitle {
+    font-size: clamp(0.875rem, 3.7vw, 0.95rem);
+    line-height: 1.48;
+  }
+
+  .ctaWrap {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 350px) {
+  .heroContainer {
+    padding-top: max(24px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(28px, calc(20px + env(safe-area-inset-bottom, 0px)));
+  }
+
+  .contentStack {
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+}

@@ -1,0 +1,564 @@
+.section {
+  width: 100%;
+  padding-block: clamp(72px, 8vw, 112px);
+  background: #000000;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.rowTop {
+  display: grid;
+  grid-template-columns: 1fr 1.9fr 1fr;
+  gap: 16px;
+}
+
+.rowBottom {
+  display: grid;
+  grid-template-columns: 1fr 1.45fr 1.45fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 26px 24px;
+  min-height: 396px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardTitle {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.cardSub {
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+/* Card 1: No Training */
+.noTrainStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+}
+
+.eyeCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #1d1f24;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.dashedPaths {
+  width: 100%;
+  max-width: 240px;
+  height: 92px;
+}
+
+.fannedCards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: -30px;
+}
+
+.fanCard {
+  width: 74px;
+  height: 92px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin-inline: -6px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.fan1 {
+  background: linear-gradient(145deg, #ec4899, #8b5cf6, #38bdf8);
+  transform: rotate(-10deg);
+}
+.fan2 {
+  background: linear-gradient(145deg, #f59e0b, #b45309, #7c2d12);
+  transform: rotate(-3deg) translateY(-6px);
+}
+.fan3 {
+  background: repeating-linear-gradient(90deg, #0284c7 0 6px, #f59e0b 6px 12px);
+  transform: rotate(3deg) translateY(-6px);
+}
+.fan4 {
+  background: linear-gradient(145deg, #06b6d4, #3b82f6, #ec4899);
+  transform: rotate(10deg);
+}
+
+/* Card 2: Centralized Provisioning */
+.provisioningStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-block: auto;
+}
+
+.provConnectorSvg {
+  width: 100%;
+  max-width: 480px;
+  height: 32px;
+}
+
+.ownerNode {
+  width: 210px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: #181a1f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.provColumns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.7fr 0.95fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.memberList {
+  background: #16181c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+}
+
+.memberName {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.roleGreen {
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.roleLime {
+  color: var(--accent-lime);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.roleMuted {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+}
+
+.creditPoolCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.creditPoolPill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(209, 254, 23, 0.12);
+  border: 1px solid rgba(209, 254, 23, 0.35);
+  color: var(--accent-lime);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.allocationList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.allocNode {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #16181c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Card 3: Personal Account Manager */
+.managerCallBox {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 248px;
+  background: #27272a;
+}
+
+.managerSvg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.managerBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(15, 16, 18, 0.78);
+  backdrop-filter: blur(6px);
+  font-size: 10px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.callControls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  gap: 6px;
+}
+
+.callBtnDark,
+.callBtnHangup {
+  height: 30px;
+  padding-inline: 11px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callBtnDark {
+  background: rgba(15, 16, 18, 0.82);
+  color: #ffffff;
+}
+
+.callBtnHangup {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* Card 4: Dedicated AI Educator */
+.educatorCard {
+  background:
+    radial-gradient(90% 80% at 65% 32%, rgba(154, 88, 60, 0.42) 0%, rgba(19, 20, 22, 0.94) 75%),
+    var(--bg-card);
+}
+
+.lessonsPanel {
+  background: rgba(20, 22, 26, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lessonTabs {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.lessonTab,
+.lessonTabActive {
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.lessonTab {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lessonTabActive {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.lessonRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lessonItem {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.lessonThumb,
+.lessonThumbActive {
+  height: 30px;
+  border-radius: 5px;
+}
+
+.lessonThumb {
+  background: linear-gradient(135deg, #292524, #44403c);
+}
+
+.lessonThumbActive {
+  background: linear-gradient(135deg, #7c2d12, #ea580c);
+}
+
+.lessonMeta {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.44);
+}
+
+.lessonMetaLime {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--accent-lime);
+}
+
+.lessonTitleMuted {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.lessonTitleBright {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.keypointsList {
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Card 5: SOC 2 */
+.socStage {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  margin-top: auto;
+}
+
+.shieldBridgeCol {
+  display: flex;
+  align-items: center;
+}
+
+.socCurvesSvg {
+  width: 72px;
+  height: 210px;
+  flex-shrink: 0;
+}
+
+.shieldNode {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1b1d22;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.socChecklist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.socItem {
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #181a1f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.socItemOpen {
+  background: #1d2026;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.socItemTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.socCheckIcon {
+  color: var(--accent-lime);
+  flex-shrink: 0;
+}
+
+.socItemDetail {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Card 6: SSO */
+.ssoStage {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.ssoModal {
+  width: 100%;
+  max-width: 256px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #1a1c20;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ssoBrand {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ssoSub {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.ssoField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ssoLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ssoInput {
+  height: 32px;
+  padding-inline: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ssoEnabledPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(209, 254, 23, 0.18);
+  color: var(--accent-lime);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ssoContinueBtn {
+  height: 34px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #131517;
+  font-size: 11.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+@media (max-width: 1080px) {
+  .rowTop,
+  .rowBottom {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rowTop > :nth-child(2) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .rowTop,
+  .rowBottom {
+    grid-template-columns: 1fr;
+  }
+
+  .rowTop > :nth-child(2) {
+    grid-column: span 1;
+  }
+
+  .provColumns {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: auto;
+  }
+}

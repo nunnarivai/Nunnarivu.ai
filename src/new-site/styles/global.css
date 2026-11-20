@@ -1,0 +1,155 @@
+@import './variables.css';
+
+html.new-site-active {
+  background-color: #000000;
+  color: #f7f7f8;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body.new-site-active {
+  background-color: #000000;
+  color: #f7f7f8;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.new-site-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: var(--bg-black);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+:where(.new-site-root) *,
+:where(.new-site-root) *::before,
+:where(.new-site-root) *::after {
+  box-sizing: border-box;
+}
+
+/* Neutralize existing site's global h1/h2/h3 typography reset at matching 0,0,1 specificity */
+:where(.new-site-root) h1,
+:where(.new-site-root) h2,
+:where(.new-site-root) h3 {
+  font-family: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+
+/* Neutralize existing site's global [data-reveal] CSS opacity/transform/transition so GSAP drives reveals cleanly */
+:where(.new-site-root) [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+:where(.new-site-root) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(.new-site-root) button,
+:where(.new-site-root) input,
+:where(.new-site-root) select,
+:where(.new-site-root) textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+:where(.new-site-root) button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+:where(.new-site-root) img,
+:where(.new-site-root) video,
+:where(.new-site-root) svg,
+:where(.new-site-root) canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Container matching observed 1312px geometry (304px margins at 1920px) */
+:where(.new-site-root) .hf-container {
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--container-pad) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Space Grotesk Display Headings matching reference [-0.04em] uppercase */
+:where(.new-site-root) .hf-heading-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1.16;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+:where(.new-site-root) .hf-heading-lg {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 2.6vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+:where(.new-site-root) .hf-heading-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+:where(.new-site-root) .hf-two-tone-muted {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+:where(.new-site-root) .hf-gradient-heading {
+  background: linear-gradient(180deg, #ffffff 20%, rgba(255, 255, 255, 0.52) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Accessibility focus styles */
+:where(.new-site-root) :focus-visible {
+  outline: 2px solid var(--accent-lime);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html.new-site-active {
+    scroll-behavior: auto !important;
+  }
+
+  :where(.new-site-root) *,
+  :where(.new-site-root) *::before,
+  :where(.new-site-root) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

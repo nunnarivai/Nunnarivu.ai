@@ -24,14 +24,39 @@ function serveLocalAssets() {
     name: 'serve-local-assets',
     configureServer(server) {
       server.middlewares.use('/assets', (req, res, next) => {
-        const urlPath = req.url.replace(/\?.*$/, '').replace(/^\//, '')
+        const urlPath = decodeURIComponent(req.url.replace(/\?.*$/, '').replace(/^\//, ''))
         const filePath = join(__dirname, 'assets', urlPath)
         try {
           const stat = statSync(filePath)
           if (stat.isFile()) {
             const mime = MIME[extname(filePath).toLowerCase()] || 'application/octet-stream'
+            const fileSize = stat.size
+            const range = req.headers.range
+
+            res.setHeader('Accept-Ranges', 'bytes')
             res.setHeader('Content-Type', mime)
             res.setHeader('Cache-Control', 'public, max-age=86400')
+
+            if (range) {
+              const match = /bytes=(\d*)-(\d*)/.exec(range)
+              if (match) {
+                const start = match[1] ? parseInt(match[1], 10) : 0
+                const end = match[2] ? Math.min(parseInt(match[2], 10), fileSize - 1) : fileSize - 1
+                if (start >= fileSize || start > end) {
+                  res.statusCode = 416
+                  res.setHeader('Content-Range', `bytes */${fileSize}`)
+                  res.end()
+                  return
+                }
+                res.statusCode = 206
+                res.setHeader('Content-Range', `bytes ${start}-${end}/${fileSize}`)
+                res.setHeader('Content-Length', end - start + 1)
+                createReadStream(filePath, { start, end }).pipe(res)
+                return
+              }
+            }
+
+            res.setHeader('Content-Length', fileSize)
             createReadStream(filePath).pipe(res)
             return
           }

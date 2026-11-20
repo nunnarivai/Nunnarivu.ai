@@ -1,0 +1,62 @@
+.new-site-root {
+  /* Core Surfaces (Observed via Live Computed CSS) */
+  --bg-black: #000000;
+  --bg-header: #0b0b0b;
+  --bg-card: #131416;
+  --bg-card-alt: #16171a;
+  --bg-card-elevated: #1c1d21;
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-input-hover: rgba(255, 255, 255, 0.08);
+  --bg-input-focus: rgba(255, 255, 255, 0.09);
+
+  /* Brand Signature Chartreuse / Lime (rgb(209, 254, 23)) */
+  --accent-lime: #d1fe17;
+  --accent-lime-hover: #dcff42;
+  --accent-lime-soft: rgba(209, 254, 23, 0.15);
+  --accent-lime-border: rgba(209, 254, 23, 0.35);
+
+  /* Typography Colors */
+  --text-primary: #ffffff;
+  --text-body: #f7f7f8;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-nav: rgba(255, 255, 255, 0.62);
+  --text-faint: rgba(255, 255, 255, 0.3);
+  --text-dark: #131517;
+  --text-dark-secondary: rgba(19, 21, 23, 0.56);
+
+  /* Borders & Hairlines */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-card: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-error: #ff5a5f;
+
+  /* Font Stacks */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Layout Geometry */
+  --container-max: 1312px;
+  --container-pad: 24px;
+  --header-height: 56px;
+
+  /* Radii */
+  --radius-xl: 24px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-control: 10px;
+  --radius-sm: 8px;
+  --radius-pill: 9999px;
+
+  /* Motion Curves */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+  .new-site-root {
+    --container-pad: 16px;
+    --header-height: 52px;
+  }
+}
