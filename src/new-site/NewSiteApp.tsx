@@ -30,12 +30,6 @@ const EnterpriseLandingPage: React.FC = () => {
         {/* SECTION 02 — MAIN CINEMATIC HERO */}
         <HeroSection />
 
-        {/* SECTION 03 & 04 — ENTERPRISE CONTACT SALES + PARTNERS AND TRUST */}
-        <ContactSalesSection
-          sectionId="enterprise-contact"
-          onDemoNotice={showDemoNotice}
-        />
-
         {/* SECTION 05 — ENTERPRISE METRICS */}
         <MetricsSection />
 
@@ -54,9 +48,9 @@ const EnterpriseLandingPage: React.FC = () => {
         {/* SECTION 10 — ACADEMY */}
         <AcademySection onDemoNotice={showDemoNotice} />
 
-        {/* SECTION 11 — REPEATED CONTACT SALES */}
+        {/* SECTION 11 — CONTACT SALES */}
         <ContactSalesSection
-          sectionId="enterprise-contact-bottom"
+          sectionId="enterprise-contact"
           onDemoNotice={showDemoNotice}
         />
 
@@ -110,7 +104,7 @@ export const NewSiteApp: React.FC = () => {
       <Routes>
         <Route index element={<EnterpriseLandingPage />} />
         <Route path="enterprise" element={<EnterpriseLandingPage />} />
-        <Route path="*" element={<Navigate to="/new" replace />} />
+        <Route path="*" element={<Navigate to="/new-site" replace />} />
       </Routes>
     </div>
   );

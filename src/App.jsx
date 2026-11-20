@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { LenisProvider, useLenis } from './contexts/LenisContext'
 
 import Preloader from './components/common/Preloader'
@@ -90,16 +90,26 @@ function AppContent() {
   )
 }
 
+function LegacyNewRedirect() {
+  const location = useLocation()
+  const rest = location.pathname.slice('/new'.length)
+  return <Navigate to={`/new-site${rest}${location.search}${location.hash}`} replace />
+}
+
 function AppRouter() {
   const location = useLocation()
   const isNewSite =
-    location.pathname === '/new' || location.pathname.startsWith('/new/')
+    location.pathname === '/new-site' ||
+    location.pathname.startsWith('/new-site/') ||
+    location.pathname === '/new' ||
+    location.pathname.startsWith('/new/')
 
   if (isNewSite) {
     return (
       <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
         <Routes>
-          <Route path="/new/*" element={<NewSiteApp />} />
+          <Route path="/new-site/*" element={<NewSiteApp />} />
+          <Route path="/new/*" element={<LegacyNewRedirect />} />
         </Routes>
       </Suspense>
     )
