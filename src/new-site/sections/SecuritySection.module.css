@@ -1,7 +1,7 @@
 .section {
   width: 100%;
   padding-block: clamp(72px, 8vw, 112px);
-  background: #000000;
+  background: var(--light-bg-primary);
 }
 
 .container {
@@ -13,6 +13,7 @@
 .heading {
   text-align: center;
   margin-bottom: 12px;
+  color: var(--light-text-primary);
 }
 
 .rowTop {
@@ -28,7 +29,7 @@
 }
 
 .card {
-  background: var(--bg-card);
+  background: var(--light-card);
   border-radius: var(--radius-lg);
   padding: 26px 24px;
   min-height: 396px;
@@ -37,7 +38,15 @@
   justify-content: space-between;
   gap: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--light-border);
+  box-shadow: var(--light-shadow);
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.card:hover {
+  border-color: var(--light-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--light-shadow-hover);
 }
 
 .cardHeader {
@@ -51,75 +60,58 @@
   line-height: 24px;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--light-text-primary);
 }
 
 .cardSub {
   font-size: 13px;
   line-height: 18px;
-  color: rgba(255, 255, 255, 0.48);
+  color: var(--light-text-secondary);
 }
 
-/* Card 1: No Training */
-.noTrainStage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.mediaVisualBox,
+.supportPhotoBox {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 248px;
+  background: #141022;
+  border: 1px solid var(--light-border);
   margin-top: auto;
 }
 
-.eyeCircle {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #1d1f24;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-}
-
-.dashedPaths {
+.cardImage {
   width: 100%;
-  max-width: 240px;
-  height: 92px;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.fannedCards {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: -30px;
+.visualBadgeOverlay {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.42);
+  color: var(--btn-gold);
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.fanCard {
-  width: 74px;
-  height: 92px;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  margin-inline: -6px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+.miniEmblem {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
-.fan1 {
-  background: linear-gradient(145deg, #ec4899, #8b5cf6, #38bdf8);
-  transform: rotate(-10deg);
-}
-.fan2 {
-  background: linear-gradient(145deg, #f59e0b, #b45309, #7c2d12);
-  transform: rotate(-3deg) translateY(-6px);
-}
-.fan3 {
-  background: repeating-linear-gradient(90deg, #0284c7 0 6px, #f59e0b 6px 12px);
-  transform: rotate(3deg) translateY(-6px);
-}
-.fan4 {
-  background: linear-gradient(145deg, #06b6d4, #3b82f6, #ec4899);
-  transform: rotate(10deg);
-}
-
-/* Card 2: Centralized Provisioning */
+/* Card 2: Team Management */
 .provisioningStage {
   display: flex;
   flex-direction: column;
@@ -135,11 +127,11 @@
 }
 
 .ownerNode {
-  width: 210px;
+  width: 230px;
   padding: 9px 14px;
   border-radius: 12px;
-  background: #181a1f;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--light-card-tinted);
+  border: 1px solid var(--light-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,10 +147,10 @@
 }
 
 .memberList {
-  background: #16181c;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
   border-radius: 12px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -175,23 +167,24 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--light-text-primary);
+  font-weight: 500;
 }
 
 .roleGreen {
-  color: #34d399;
+  color: var(--light-accent);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .roleLime {
-  color: var(--accent-lime);
+  color: var(--light-accent);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .roleMuted {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--light-text-secondary);
   font-size: 11px;
 }
 
@@ -203,11 +196,11 @@
 .creditPoolPill {
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(209, 254, 23, 0.12);
-  border: 1px solid rgba(209, 254, 23, 0.35);
-  color: var(--accent-lime);
+  background: rgba(93, 75, 216, 0.1);
+  border: 1px solid rgba(93, 75, 216, 0.3);
+  color: var(--light-accent);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
 }
 
@@ -220,82 +213,62 @@
 .allocNode {
   padding: 8px 12px;
   border-radius: 10px;
-  background: #16181c;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--light-text-primary);
+  font-weight: 500;
 }
 
-/* Card 3: Personal Account Manager */
-.managerCallBox {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  height: 248px;
-  background: #27272a;
-}
-
-.managerSvg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+/* Card 3: Expert Support */
 .managerBadge {
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 4px 9px;
+  padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(15, 16, 18, 0.78);
+  background: rgba(18, 15, 28, 0.84);
   backdrop-filter: blur(6px);
   font-size: 10px;
   font-weight: 600;
   color: #ffffff;
 }
 
-.callControls {
+.consultBtn {
   position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  gap: 6px;
-}
-
-.callBtnDark,
-.callBtnHangup {
-  height: 30px;
-  padding-inline: 11px;
-  border-radius: 8px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--btn-gold);
+  border: 1px solid rgba(18, 15, 28, 0.15);
+  color: var(--btn-gold-text);
+  font-size: 12px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  transition: background-color 0.16s ease, transform 0.16s ease;
 }
 
-.callBtnDark {
-  background: rgba(15, 16, 18, 0.82);
-  color: #ffffff;
+.consultBtn:hover {
+  background: var(--btn-gold-hover);
+  transform: translateY(-1px);
 }
 
-.callBtnHangup {
-  background: #ef4444;
-  color: #ffffff;
-}
-
-/* Card 4: Dedicated AI Educator */
+/* Card 4: AI Training */
 .educatorCard {
-  background:
-    radial-gradient(90% 80% at 65% 32%, rgba(154, 88, 60, 0.42) 0%, rgba(19, 20, 22, 0.94) 75%),
-    var(--bg-card);
+  background: linear-gradient(155deg, #ffffff 45%, #f3f0fa 100%);
 }
 
 .lessonsPanel {
-  background: rgba(20, 22, 26, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
   border-radius: 14px;
   padding: 12px;
   display: flex;
@@ -310,19 +283,19 @@
 
 .lessonTab,
 .lessonTabActive {
-  font-size: 10px;
-  padding: 3px 9px;
+  font-size: 10.5px;
+  padding: 4px 10px;
   border-radius: 999px;
+  font-weight: 600;
 }
 
 .lessonTab {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--light-text-secondary);
 }
 
 .lessonTabActive {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--light-accent);
   color: #ffffff;
-  font-weight: 600;
 }
 
 .lessonRows {
@@ -338,40 +311,34 @@
   align-items: center;
 }
 
-.lessonThumb,
-.lessonThumbActive {
-  height: 30px;
-  border-radius: 5px;
-}
-
-.lessonThumb {
-  background: linear-gradient(135deg, #292524, #44403c);
-}
-
-.lessonThumbActive {
-  background: linear-gradient(135deg, #7c2d12, #ea580c);
+.lessonImgThumb {
+  width: 48px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid var(--light-border);
 }
 
 .lessonMeta {
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.44);
+  font-size: 9.5px;
+  color: var(--light-text-muted);
 }
 
 .lessonMetaLime {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--accent-lime);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--light-accent);
 }
 
 .lessonTitleMuted {
   font-size: 10.5px;
-  color: rgba(255, 255, 255, 0.52);
+  color: var(--light-text-secondary);
 }
 
 .lessonTitleBright {
   font-size: 10.5px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--light-text-primary);
   line-height: 1.3;
 }
 
@@ -381,10 +348,27 @@
   flex-direction: column;
   gap: 8px;
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--light-text-primary);
 }
 
-/* Card 5: SOC 2 */
+.academyInlineLink {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--light-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--light-accent);
+  transition: opacity 0.15s ease;
+}
+
+.academyInlineLink:hover {
+  opacity: 0.78;
+}
+
+/* Card 5: Security Practices */
 .socStage {
   display: grid;
   grid-template-columns: 118px minmax(0, 1fr);
@@ -408,12 +392,12 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #1b1d22;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--light-card-tinted);
+  border: 1px solid rgba(93, 75, 216, 0.28);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: var(--light-accent);
 }
 
 .socChecklist {
@@ -426,14 +410,14 @@
   text-align: left;
   padding: 9px 12px;
   border-radius: 10px;
-  background: #181a1f;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
   transition: border-color 0.16s ease, background-color 0.16s ease;
 }
 
 .socItemOpen {
-  background: #1d2026;
-  border-color: rgba(255, 255, 255, 0.16);
+  background: var(--light-card-tinted);
+  border-color: rgba(93, 75, 216, 0.35);
 }
 
 .socItemTitleRow {
@@ -441,12 +425,12 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  color: var(--light-text-primary);
 }
 
 .socCheckIcon {
-  color: var(--accent-lime);
+  color: var(--light-accent);
   flex-shrink: 0;
 }
 
@@ -454,83 +438,68 @@
   margin-top: 6px;
   font-size: 11px;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--light-text-secondary);
 }
 
-/* Card 6: SSO */
-.ssoStage {
+/* Card 6: Enterprise Access */
+.accessVisualStage {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
   margin-top: auto;
 }
 
-.ssoModal {
-  width: 100%;
-  max-width: 256px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #1a1c20;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+.accessArtWrap {
+  height: 152px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--light-border);
+  background: #141022;
+}
+
+.accessFooterCard {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+.accessBrandRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .ssoBrand {
   font-size: 13px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--light-text-primary);
 }
 
 .ssoSub {
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.ssoField {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.ssoLabel {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.ssoInput {
-  height: 32px;
-  padding-inline: 10px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.ssoEnabledPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: rgba(209, 254, 23, 0.18);
-  color: var(--accent-lime);
-  font-size: 11px;
-  font-weight: 600;
+  color: var(--light-text-secondary);
 }
 
 .ssoContinueBtn {
-  height: 34px;
+  height: 36px;
   border-radius: 8px;
-  background: #ffffff;
-  color: #131517;
-  font-size: 11.5px;
+  background: var(--btn-violet);
+  color: #ffffff;
+  font-size: 12px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  transition: background-color 0.16s ease;
+}
+
+.ssoContinueBtn:hover {
+  background: var(--btn-violet-hover);
 }
 
 @media (max-width: 1080px) {

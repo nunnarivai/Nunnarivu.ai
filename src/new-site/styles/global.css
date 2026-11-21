@@ -1,8 +1,8 @@
 @import './variables.css';
 
 html.new-site-active {
-  background-color: #000000;
-  color: #f7f7f8;
+  background-color: #120f1c;
+  color: #ffffff;
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -13,8 +13,8 @@ html.new-site-active {
 }
 
 body.new-site-active {
-  background-color: #000000;
-  color: #f7f7f8;
+  background-color: #120f1c;
+  color: #ffffff;
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -28,11 +28,40 @@ body.new-site-active {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  background-color: var(--bg-black);
-  color: var(--text-body);
+  background-color: var(--violet-bg-primary);
+  color: var(--violet-text-primary);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.5;
+}
+
+/* ─── Reusable Alternating Section Theme System ─── */
+:where(.new-site-root) .section--violet {
+  --section-bg: var(--violet-gradient);
+  --section-heading: var(--violet-text-primary);
+  --section-highlight: var(--violet-soft);
+  --section-text: var(--violet-text-secondary);
+  --section-muted: var(--violet-text-muted);
+  --section-label: var(--violet-soft);
+  --section-card-bg: var(--violet-card);
+  --section-card-border: var(--violet-border);
+  --section-card-shadow: 0 24px 64px rgba(10, 7, 18, 0.42);
+  background: var(--violet-gradient);
+  color: var(--violet-text-primary);
+}
+
+:where(.new-site-root) .section--light {
+  --section-bg: var(--light-bg-primary);
+  --section-heading: var(--light-text-primary);
+  --section-highlight: var(--light-accent);
+  --section-text: var(--light-text-secondary);
+  --section-muted: var(--light-text-muted);
+  --section-label: var(--light-accent);
+  --section-card-bg: var(--light-card);
+  --section-card-border: var(--light-border);
+  --section-card-shadow: var(--light-shadow);
+  background: var(--light-bg-primary);
+  color: var(--light-text-primary);
 }
 
 :where(.new-site-root) *,
@@ -85,7 +114,7 @@ body.new-site-active {
   max-width: 100%;
 }
 
-/* Container matching observed 1312px geometry (304px margins at 1920px) */
+/* Container matching observed 1312px geometry */
 :where(.new-site-root) .hf-container {
   width: 100%;
   max-width: calc(var(--container-max) + var(--container-pad) * 2);
@@ -93,7 +122,7 @@ body.new-site-active {
   padding-inline: var(--container-pad);
 }
 
-/* Space Grotesk Display Headings matching reference [-0.04em] uppercase */
+/* Space Grotesk Display Headings */
 :where(.new-site-root) .hf-heading-xl {
   font-family: var(--font-display);
   font-size: clamp(2rem, 3.2vw, 3rem);
@@ -110,6 +139,7 @@ body.new-site-active {
   font-weight: 700;
   letter-spacing: -0.04em;
   text-transform: uppercase;
+  color: var(--section-heading);
 }
 
 :where(.new-site-root) .hf-heading-md {
@@ -119,22 +149,35 @@ body.new-site-active {
   font-weight: 700;
   letter-spacing: -0.04em;
   text-transform: uppercase;
+  color: var(--section-heading);
 }
 
 :where(.new-site-root) .hf-two-tone-muted {
-  color: rgba(255, 255, 255, 0.56);
+  color: var(--section-highlight);
 }
 
 :where(.new-site-root) .hf-gradient-heading {
-  background: linear-gradient(180deg, #ffffff 20%, rgba(255, 255, 255, 0.52) 100%);
+  background: linear-gradient(180deg, #ffffff 30%, #b8a7ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
+:where(.new-site-root) .section--light .hf-gradient-heading {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--light-text-primary);
+}
+
 /* Accessibility focus styles */
 :where(.new-site-root) :focus-visible {
-  outline: 2px solid var(--accent-lime);
+  outline: 2px solid var(--btn-gold);
+  outline-offset: 2px;
+}
+
+:where(.new-site-root) .section--light :focus-visible {
+  outline: 2px solid var(--light-accent);
   outline-offset: 2px;
 }
 

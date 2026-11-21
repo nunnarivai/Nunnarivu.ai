@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { createReadStream, statSync } from 'fs'
 import { join, extname } from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import contactHandler from './api/contact.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -13,8 +14,30 @@ const MIME = {
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
   '.gif': 'image/gif', '.webp': 'image/webp', '.svg': 'image/svg+xml',
   '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime',
+  '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.ogg': 'audio/ogg',
   '.woff': 'font/woff', '.woff2': 'font/woff2',
   '.glb': 'model/gltf-binary', '.gltf': 'model/gltf+json',
+}
+
+// Local dev handler for POST /api/contact (mirrors Vercel Serverless Function)
+function localContactApi() {
+  return {
+    name: 'local-contact-api',
+    configureServer(server) {
+      const env = loadEnv(server.config.mode, __dirname, '')
+      for (const key of ['CONTACT_TO_EMAIL', 'SMTP_HOST', 'SMTP_PORT', 'SMTP_SECURE', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM']) {
+        if (env[key] && !process.env[key]) process.env[key] = env[key]
+      }
+      server.middlewares.use('/api/contact', (req, res) => {
+        contactHandler(req, res).catch((err) => {
+          console.error('[local-contact-api]', err)
+          res.statusCode = 500
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          res.end(JSON.stringify({ ok: false, error: 'Internal server error' }))
+        })
+      })
+    },
+  }
 }
 
 // Serves /assets/... from the project-root assets/ folder during dev.
@@ -89,6 +112,7 @@ export default defineConfig({
   plugins: [
     react(),
     serveLocalAssets(),
+    localContactApi(),
     viteStaticCopy({
       targets: [{ src: 'assets', dest: '' }],
     }),

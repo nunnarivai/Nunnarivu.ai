@@ -1,22 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { Link2, ChevronLeft, ChevronRight, Eye, Heart, MessageCircle } from 'lucide-react';
-import { CLIENT_CASE_STUDIES } from '../data/enterpriseData';
-import { CampaignPosterArt } from '../components/MediaArt';
+import { Link } from 'react-router-dom';
+import { Sparkles, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { PORTFOLIO_CASE_STUDIES } from '../data/portfolioData';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import styles from './ClientShowcaseSection.module.css';
 
-interface ClientShowcaseSectionProps {
-  onDemoNotice: (msg: string) => void;
-}
-
-export const ClientShowcaseSection: React.FC<ClientShowcaseSectionProps> = ({
-  onDemoNotice,
-}) => {
+export const ClientShowcaseSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   useScrollReveal(sectionRef);
 
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const handleScroll = () => {
@@ -29,21 +22,24 @@ export const ClientShowcaseSection: React.FC<ClientShowcaseSectionProps> = ({
   const scrollByCards = (dir: -1 | 1) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * 740, behavior: 'smooth' });
+    el.scrollBy({ left: dir * 720, behavior: 'smooth' });
   };
 
   return (
-    <section id="clients" ref={sectionRef} className={styles.section}>
+    <section id="our-work" ref={sectionRef} className={`section--violet ${styles.section}`}>
       <div className="hf-container">
         <div className={styles.headerBlock} data-reveal>
           <span className={styles.pillBadge}>
-            <Link2 size={13} />
-            <span>Enterprise clients</span>
+            <Sparkles size={13} />
+            <span>OUR WORK</span>
           </span>
 
           <h2 className={`hf-heading-lg ${styles.heading}`}>
-            INDUSTRY-LEADING BRANDS ALREADY ON BOARD
+            CREATIVE WORK. REAL IMPACT.
           </h2>
+          <p className={styles.subhead}>
+            Explore verified Nunnarivu.ai productions, generative film workflows, and enterprise AI systems.
+          </p>
         </div>
       </div>
 
@@ -52,57 +48,48 @@ export const ClientShowcaseSection: React.FC<ClientShowcaseSectionProps> = ({
           ref={trackRef}
           className={styles.track}
           onScroll={handleScroll}
-          aria-label="Enterprise Client Case Studies"
+          aria-label="Nunnarivu.ai Portfolio Case Studies"
         >
-          {CLIENT_CASE_STUDIES.map((study) => {
-            const isHovered = hoveredId === study.id;
-            return (
-              <article
-                key={study.id}
-                className={styles.card}
-                onMouseEnter={() => setHoveredId(study.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                onClick={() =>
-                  onDemoNotice(
-                    `Case study preview: "${study.headline}" (${study.secondaryStudio})`
-                  )
-                }
-              >
-                <div className={styles.posterLayer}>
-                  <CampaignPosterArt study={study} activeHover={isHovered} />
-                </div>
+          {PORTFOLIO_CASE_STUDIES.map((study) => (
+            <Link
+              key={study.slug}
+              to={`/new-site/case-studies/${study.slug}`}
+              className={styles.card}
+              aria-label={`View case study: ${study.title}`}
+            >
+              <div className={styles.posterLayer}>
+                <img
+                  src={study.thumbnail}
+                  alt={study.title}
+                  className={styles.posterImg}
+                  loading="lazy"
+                />
+                <div className={styles.posterScrim} aria-hidden="true" />
+              </div>
 
-                {study.metricsBadge && (
-                  <div className={styles.socialMetricsOverlay}>
-                    <span>
-                      <Eye size={11} /> {study.metricsBadge.views}
-                    </span>
-                    <span>
-                      <Heart size={11} /> {study.metricsBadge.likes}
-                    </span>
-                    <span>
-                      <MessageCircle size={11} /> {study.metricsBadge.comments}
-                    </span>
-                  </div>
-                )}
+              <div className={styles.topRow}>
+                <span className={styles.categoryTag}>{study.category}</span>
+                <span className={styles.openArrow} aria-hidden="true">
+                  <ArrowUpRight size={15} />
+                </span>
+              </div>
 
-                <div className={styles.centerBrandTitle}>{study.primaryBrand}</div>
+              <div className={styles.centerBrandTitle}>{study.shortTitle}</div>
 
-                <div className={styles.bottomMeta}>
-                  <span className={styles.studioStamp}>{study.secondaryStudio}</span>
-                  <p className={styles.hoverStory}>{study.headline}</p>
-                </div>
-              </article>
-            );
-          })}
+              <div className={styles.bottomMeta}>
+                <h3 className={styles.cardTitle}>{study.title}</h3>
+                <p className={styles.hoverStory}>{study.summary}</p>
+              </div>
+            </Link>
+          ))}
         </div>
 
-        {/* Carousel Navigation & Observed Progress Indicator */}
+        {/* Carousel Navigation & Progress Indicator */}
         <div className={`hf-container ${styles.controlsRow}`}>
           <button
             type="button"
             className={styles.navCircle}
-            aria-label="Previous client showcase cards"
+            aria-label="Previous portfolio case studies"
             onClick={() => scrollByCards(-1)}
           >
             <ChevronLeft size={18} />
@@ -121,7 +108,7 @@ export const ClientShowcaseSection: React.FC<ClientShowcaseSectionProps> = ({
           <button
             type="button"
             className={styles.navCircle}
-            aria-label="Next client showcase cards"
+            aria-label="Next portfolio case studies"
             onClick={() => scrollByCards(1)}
           >
             <ChevronRight size={18} />

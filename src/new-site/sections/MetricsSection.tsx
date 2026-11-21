@@ -18,24 +18,25 @@ const LaurelBranch: React.FC<{ flip?: boolean }> = ({ flip }) => (
   >
     <path
       d="M17 44C9 36 6 24 9 6"
-      stroke="rgba(255,255,255,0.72)"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
+      opacity="0.72"
     />
-    <ellipse cx="14" cy="39" rx="4.2" ry="2" transform="rotate(-28 14 39)" fill="rgba(255,255,255,0.75)" />
-    <ellipse cx="10" cy="31" rx="4.4" ry="2" transform="rotate(-18 10 31)" fill="rgba(255,255,255,0.78)" />
-    <ellipse cx="8" cy="23" rx="4.4" ry="2" transform="rotate(-6 8 23)" fill="rgba(255,255,255,0.82)" />
-    <ellipse cx="9" cy="15" rx="4.2" ry="1.9" transform="rotate(14 9 15)" fill="rgba(255,255,255,0.85)" />
-    <ellipse cx="11" cy="8" rx="3.8" ry="1.7" transform="rotate(30 11 8)" fill="rgba(255,255,255,0.88)" />
+    <ellipse cx="14" cy="39" rx="4.2" ry="2" transform="rotate(-28 14 39)" fill="currentColor" opacity="0.78" />
+    <ellipse cx="10" cy="31" rx="4.4" ry="2" transform="rotate(-18 10 31)" fill="currentColor" opacity="0.82" />
+    <ellipse cx="8" cy="23" rx="4.4" ry="2" transform="rotate(-6 8 23)" fill="currentColor" opacity="0.86" />
+    <ellipse cx="9" cy="15" rx="4.2" ry="1.9" transform="rotate(14 9 15)" fill="currentColor" opacity="0.9" />
+    <ellipse cx="11" cy="8" rx="3.8" ry="1.7" transform="rotate(30 11 8)" fill="currentColor" opacity="0.92" />
   </svg>
 );
 
 const WireframeGlobe: React.FC = () => (
   <svg width="42" height="42" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-    <circle cx="22" cy="22" r="18" stroke="rgba(255,255,255,0.78)" strokeWidth="2" />
-    <ellipse cx="22" cy="22" rx="8.5" ry="18" stroke="rgba(255,255,255,0.78)" strokeWidth="1.8" />
-    <line x1="4.5" y1="16" x2="39.5" y2="16" stroke="rgba(255,255,255,0.72)" strokeWidth="1.6" />
-    <line x1="4.5" y1="28" x2="39.5" y2="28" stroke="rgba(255,255,255,0.72)" strokeWidth="1.6" />
+    <circle cx="22" cy="22" r="18" stroke="currentColor" strokeWidth="2" opacity="0.85" />
+    <ellipse cx="22" cy="22" rx="8.5" ry="18" stroke="currentColor" strokeWidth="1.8" opacity="0.85" />
+    <line x1="4.5" y1="16" x2="39.5" y2="16" stroke="currentColor" strokeWidth="1.6" opacity="0.78" />
+    <line x1="4.5" y1="28" x2="39.5" y2="28" stroke="currentColor" strokeWidth="1.6" opacity="0.78" />
   </svg>
 );
 
@@ -43,10 +44,10 @@ export const MetricsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reducedMotion = useReducedMotion();
   const [counts, setCounts] = useState<Record<string, number>>(() => ({
-    'fortune-500': 430,
-    speed: 3,
-    cost: 97,
-    models: 35,
+    'service-categories': 18,
+    'automation-ready': 100,
+    'support-hours': 24,
+    'film-stages': 6,
   }));
 
   useEffect(() => {
@@ -59,20 +60,20 @@ export const MetricsSection: React.FC = () => {
         start: 'top 85%',
         once: true,
         onEnter: () => {
-          const proxy = { f500: 0, speed: 0, cost: 0, models: 0 };
+          const proxy = { cats: 0, auto: 0, support: 0, stages: 0 };
           gsap.to(proxy, {
-            f500: 430,
-            speed: 3,
-            cost: 97,
-            models: 35,
-            duration: 1.35,
+            cats: 18,
+            auto: 100,
+            support: 24,
+            stages: 6,
+            duration: 1.25,
             ease: 'power2.out',
             onUpdate: () => {
               setCounts({
-                'fortune-500': Math.round(proxy.f500),
-                speed: Math.max(1, Math.round(proxy.speed)),
-                cost: Math.round(proxy.cost),
-                models: Math.round(proxy.models),
+                'service-categories': Math.round(proxy.cats),
+                'automation-ready': Math.round(proxy.auto),
+                'support-hours': Math.max(1, Math.round(proxy.support)),
+                'film-stages': Math.max(1, Math.round(proxy.stages)),
               });
             },
           });
@@ -84,8 +85,8 @@ export const MetricsSection: React.FC = () => {
   }, [reducedMotion]);
 
   return (
-    <section id="metrics" ref={sectionRef} className={styles.section}>
-      <h2 className={styles.srOnly}>The capacity, speed, and support to scale</h2>
+    <section id="metrics" ref={sectionRef} className={`section--light ${styles.section}`}>
+      <h2 className={styles.srOnly}>Nunnarivu.ai Enterprise Capabilities</h2>
 
       <div className={`hf-container ${styles.grid}`}>
         {ENTERPRISE_METRICS.map((item) => {
@@ -94,13 +95,19 @@ export const MetricsSection: React.FC = () => {
               <article key={item.id} className={`${styles.card} ${styles.featuredCard}`}>
                 <div className={styles.laurelValueRow}>
                   <LaurelBranch />
-                  <span className={styles.featuredNumber}>{counts[item.id] ?? 430}</span>
+                  <span className={styles.featuredNumber}>
+                    {counts[item.id] ?? item.numericTarget}
+                    {item.valueSuffix ?? ''}
+                  </span>
                   <LaurelBranch flip />
                 </div>
                 <h3 className={styles.featuredTitle}>
-                  of the Fortune 500
-                  <br />
-                  use Higgsfield
+                  {item.title.split('\n').map((line, idx) => (
+                    <React.Fragment key={line}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </React.Fragment>
+                  ))}
                 </h3>
               </article>
             );
@@ -117,7 +124,7 @@ export const MetricsSection: React.FC = () => {
                     {item.valueSuffix && (
                       <span
                         className={
-                          item.valueSuffix === '×'
+                          item.valueSuffix === '/7'
                             ? styles.suffixBright
                             : styles.suffixMuted
                         }

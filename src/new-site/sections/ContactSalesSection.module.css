@@ -1,7 +1,7 @@
 .section {
   width: 100%;
   padding-block: clamp(64px, 8vw, 112px);
-  background: #000000;
+  background: var(--light-bg-secondary);
 }
 
 .grid {
@@ -17,19 +17,23 @@
   justify-content: space-between;
   gap: 44px;
   padding-block: 4px;
+  min-width: 0;
 }
 
 .heading {
   display: flex;
   flex-direction: column;
+  color: var(--light-text-primary);
 }
 
 .featuresLabel {
   margin-top: 28px;
   margin-bottom: 14px;
-  font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.56);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--light-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .featureList {
@@ -45,27 +49,29 @@
   gap: 10px;
   font-size: 14.5px;
   line-height: 20px;
-  color: rgba(255, 255, 255, 0.58);
+  color: var(--light-text-primary);
 }
 
 .featureIcon {
-  color: rgba(255, 255, 255, 0.44);
+  color: var(--light-accent);
   display: inline-flex;
   flex-shrink: 0;
 }
 
-/* Partner Trust Marquee (Section 04) */
+/* Capabilities Marquee */
 .partnerBlock {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
   max-width: 480px;
+  padding-top: 20px;
+  border-top: 1px solid var(--light-border);
 }
 
 .partnerCaption {
   font-size: 13px;
   line-height: 18px;
-  color: rgba(255, 255, 255, 0.44);
+  color: var(--light-text-secondary);
 }
 
 .marqueeViewport {
@@ -79,9 +85,13 @@
 .marqueeTrack {
   display: flex;
   align-items: center;
-  gap: 42px;
+  gap: 32px;
   width: max-content;
-  animation: partnerScroll 26s linear infinite;
+  animation: partnerScroll 28s linear infinite;
+}
+
+.marqueeTrack:hover {
+  animation-play-state: paused;
 }
 
 @keyframes partnerScroll {
@@ -94,87 +104,50 @@
 }
 
 .partnerWordmark {
-  color: rgba(255, 255, 255, 0.62);
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--light-text-secondary);
   user-select: none;
 }
 
-.wordmarkBfl {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  line-height: 1.1;
-  font-weight: 600;
-}
-
-.lambdaGlyph {
-  font-size: 20px;
-  font-weight: 400;
-  opacity: 0.75;
-}
-
 .wordmarkSans {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.wordmarkCaps {
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.wordmarkFal {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-.falDiamond {
-  width: 13px;
-  height: 13px;
-  border: 2.5px solid currentColor;
-  border-radius: 3px;
-  transform: rotate(45deg);
-}
-
-/* Right Column Form Card */
+/* Right Column Form Card (Matches Screenshot 2 White Elevated Card) */
 .formWrapper {
   width: 100%;
+  min-width: 0;
 }
 
 .formCard,
-.demoSuccessCard {
-  background: var(--bg-card);
+.successCard {
+  background: var(--light-card);
+  border: 1px solid var(--light-border);
   border-radius: var(--radius-xl);
   padding: 32px;
   min-height: 528px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 28px;
+  gap: 24px;
+  box-shadow: 0 22px 60px rgba(25, 22, 39, 0.08);
 }
 
-.demoSuccessCard {
+.successCard {
   justify-content: center;
   align-items: flex-start;
 }
 
 .successIcon {
-  color: var(--accent-lime);
+  color: var(--light-accent);
 }
 
 .successBody {
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--light-text-secondary);
 }
 
 .formHeader {
@@ -184,24 +157,24 @@
 }
 
 .formTitle {
-  color: #ffffff;
+  color: var(--light-text-primary);
 }
 
 .formSubtitle {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--light-text-secondary);
 }
 
 .fieldsContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .twoColRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .fieldGroup {
@@ -213,37 +186,34 @@
 .label {
   font-size: 12.5px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--light-text-primary);
 }
 
-.input,
-.selectTrigger {
-  height: 40px;
+.input {
   width: 100%;
-  padding: 8px 12px;
+  height: 44px;
+  padding-inline: 14px;
   border-radius: var(--radius-control);
-  background: var(--bg-input);
-  border: 1px solid transparent;
-  box-shadow: inset 0 -6px 12px rgba(255, 255, 255, 0.03);
+  background: var(--light-input-bg);
+  border: 1px solid var(--light-border);
   font-size: 14px;
-  color: #ffffff;
-  transition: border-color 0.16s ease, background-color 0.16s ease;
+  color: var(--light-text-primary);
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
 .input::placeholder {
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--light-text-muted);
 }
 
-.input:hover,
-.selectTrigger:hover {
-  background: var(--bg-input-hover);
+.input:hover {
+  background: var(--light-input-hover);
 }
 
-.input:focus,
-.selectTrigger:focus {
+.input:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.24);
-  background: var(--bg-input-focus);
+  border-color: var(--light-accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(93, 75, 216, 0.12);
 }
 
 .inputError {
@@ -251,31 +221,44 @@
 }
 
 .errorText {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--border-error);
 }
 
+/* Custom Dropdown */
 .selectWrap {
   position: relative;
 }
 
 .selectTrigger {
+  width: 100%;
+  height: 44px;
+  padding-inline: 14px;
+  border-radius: var(--radius-control);
+  background: var(--light-input-bg);
+  border: 1px solid var(--light-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 14px;
   text-align: left;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.selectTrigger:hover {
+  background: var(--light-input-hover);
+}
+
+.selectVal {
+  color: var(--light-text-primary);
 }
 
 .selectPlaceholder {
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.selectValue {
-  color: #ffffff;
+  color: var(--light-text-muted);
 }
 
 .selectChevron {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--light-text-secondary);
   transition: transform 0.18s ease;
 }
 
@@ -288,13 +271,18 @@
   top: calc(100% + 6px);
   left: 0;
   right: 0;
+  z-index: 30;
   list-style: none;
-  background: #1b1d21;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #ffffff;
+  border: 1px solid var(--light-border);
   border-radius: 12px;
   padding: 6px;
-  z-index: 30;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 18px 42px rgba(25, 22, 39, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 .selectOption {
@@ -303,38 +291,128 @@
   padding: 9px 10px;
   border-radius: 8px;
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.82);
-  transition: background-color 0.15s ease;
+  color: var(--light-text-primary);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .selectOption:hover,
 .selectOptionActive {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: var(--light-card-tinted);
+  color: var(--light-accent);
+  font-weight: 600;
+}
+
+.honeypotField {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.errorBanner {
+  padding: 12px 14px;
+  border-radius: var(--radius-control);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  font-size: 13px;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.errorBannerIcon {
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.errorBannerFallback {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--light-text-secondary);
+}
+
+.errorBannerFallback a {
+  color: var(--light-accent);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 104px;
+  padding: 12px 14px;
+  border-radius: var(--radius-control);
+  background: var(--light-input-bg);
+  border: 1px solid var(--light-border);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--light-text-primary);
+  resize: vertical;
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.textarea::placeholder {
+  color: var(--light-text-muted);
+}
+
+.textarea:hover {
+  background: var(--light-input-hover);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--light-accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(93, 75, 216, 0.12);
+}
+
+.spinner {
+  animation: contactSpin 0.8s linear infinite;
+}
+
+@keyframes contactSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .submitBtn {
-  height: 40px;
+  height: 46px;
   width: 100%;
   border-radius: var(--radius-control);
-  background: #ffffff;
-  color: #131517;
+  background: var(--btn-dark);
+  color: #ffffff;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.16s ease, transform 0.16s ease;
+  gap: 8px;
+  transition: background-color 0.16s ease, transform 0.16s ease, opacity 0.16s ease;
 }
 
-.submitBtn:hover {
-  background: #ececef;
+.submitBtn:hover:not(:disabled) {
+  background: var(--btn-violet);
   transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.68;
+  cursor: wait;
 }
 
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
 
@@ -345,7 +423,7 @@
 
 @media (max-width: 600px) {
   .formCard,
-  .demoSuccessCard {
+  .successCard {
     padding: 22px 18px;
     min-height: auto;
   }

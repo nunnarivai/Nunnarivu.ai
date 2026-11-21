@@ -1,35 +1,89 @@
 .new-site-root {
-  /* Core Surfaces (Observed via Live Computed CSS) */
-  --bg-black: #000000;
-  --bg-header: #0b0b0b;
-  --bg-card: #131416;
-  --bg-card-alt: #16171a;
-  --bg-card-elevated: #1c1d21;
-  --bg-input: rgba(255, 255, 255, 0.05);
-  --bg-input-hover: rgba(255, 255, 255, 0.08);
-  --bg-input-focus: rgba(255, 255, 255, 0.09);
+  /* ─── Dark Violet Palette ─── */
+  --violet-bg-primary: #120f1c;
+  --violet-bg-secondary: #211933;
+  --violet-bg-highlight: #33234f;
+  --violet-gradient: linear-gradient(125deg, #100d18 0%, #211933 55%, #33234f 100%);
+  --violet-nav-bg: rgba(18, 15, 28, 0.94);
+  --violet-card: rgba(28, 21, 45, 0.88);
+  --violet-card-elevated: rgba(39, 29, 62, 0.92);
+  --violet-border: rgba(184, 167, 255, 0.16);
+  --violet-border-hover: rgba(184, 167, 255, 0.36);
+  --violet-accent: #6550db;
+  --violet-accent-hover: #7662e8;
+  --violet-soft: #b8a7ff;
+  --violet-text-primary: #ffffff;
+  --violet-text-secondary: #c9c1d8;
+  --violet-text-muted: rgba(201, 193, 216, 0.72);
 
-  /* Brand Signature Chartreuse / Lime (rgb(209, 254, 23)) */
-  --accent-lime: #d1fe17;
-  --accent-lime-hover: #dcff42;
-  --accent-lime-soft: rgba(209, 254, 23, 0.15);
-  --accent-lime-border: rgba(209, 254, 23, 0.35);
+  /* ─── Warm Off-White Palette ─── */
+  --light-bg-primary: #f8f7f5;
+  --light-bg-secondary: #efebe8;
+  --light-card: #ffffff;
+  --light-card-tinted: #f3f0fa;
+  --light-border: #e1dde8;
+  --light-border-hover: #c5bce0;
+  --light-text-primary: #191627;
+  --light-text-secondary: #6f6980;
+  --light-text-muted: #857f97;
+  --light-accent: #5d4bd8;
+  --light-accent-hover: #4b39c2;
+  --light-input-bg: #f4f2f7;
+  --light-input-hover: #edeaf4;
+  --light-shadow: 0 14px 38px rgba(25, 22, 39, 0.06);
+  --light-shadow-hover: 0 20px 48px rgba(25, 22, 39, 0.1);
+
+  /* ─── Button Tokens ─── */
+  --btn-gold: #dfba83;
+  --btn-gold-hover: #e8c99a;
+  --btn-gold-text: #120f1c;
+  --btn-violet: #6550db;
+  --btn-violet-hover: #5340c7;
+  --btn-violet-text: #ffffff;
+  --btn-dark: #191627;
+  --btn-dark-hover: #2d2446;
+
+  /* ─── Legacy / Shared Surface Tokens (Mapped to Violet & Gold System) ─── */
+  --bg-black: #120f1c;
+  --bg-header: rgba(18, 15, 28, 0.94);
+  --bg-card: #1c152d;
+  --bg-card-alt: #211933;
+  --bg-card-elevated: #281e3f;
+  --bg-input: #f4f2f7;
+  --bg-input-hover: #edeaf4;
+  --bg-input-focus: #ffffff;
+
+  --accent-lime: #dfba83;
+  --accent-lime-hover: #e8c99a;
+  --accent-lime-soft: rgba(223, 186, 131, 0.16);
+  --accent-lime-border: rgba(223, 186, 131, 0.42);
 
   /* Typography Colors */
   --text-primary: #ffffff;
-  --text-body: #f7f7f8;
-  --text-secondary: rgba(255, 255, 255, 0.65);
-  --text-muted: rgba(255, 255, 255, 0.45);
-  --text-nav: rgba(255, 255, 255, 0.62);
-  --text-faint: rgba(255, 255, 255, 0.3);
-  --text-dark: #131517;
-  --text-dark-secondary: rgba(19, 21, 23, 0.56);
+  --text-body: #c9c1d8;
+  --text-secondary: #c9c1d8;
+  --text-muted: rgba(201, 193, 216, 0.72);
+  --text-nav: rgba(255, 255, 255, 0.78);
+  --text-faint: rgba(201, 193, 216, 0.45);
+  --text-dark: #191627;
+  --text-dark-secondary: #6f6980;
 
   /* Borders & Hairlines */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-card: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --border-error: #ff5a5f;
+  --border-subtle: rgba(184, 167, 255, 0.12);
+  --border-card: rgba(184, 167, 255, 0.18);
+  --border-strong: rgba(184, 167, 255, 0.34);
+  --border-error: #dc2626;
+
+  /* Section-Level Semantic Defaults (Overridden by .section--violet / .section--light) */
+  --section-bg: var(--violet-gradient);
+  --section-heading: var(--violet-text-primary);
+  --section-highlight: var(--violet-soft);
+  --section-text: var(--violet-text-secondary);
+  --section-muted: var(--violet-text-muted);
+  --section-label: var(--violet-soft);
+  --section-card-bg: var(--violet-card);
+  --section-card-border: var(--violet-border);
+  --section-card-shadow: 0 24px 64px rgba(10, 7, 18, 0.42);
 
   /* Font Stacks */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

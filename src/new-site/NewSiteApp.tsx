@@ -2,72 +2,88 @@ import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './styles/global.css';
 import { HeroSection } from './sections/HeroSection';
-import { ContactSalesSection } from './sections/ContactSalesSection';
 import { MetricsSection } from './sections/MetricsSection';
-import { WorkflowSection } from './sections/WorkflowSection';
+import { CreativeShowcaseSection } from './sections/CreativeShowcaseSection';
 import { SecuritySection } from './sections/SecuritySection';
 import { ClientShowcaseSection } from './sections/ClientShowcaseSection';
 import { StudioShowcaseSection } from './sections/StudioShowcaseSection';
 import { AcademySection } from './sections/AcademySection';
+import { ContactSalesSection } from './sections/ContactSalesSection';
 import { FaqSection } from './sections/FaqSection';
 import { MegaFooter } from './sections/MegaFooter';
-import { DemoToast } from './components/DemoToast';
+import { CaseStudyPage } from './pages/CaseStudyPage';
+import { AcademyPage } from './pages/AcademyPage';
+import type { ShowcaseCategoryId, ContactServiceOption } from './data/enterpriseData';
 
-const EnterpriseLandingPage: React.FC = () => {
-  const [toastMsg, setToastMsg] = useState<string | null>(null);
+interface EnterpriseLandingPageProps {
+  preselectedService: ContactServiceOption | null;
+  onSelectService: (service: ContactServiceOption) => void;
+}
 
-  const showDemoNotice = useCallback((msg: string) => {
-    setToastMsg(msg);
-  }, []);
+const EnterpriseLandingPage: React.FC<EnterpriseLandingPageProps> = ({
+  preselectedService,
+  onSelectService,
+}) => {
+  const [activeCategory, setActiveCategory] = useState<ShowcaseCategoryId>('video-generation');
 
-  const clearToast = useCallback(() => {
-    setToastMsg(null);
-  }, []);
+  const handleRequestService = useCallback(
+    (service: ContactServiceOption) => {
+      onSelectService(service);
+      document.getElementById('enterprise-contact')?.scrollIntoView({ behavior: 'smooth' });
+    },
+    [onSelectService]
+  );
 
   return (
     <>
       <main id="main">
-        {/* SECTION 02 — MAIN CINEMATIC HERO */}
+        {/* PHASE 1 — PRESERVED CINEMATIC HERO VIDEO (UNMODIFIED) */}
         <HeroSection />
 
-        {/* SECTION 05 — ENTERPRISE METRICS */}
+        {/* VERIFIED NUNNARIVU CAPABILITY METRICS */}
         <MetricsSection />
 
-        {/* SECTION 06 — PRO CONTROL OVER WORKFLOW (4 INTERACTIVE TABS) */}
-        <WorkflowSection onDemoNotice={showDemoNotice} />
-
-        {/* SECTION 07 — ENTERPRISE SECURITY (6 BENTO CARDS) */}
-        <SecuritySection onDemoNotice={showDemoNotice} />
-
-        {/* SECTION 08 — ENTERPRISE CLIENT SHOWCASE (12 CASE STUDIES) */}
-        <ClientShowcaseSection onDemoNotice={showDemoNotice} />
-
-        {/* SECTION 09 — INTERACTIVE STUDIO SHOWCASE (6 STUDIOS + 10 CINEMA CONTROLS) */}
-        <StudioShowcaseSection onDemoNotice={showDemoNotice} />
-
-        {/* SECTION 10 — ACADEMY */}
-        <AcademySection onDemoNotice={showDemoNotice} />
-
-        {/* SECTION 11 — CONTACT SALES */}
-        <ContactSalesSection
-          sectionId="enterprise-contact"
-          onDemoNotice={showDemoNotice}
+        {/* PHASE 3 — AI CREATIVE PRODUCTION SHOWCASE (4 CATEGORIES) */}
+        <CreativeShowcaseSection
+          activeCategory={activeCategory}
+          onSelectCategory={setActiveCategory}
+          onRequestService={handleRequestService}
         />
 
-        {/* SECTION 12 — FAQ ACCORDION (8 VERBATIM ITEMS) */}
+        {/* PHASE 4 — YOUR DATA AND IP ARE PROTECTED (6 NUNNARIVU CARDS) */}
+        <SecuritySection onRequestService={handleRequestService} />
+
+        {/* PHASE 5 — OUR WORK / VERIFIED CASE STUDIES */}
+        <ClientShowcaseSection />
+
+        {/* PHASE 6 — NUNNARIVU CINEMA STUDIO SHOWCASE */}
+        <StudioShowcaseSection onRequestService={handleRequestService} />
+
+        {/* PHASE 7 — NUNNARIVU.AI ACADEMY BANNER */}
+        <AcademySection />
+
+        {/* PHASE 2 & 8 — SINGLE RETAINED REAL CONTACT SALES FORM */}
+        <ContactSalesSection
+          sectionId="enterprise-contact"
+          preselectedService={preselectedService}
+        />
+
+        {/* FAQ ACCORDION */}
         <FaqSection />
       </main>
 
-      {/* SECTION 13 — COMPLETE MEGA FOOTER */}
-      <MegaFooter onDemoNotice={showDemoNotice} />
-
-      <DemoToast message={toastMsg} onClose={clearToast} />
+      {/* PHASE 9 — SIMPLIFIED NUNNARIVU FOOTER */}
+      <MegaFooter
+        onSelectShowcaseCategory={setActiveCategory}
+        onRequestService={handleRequestService}
+      />
     </>
   );
 };
 
 export const NewSiteApp: React.FC = () => {
   const location = useLocation();
+  const [preselectedService, setPreselectedService] = useState<ContactServiceOption | null>(null);
 
   useLayoutEffect(() => {
     const html = document.documentElement;
@@ -80,7 +96,7 @@ export const NewSiteApp: React.FC = () => {
     body.classList.add('new-site-active');
     document.title = 'Nunnarivu.ai — Enterprise AI Creative Production';
     if (themeMeta) {
-      themeMeta.setAttribute('content', '#000000');
+      themeMeta.setAttribute('content', '#120F1C');
     }
 
     return () => {
@@ -94,16 +110,45 @@ export const NewSiteApp: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!location.hash) {
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    if (location.hash) {
+      const targetId = location.hash.slice(1);
+      const timer = window.setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
+      return () => window.clearTimeout(timer);
     }
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   }, [location.pathname, location.hash]);
 
   return (
     <div className="new-site-root">
       <Routes>
-        <Route index element={<EnterpriseLandingPage />} />
-        <Route path="enterprise" element={<EnterpriseLandingPage />} />
+        <Route
+          index
+          element={
+            <EnterpriseLandingPage
+              preselectedService={preselectedService}
+              onSelectService={setPreselectedService}
+            />
+          }
+        />
+        <Route
+          path="enterprise"
+          element={
+            <EnterpriseLandingPage
+              preselectedService={preselectedService}
+              onSelectService={setPreselectedService}
+            />
+          }
+        />
+        <Route
+          path="case-studies/:slug"
+          element={<CaseStudyPage onSelectService={setPreselectedService} />}
+        />
+        <Route
+          path="academy"
+          element={<AcademyPage onSelectService={setPreselectedService} />}
+        />
         <Route path="*" element={<Navigate to="/new-site" replace />} />
       </Routes>
     </div>

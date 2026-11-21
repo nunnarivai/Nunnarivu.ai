@@ -1,66 +1,59 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
-import { BrandLogo } from '../components/BrandLogo';
-import { AcademyKeycapsArt } from '../components/MediaArt';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import styles from './AcademySection.module.css';
 
-interface AcademySectionProps {
-  onDemoNotice: (msg: string) => void;
-}
-
-export const AcademySection: React.FC<AcademySectionProps> = ({ onDemoNotice }) => {
+export const AcademySection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   useScrollReveal(sectionRef);
 
   return (
-    <section id="academy" ref={sectionRef} className={styles.section}>
+    <section id="academy" ref={sectionRef} className={`section--violet ${styles.section}`}>
       <div className="hf-container">
         <div className={styles.bannerCard} data-reveal>
           <div className={styles.leftContent}>
             <div className={styles.brandRow}>
-              <BrandLogo size={18} variant="dark-glyph" />
-              <span>Higgsfield Academy</span>
+              <img
+                src="/assets/images/logo-emblem.png"
+                alt=""
+                className={styles.brandLogoImg}
+                loading="lazy"
+              />
+              <span>NUNNARIVU.AI ACADEMY</span>
             </div>
 
-            <h2 className={styles.heading}>
-              LEARN. CREATE.
-              <br />
-              GO FURTHER.
-            </h2>
+            <div className={styles.copyStack}>
+              <h2 className={styles.heading}>
+                LEARN. CREATE.
+                <br />
+                GO FURTHER.
+              </h2>
 
-            <p className={styles.description}>
-              Real workflows for AI video, ads, and creative projects, from your first
-              idea to finished work.
-            </p>
-
-            <button
-              type="button"
-              className={styles.ctaBtn}
-              onClick={() =>
-                onDemoNotice(
-                  'Demo preview: Higgsfield Academy curriculum includes 180+ hours of enterprise lessons.'
-                )
-              }
-            >
-              <span>Explore Academy</span>
-              <ChevronRight size={15} />
-            </button>
-
-            <div className={styles.learnersRow}>
-              <div className={styles.avatarStack} aria-hidden="true">
-                <span className={styles.av1} />
-                <span className={styles.av2} />
-                <span className={styles.av3} />
-              </div>
-              <p className={styles.learnersText}>
-                <strong>100,000+</strong> creators learning on Higgsfield Academy
+              <p className={styles.description}>
+                Explore practical AI learning, creative workflows, and real-world
+                projects—from your first idea to professional results.
               </p>
+
+              <Link to="/new-site/academy" className={styles.ctaBtn}>
+                <span>Explore Academy</span>
+                <ChevronRight size={15} />
+              </Link>
             </div>
+
+            <p className={styles.learnersText}>
+              Practical AI workshops, studio workflows &amp; guided enterprise training by{' '}
+              <strong>Nunnarivu.ai</strong>
+            </p>
           </div>
 
           <div className={styles.rightVisual}>
-            <AcademyKeycapsArt />
+            <img
+              src="/assets/new-site/enterprise/academy/academy-banner.webp"
+              alt="Nunnarivu.ai Academy — 3D creative studio optics and tiles"
+              className={styles.bannerImg}
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

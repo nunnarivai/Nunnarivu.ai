@@ -8,9 +8,8 @@ export const FaqSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   useScrollReveal(sectionRef);
 
-  // First item open by default matching observed live screenshot (slice_1920_08_y7600.png)
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({
-    platform: true,
+    'what-is-nunnarivu': true,
   });
 
   const toggleFaq = (id: string) => {
@@ -18,7 +17,7 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" ref={sectionRef} className={styles.section}>
+    <section id="faq" ref={sectionRef} className={`section--violet ${styles.section}`}>
       <div className={`hf-container ${styles.container}`}>
         <h2 className={`hf-heading-lg ${styles.heading}`} data-reveal>
           GOT ANY QUESTIONS LEFT?
