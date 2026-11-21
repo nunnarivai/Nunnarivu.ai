@@ -48,12 +48,58 @@ export const AcademySection: React.FC = () => {
           </div>
 
           <div className={styles.rightVisual}>
-            <img
-              src="/assets/new-site/enterprise/academy/academy-banner.webp"
-              alt="Nunnarivu.ai Academy — 3D creative studio optics and tiles"
-              className={styles.bannerImg}
-              loading="lazy"
-            />
+            <div className={styles.visualComposition}>
+              {/* SECOND: Existing floating geometric box artwork (unchanged) */}
+              <div className={styles.boxesSlot}>
+                <img
+                  src="/assets/new-site/enterprise/academy/academy-boxes.webp"
+                  alt="Floating 3D geometric creative studio modules"
+                  className={styles.boxesImg}
+                  loading="lazy"
+                />
+              </div>
+
+              {/* THIRD: Separate non-mirrored premium gold AI PROMPT ENGINEERING title */}
+              <div className={styles.promoTitleSlot} data-promo-title>
+                <div className={styles.promoTitleRule} aria-hidden="true">
+                  <span className={styles.promoTitleLine} />
+                  <span className={styles.promoTitleDiamond} />
+                  <span className={styles.promoTitleLine} />
+                </div>
+                <p className={styles.promoTitleText}>
+                  <span className={styles.promoTitleTop}>AI PROMPT</span>
+                  <span className={styles.promoTitleBottom}>ENGINEERING</span>
+                </p>
+                <div className={styles.promoTitleRule} aria-hidden="true">
+                  <span className={styles.promoTitleLine} />
+                  <span className={styles.promoTitleDiamond} />
+                  <span className={styles.promoTitleLine} />
+                </div>
+                <p className={styles.promoSubtitle} data-promo-subtitle>
+                  Discover the art of communicating with AI through the timeless wisdom of the
+                  Mahabharata
+                </p>
+              </div>
+
+              {/* FOURTH, FIFTH, SIXTH & OPTION A PAINTERLY BRUSH-STROKE LAYER:
+                  Dedicated transparent painterly gold/saffron/pink/violet brush-stroke ribbons strictly BEHIND intact Krishna & Arjuna */}
+              <div className={styles.charactersSlot}>
+                <div className={styles.brushStrokeLayer} aria-hidden="true" data-brush-layer>
+                  <img
+                    src="/assets/new-site/enterprise/academy/krishna-option-a-brushstrokes.webp"
+                    alt=""
+                    className={styles.brushStrokeImg}
+                    loading="lazy"
+                  />
+                </div>
+                <img
+                  src="/assets/new-site/enterprise/academy/krishna-arjuna-promo-colour.webp"
+                  alt="Full-colour photorealistic Arjuna kneeling with folded hands before standing Krishna"
+                  className={styles.charactersImg}
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -2,165 +2,17 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--violet-bg-primary);
-  color: var(--violet-text-primary);
-}
-
-.topBar {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: var(--violet-nav-bg);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--violet-border);
-}
-
-.topBarInner {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--violet-text-secondary);
-}
-
-.backLink:hover {
-  color: var(--btn-gold);
-}
-
-.brandMini {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.brandLogoImg {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
-
-.topCta {
-  height: 36px;
-  padding-inline: 16px;
-  border-radius: 8px;
-  background: var(--btn-gold);
-  color: var(--btn-gold-text);
-  font-size: 12.5px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.topCta:hover {
-  background: var(--btn-gold-hover);
+  background: var(--light-bg-primary);
+  color: var(--light-text-primary);
 }
 
 .main {
   flex: 1;
 }
 
-.hero {
-  padding-top: clamp(36px, 5vw, 64px);
-  padding-bottom: clamp(44px, 6vw, 72px);
-}
-
-.heroCard {
-  background: #ffffff;
-  color: var(--light-text-primary);
-  border-radius: var(--radius-xl);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  overflow: hidden;
-  box-shadow: 0 28px 80px rgba(8, 5, 16, 0.45);
-}
-
-.heroLeft {
-  padding: clamp(28px, 4vw, 56px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.eyebrowPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--light-card-tinted);
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--light-accent);
-}
-
-.heroHeading {
-  font-family: var(--font-display);
-  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
-  line-height: 1.05;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--light-text-primary);
-}
-
-.heroDesc {
-  font-size: 15.5px;
-  line-height: 1.6;
-  color: var(--light-text-secondary);
-  max-width: 440px;
-}
-
-.darkBtn {
-  height: 44px;
-  padding-inline: 22px;
-  border-radius: var(--radius-control);
-  background: var(--btn-violet);
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.16s ease;
-}
-
-.darkBtn:hover {
-  background: var(--btn-violet-hover);
-}
-
-.heroRight {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.heroImg {
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  object-fit: contain;
-}
-
 .tracksSection {
-  padding-block: clamp(56px, 7vw, 88px);
+  padding-top: clamp(48px, 6vw, 80px);
+  padding-bottom: clamp(56px, 7vw, 88px);
 }
 
 .tracksHeader {
@@ -198,7 +50,7 @@
 .trackMediaWrap {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #141022;
+  background: #171122;
   overflow: hidden;
 }
 
@@ -214,8 +66,8 @@
   top: 14px;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(18, 15, 28, 0.86);
-  border: 1px solid rgba(223, 186, 131, 0.4);
+  background: rgba(23, 17, 34, 0.88);
+  border: 1px solid rgba(223, 186, 131, 0.42);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -270,7 +122,7 @@
 
 .ctaBox {
   background: var(--violet-card);
-  border: 1px solid rgba(223, 186, 131, 0.34);
+  border: 1px solid rgba(223, 186, 131, 0.36);
   border-radius: var(--radius-xl);
   padding: clamp(28px, 4vw, 48px);
   display: flex;
@@ -306,14 +158,7 @@
 }
 
 @media (max-width: 900px) {
-  .heroCard,
   .tracksGrid {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .brandMini {
-    display: none;
   }
 }

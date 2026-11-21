@@ -96,7 +96,7 @@ export const NewSiteApp: React.FC = () => {
     body.classList.add('new-site-active');
     document.title = 'Nunnarivu.ai — Enterprise AI Creative Production';
     if (themeMeta) {
-      themeMeta.setAttribute('content', '#120F1C');
+      themeMeta.setAttribute('content', '#171122');
     }
 
     return () => {

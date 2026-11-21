@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CheckCircle2, GraduationCap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { ContactServiceOption } from '../data/enterpriseData';
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { MegaFooter } from '../sections/MegaFooter';
@@ -83,62 +83,12 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
 
   return (
     <div className={styles.page}>
-      <header className={styles.topBar}>
-        <div className={`hf-container ${styles.topBarInner}`}>
-          <Link to="/new-site" className={styles.backLink}>
-            <ArrowLeft size={15} />
-            <span>Back to Enterprise</span>
-          </Link>
-
-          <Link to="/new-site" className={styles.brandMini}>
-            <img src="/assets/images/logo-emblem.png" alt="" className={styles.brandLogoImg} />
-            <span>Nunnarivu.ai Academy</span>
-          </Link>
-
-          <button type="button" className={styles.topCta} onClick={handleEnquire}>
-            <span>Request Team Training</span>
-            <ArrowRight size={14} />
-          </button>
-        </div>
-      </header>
-
       <main id="main" className={styles.main}>
-        <section className={`section--violet ${styles.hero}`}>
-          <div className={`hf-container ${styles.heroCard}`}>
-            <div className={styles.heroLeft}>
-              <span className={styles.eyebrowPill}>
-                <GraduationCap size={13} />
-                <span>NUNNARIVU.AI ACADEMY</span>
-              </span>
-              <h1 className={styles.heroHeading}>
-                LEARN. CREATE.
-                <br />
-                GO FURTHER.
-              </h1>
-              <p className={styles.heroDesc}>
-                Explore practical AI learning, creative workflows, and real-world
-                projects—from your first idea to professional results.
-              </p>
-              <button type="button" className={styles.darkBtn} onClick={handleEnquire}>
-                <span>Enquire About Academy Programs</span>
-                <ArrowRight size={15} />
-              </button>
-            </div>
-            <div className={styles.heroRight}>
-              <img
-                src="/assets/new-site/enterprise/academy/academy-banner.webp"
-                alt="Nunnarivu.ai Academy visual"
-                className={styles.heroImg}
-              />
-            </div>
-          </div>
-        </section>
-
         <section className={`section--light ${styles.tracksSection}`}>
           <div className="hf-container">
             <div className={styles.tracksHeader}>
               <span className={styles.monoEyebrow}>Curriculum Tracks</span>
-              <h2 className="hf-heading-lg">HANDS-ON TRAINING BUILT ON REAL WORKFLOWS</h2>
+              <h1 className="hf-heading-lg">HANDS-ON TRAINING BUILT ON REAL WORKFLOWS</h1>
             </div>
 
             <div className={styles.tracksGrid}>
@@ -154,7 +104,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
                     <span className={styles.trackNum}>{track.num}</span>
                   </div>
                   <div className={styles.trackBody}>
-                    <h3 className={styles.trackTitle}>{track.title}</h3>
+                    <h2 className={styles.trackTitle}>{track.title}</h2>
                     <p className={styles.trackSummary}>{track.summary}</p>
                     <ul className={styles.topicList}>
                       {track.topics.map((t) => (

@@ -1,57 +1,57 @@
 .new-site-root {
   /* ─── Dark Violet Palette ─── */
-  --violet-bg-primary: #120f1c;
-  --violet-bg-secondary: #211933;
-  --violet-bg-highlight: #33234f;
-  --violet-gradient: linear-gradient(125deg, #100d18 0%, #211933 55%, #33234f 100%);
-  --violet-nav-bg: rgba(18, 15, 28, 0.94);
-  --violet-card: rgba(28, 21, 45, 0.88);
-  --violet-card-elevated: rgba(39, 29, 62, 0.92);
-  --violet-border: rgba(184, 167, 255, 0.16);
-  --violet-border-hover: rgba(184, 167, 255, 0.36);
-  --violet-accent: #6550db;
-  --violet-accent-hover: #7662e8;
+  --violet-bg-primary: #171122;
+  --violet-bg-secondary: #2d2045;
+  --violet-bg-highlight: #3a2959;
+  --violet-gradient: linear-gradient(125deg, #171122 0%, #241939 54%, #2d2045 100%);
+  --violet-nav-bg: rgba(23, 17, 34, 0.94);
+  --violet-card: rgba(34, 24, 54, 0.88);
+  --violet-card-elevated: rgba(45, 32, 69, 0.92);
+  --violet-border: rgba(184, 167, 255, 0.18);
+  --violet-border-hover: rgba(184, 167, 255, 0.38);
+  --violet-accent: #6250d8;
+  --violet-accent-hover: #7563e6;
   --violet-soft: #b8a7ff;
   --violet-text-primary: #ffffff;
-  --violet-text-secondary: #c9c1d8;
-  --violet-text-muted: rgba(201, 193, 216, 0.72);
+  --violet-text-secondary: #cfc7df;
+  --violet-text-muted: rgba(207, 199, 223, 0.72);
 
-  /* ─── Warm Off-White Palette ─── */
-  --light-bg-primary: #f8f7f5;
-  --light-bg-secondary: #efebe8;
-  --light-card: #ffffff;
-  --light-card-tinted: #f3f0fa;
-  --light-border: #e1dde8;
-  --light-border-hover: #c5bce0;
-  --light-text-primary: #191627;
-  --light-text-secondary: #6f6980;
-  --light-text-muted: #857f97;
-  --light-accent: #5d4bd8;
-  --light-accent-hover: #4b39c2;
-  --light-input-bg: #f4f2f7;
-  --light-input-hover: #edeaf4;
-  --light-shadow: 0 14px 38px rgba(25, 22, 39, 0.06);
-  --light-shadow-hover: 0 20px 48px rgba(25, 22, 39, 0.1);
+  /* ─── Light Violet Palette (Replaces White Sections) ─── */
+  --light-bg-primary: #eee8fa;
+  --light-bg-secondary: #e6ddf7;
+  --light-card: #f6f1fc;
+  --light-card-tinted: #ebe2fa;
+  --light-border: #d8cdf0;
+  --light-border-hover: #b8a5e3;
+  --light-text-primary: #211735;
+  --light-text-secondary: #635977;
+  --light-text-muted: #7a6f91;
+  --light-accent: #6250d8;
+  --light-accent-hover: #4e3dc4;
+  --light-input-bg: #eee8fa;
+  --light-input-hover: #e6ddf7;
+  --light-shadow: 0 14px 38px rgba(33, 23, 53, 0.08);
+  --light-shadow-hover: 0 20px 48px rgba(33, 23, 53, 0.13);
 
   /* ─── Button Tokens ─── */
   --btn-gold: #dfba83;
   --btn-gold-hover: #e8c99a;
-  --btn-gold-text: #120f1c;
-  --btn-violet: #6550db;
-  --btn-violet-hover: #5340c7;
+  --btn-gold-text: #171122;
+  --btn-violet: #6250d8;
+  --btn-violet-hover: #4e3dc4;
   --btn-violet-text: #ffffff;
-  --btn-dark: #191627;
-  --btn-dark-hover: #2d2446;
+  --btn-dark: #211735;
+  --btn-dark-hover: #342454;
 
-  /* ─── Legacy / Shared Surface Tokens (Mapped to Violet & Gold System) ─── */
-  --bg-black: #120f1c;
-  --bg-header: rgba(18, 15, 28, 0.94);
-  --bg-card: #1c152d;
-  --bg-card-alt: #211933;
-  --bg-card-elevated: #281e3f;
-  --bg-input: #f4f2f7;
-  --bg-input-hover: #edeaf4;
-  --bg-input-focus: #ffffff;
+  /* ─── Shared Surface Tokens ─── */
+  --bg-black: #171122;
+  --bg-header: rgba(23, 17, 34, 0.94);
+  --bg-card: #221836;
+  --bg-card-alt: #2d2045;
+  --bg-card-elevated: #362752;
+  --bg-input: #eee8fa;
+  --bg-input-hover: #e6ddf7;
+  --bg-input-focus: #faf7ff;
 
   --accent-lime: #dfba83;
   --accent-lime-hover: #e8c99a;
@@ -60,18 +60,18 @@
 
   /* Typography Colors */
   --text-primary: #ffffff;
-  --text-body: #c9c1d8;
-  --text-secondary: #c9c1d8;
-  --text-muted: rgba(201, 193, 216, 0.72);
-  --text-nav: rgba(255, 255, 255, 0.78);
-  --text-faint: rgba(201, 193, 216, 0.45);
-  --text-dark: #191627;
-  --text-dark-secondary: #6f6980;
+  --text-body: #cfc7df;
+  --text-secondary: #cfc7df;
+  --text-muted: rgba(207, 199, 223, 0.72);
+  --text-nav: rgba(255, 255, 255, 0.8);
+  --text-faint: rgba(207, 199, 223, 0.45);
+  --text-dark: #211735;
+  --text-dark-secondary: #635977;
 
   /* Borders & Hairlines */
-  --border-subtle: rgba(184, 167, 255, 0.12);
-  --border-card: rgba(184, 167, 255, 0.18);
-  --border-strong: rgba(184, 167, 255, 0.34);
+  --border-subtle: rgba(184, 167, 255, 0.14);
+  --border-card: rgba(184, 167, 255, 0.2);
+  --border-strong: rgba(184, 167, 255, 0.36);
   --border-error: #dc2626;
 
   /* Section-Level Semantic Defaults (Overridden by .section--violet / .section--light) */
@@ -83,7 +83,7 @@
   --section-label: var(--violet-soft);
   --section-card-bg: var(--violet-card);
   --section-card-border: var(--violet-border);
-  --section-card-shadow: 0 24px 64px rgba(10, 7, 18, 0.42);
+  --section-card-shadow: 0 24px 64px rgba(13, 8, 22, 0.44);
 
   /* Font Stacks */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

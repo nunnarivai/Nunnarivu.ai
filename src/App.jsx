@@ -106,7 +106,7 @@ function AppRouter() {
 
   if (isNewSite) {
     return (
-      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#120F1C' }} />}>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#171122' }} />}>
         <Routes>
           <Route path="/new-site/*" element={<NewSiteApp />} />
           <Route path="/new/*" element={<LegacyNewRedirect />} />
