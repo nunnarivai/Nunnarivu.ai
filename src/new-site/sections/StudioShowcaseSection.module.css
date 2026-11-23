@@ -88,29 +88,30 @@
   padding-inline: 16px;
   border-radius: var(--radius-pill);
   background: var(--light-card);
-  border: 1px solid var(--light-border);
+  border: 1.5px solid var(--light-border);
   font-size: 13px;
   font-weight: 500;
   color: var(--light-text-primary);
   box-shadow: 0 4px 12px rgba(25, 22, 39, 0.04);
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.capPill:hover {
+.capPill:hover,
+.capPillPreview {
+  background: var(--light-card-tinted);
   border-color: var(--light-accent);
   color: var(--light-accent);
+  box-shadow: 0 6px 16px rgba(98, 80, 216, 0.12);
 }
 
-.capPillActive {
+.capPillActive,
+.capPillActive:hover {
   background: var(--btn-violet);
   border-color: var(--btn-violet);
   color: #ffffff;
   font-weight: 700;
-}
-
-.capPillActive:hover {
-  background: var(--btn-violet-hover);
-  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(98, 80, 216, 0.26);
 }
 
 .cinemaCenterStage {
@@ -128,6 +129,47 @@
   box-shadow: 0 20px 54px rgba(25, 22, 39, 0.14);
 }
 
+.cinemaCrossfadeImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+  pointer-events: none;
+}
+
+.cinemaCrossfadeImgVisible {
+  opacity: 1;
+  z-index: 1;
+}
+
+.cinemaVideoLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 2;
+  animation: studioMediaFadeIn 0.24s ease both;
+}
+
+.studioMediaFade {
+  animation: studioMediaFadeIn 0.24s ease both;
+}
+
+@keyframes studioMediaFadeIn {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .cinemaImage {
   width: 100%;
   height: 100%;
@@ -139,6 +181,7 @@
 .cinemaFrameOverlay {
   position: absolute;
   inset: 0;
+  z-index: 3;
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
@@ -181,6 +224,67 @@
   font-family: var(--font-mono);
   font-size: 10.5px;
   color: #ffffff;
+}
+
+.cinemaBottomBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.inlinePlayChip {
+  height: 34px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.45);
+  color: var(--btn-gold);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.panelImgContain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #141022;
+  display: block;
+}
+
+.videoFloatingRow {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.videoFloatingBtnInline {
+  height: 34px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.4);
+  color: var(--btn-gold);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.canvasNodesGridSix {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .cinemaCaptionBlock h4 {
@@ -293,11 +397,18 @@
   transition: border-color 0.16s ease, background-color 0.16s ease;
 }
 
-.selectorRowActive {
+.selectorRowActive,
+.selectorRowActive:hover {
+  border-color: var(--btn-violet);
+  background: var(--btn-violet);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.selectorRowPreview {
   border-color: var(--light-accent);
   background: var(--light-card-tinted);
   color: var(--light-accent);
-  font-weight: 600;
 }
 
 .selectorMiniThumb {
@@ -363,9 +474,14 @@
 }
 
 .canvasNodeCardActive {
-  border-color: var(--light-accent);
+  border-color: var(--btn-violet);
   background: var(--light-card-tinted);
-  box-shadow: 0 0 0 1px rgba(93, 75, 216, 0.25);
+  box-shadow: 0 0 0 1.5px rgba(98, 80, 216, 0.35);
+}
+
+.canvasNodeCardPreview {
+  border-color: var(--light-accent);
+  background: #f1eafc;
 }
 
 .canvasNodeThumb {
@@ -478,11 +594,18 @@
   color: var(--light-text-primary);
 }
 
-.formatBtnActive {
+.formatBtnActive,
+.formatBtnActive:hover {
   background: var(--btn-violet);
   border-color: var(--btn-violet);
   color: #ffffff;
   font-weight: 700;
+}
+
+.formatBtnPreview {
+  background: var(--light-card-tinted);
+  border-color: var(--light-accent);
+  color: var(--light-accent);
 }
 
 /* Bottom Caption */
@@ -491,7 +614,8 @@
   max-width: 620px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 10px;
 }
 
 .bottomTitle {
@@ -522,7 +646,8 @@
     grid-template-columns: 1fr;
   }
 
-  .canvasNodesGrid {
+  .canvasNodesGrid,
+  .canvasNodesGridSix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -539,7 +664,8 @@
     font-size: 12px;
   }
 
-  .canvasNodesGrid {
+  .canvasNodesGrid,
+  .canvasNodesGridSix {
     grid-template-columns: 1fr;
   }
 }

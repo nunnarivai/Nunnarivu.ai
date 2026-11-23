@@ -1,5 +1,7 @@
+/** @jsxRuntime classic */
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { MapPin } from 'lucide-react';
 import {
   VERIFIED_SOCIAL_LINKS,
   NUNNARIVU_OFFICE_ADDRESS,
@@ -7,6 +9,14 @@ import {
   type ContactServiceOption,
 } from '../data/enterpriseData';
 import styles from './MegaFooter.module.css';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elementName: string]: any;
+    }
+  }
+}
 
 interface MegaFooterProps {
   onSelectShowcaseCategory?: (category: ShowcaseCategoryId) => void;
@@ -47,7 +57,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
     <footer id="footer" className={`section--light ${styles.footer}`} data-testid="mega-footer">
       <div className={`hf-container ${styles.inner}`}>
         <div className={styles.topSection}>
-          {/* SECTION 1 — BRAND */}
+          {/* SECTION 1 — BRAND & OFFICE ADDRESSES */}
           <div className={styles.brandCol}>
             <Link to="/new-site" className={styles.brandMarkRow}>
               <img
@@ -59,12 +69,31 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
               <span className={styles.brandName}>Nunnarivu.ai</span>
             </Link>
 
-            <p className={styles.brandDesc}>
-              AI-first company building enterprise AI solutions, cinematic generative media,
-              and proprietary products.
-            </p>
+            <div className={styles.officesList}>
+              <div className={styles.officeBlock} data-office="uk">
+                <h3 className={styles.officeHeading}>
+                  <MapPin size={14} className={styles.officePin} aria-hidden="true" />
+                  <span>Our UK Company</span>
+                </h3>
+                <address className={styles.officeAddress}>
+                  Profronted UK Pvt Ltd
+                  <br />
+                  Withington Works, Burton Road,
+                  <br />
+                  Withington, Manchester M20 3EB
+                  <br />
+                  United Kingdom
+                </address>
+              </div>
 
-            <p className={styles.addressText}>{NUNNARIVU_OFFICE_ADDRESS}</p>
+              <div className={styles.officeBlock} data-office="trichy">
+                <h3 className={styles.officeHeading}>
+                  <MapPin size={14} className={styles.officePin} aria-hidden="true" />
+                  <span>Trichy Office</span>
+                </h3>
+                <address className={styles.officeAddress}>{NUNNARIVU_OFFICE_ADDRESS}</address>
+              </div>
+            </div>
           </div>
 
           {/* 3 Clean Link Columns */}
@@ -102,7 +131,16 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
                     className={styles.footerLink}
                     onClick={() => scrollToSection('our-work')}
                   >
-                    Our Work
+                    Creative Work
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className={styles.footerLink}
+                    onClick={() => scrollToSection('studios')}
+                  >
+                    Cinema Studio
                   </button>
                 </li>
                 <li>

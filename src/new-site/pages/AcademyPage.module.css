@@ -78,7 +78,101 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 12px;
+}
+
+.mediaPlayBtn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  height: 36px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  background: rgba(23, 17, 34, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.48);
+  color: var(--btn-gold);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.mediaPlayBtn:hover {
+  background: var(--btn-gold);
+  color: var(--btn-gold-text);
+  transform: translateY(-1px);
+}
+
+.audioBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
+  flex-wrap: wrap;
+}
+
+.audioPlayChip {
+  height: 32px;
+  padding-inline: 12px;
+  border-radius: 8px;
+  background: var(--btn-violet);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.audioMeta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--light-text-secondary);
+  flex: 1;
+}
+
+.audioMuteBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--light-card-tinted);
+  color: var(--light-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trackFooter {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.trackEnquireBtn {
+  height: 38px;
+  padding-inline: 16px;
+  border-radius: var(--radius-control);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border-hover);
+  color: var(--light-accent);
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.trackEnquireBtn:hover {
+  background: var(--btn-violet);
+  border-color: var(--btn-violet);
+  color: #ffffff;
 }
 
 .trackTitle {

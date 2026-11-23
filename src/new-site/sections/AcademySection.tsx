@@ -77,7 +77,7 @@ export const AcademySection: React.FC = () => {
                 </div>
                 <p className={styles.promoSubtitle} data-promo-subtitle>
                   Discover the art of communicating with AI through the timeless wisdom of the
-                  Mahabharata
+                  Mahabharatham
                 </p>
               </div>
 
@@ -86,7 +86,7 @@ export const AcademySection: React.FC = () => {
               <div className={styles.charactersSlot}>
                 <div className={styles.brushStrokeLayer} aria-hidden="true" data-brush-layer>
                   <img
-                    src="/assets/new-site/enterprise/academy/krishna-option-a-brushstrokes.webp"
+                    src="/assets/new-site/enterprise/academy/krishna-option-a-brushstrokes-v3.webp"
                     alt=""
                     className={styles.brushStrokeImg}
                     loading="lazy"

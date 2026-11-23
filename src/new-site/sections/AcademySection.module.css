@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:wght@500;600&display=swap');
 
 .section {
   width: 100%;
@@ -227,14 +227,14 @@
 }
 
 .promoSubtitle {
-  margin: 2px 0 0;
-  max-width: 232px;
-  font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 0.82vw, 0.79rem);
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0.005em;
-  color: #4f4368;
+  margin: 4px 0 0;
+  max-width: 248px;
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.06rem, 1.24vw, 1.15rem);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: 0.015em;
+  color: #382a55;
   text-align: center;
   text-wrap: balance;
 }
@@ -401,8 +401,8 @@
   }
 
   .promoSubtitle {
-    max-width: 270px;
-    font-size: 0.84rem;
+    max-width: 280px;
+    font-size: 1.1rem;
   }
 
   .charactersSlot {

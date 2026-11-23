@@ -9,8 +9,7 @@ export interface MetricItem {
 }
 
 /**
- * Verified Nunnarivu.ai operational metrics grounded in existing project content
- * (src/pages/HomePage.jsx). No third-party or unverified claims.
+ * Verified Nunnarivu.ai operational metrics grounded in existing project content.
  */
 export const ENTERPRISE_METRICS: MetricItem[] = [
   {
@@ -49,18 +48,108 @@ export const ENTERPRISE_METRICS: MetricItem[] = [
   },
 ];
 
+export interface EnterpriseWorkflowStage {
+  id: string;
+  step: string;
+  tabLabel: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  tags: string[];
+  imageSrc: string;
+  imageAlt: string;
+  ctaLabel: string;
+  contactService: ContactServiceOption;
+}
+
+export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
+  {
+    id: 'discover-brief',
+    step: '01',
+    tabLabel: 'Discover & Brief',
+    eyebrow: 'Stage 01 · Production Alignment',
+    title: 'Align creative goals, references, and business workflows',
+    description:
+      'Every project begins by locking visual references, scripts, location boards, and brand guidelines so creative teams and engineers work from one clear blueprint.',
+    tags: ['Reference Boards', 'Script & Shot List', 'Scope Lock'],
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-chennai-room-2011-v2.webp',
+    imageAlt: 'Four-view location reference board from Nunnarivu production',
+    ctaLabel: 'Discuss Your Brief',
+    contactService: 'Enterprise AI Solutions',
+  },
+  {
+    id: 'character-world',
+    step: '02',
+    tabLabel: 'Characters & Worlds',
+    eyebrow: 'Stage 02 · Continuity Engineering',
+    title: 'Lock multi-angle characters, props, and consistent sets',
+    description:
+      'Before motion generation begins, we establish turnaround character sheets, costume details, and architectural worlds so identity stays coherent across every cut.',
+    tags: ['Turnaround Sheets', 'Prop & Wardrobe Lock', 'World Geometry'],
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-char-sheet-v2.webp',
+    imageAlt: 'Multi-angle character expression and turnaround reference sheet',
+    ctaLabel: 'Explore Character Direction',
+    contactService: 'AI Image Generation',
+  },
+  {
+    id: 'multimodal-production',
+    step: '03',
+    tabLabel: 'Multi-Modal Production',
+    eyebrow: 'Stage 03 · Video, Image & Audio',
+    title: 'Generate directed video, campaign imagery, and studio audio',
+    description:
+      'Our studio combines directed generative video, photorealistic editorial stills, and broadcast-normalized voice tracks under human art-direction checkpoints.',
+    tags: ['Directed Motion', 'Commercial Stills', 'Studio Audio'],
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    imageAlt: 'Directed historical courtyard martial arts scene',
+    ctaLabel: 'Start a Production',
+    contactService: 'AI Video Generation',
+  },
+  {
+    id: 'finishing-delivery',
+    step: '04',
+    tabLabel: 'Finishing & Scale',
+    eyebrow: 'Stage 04 · Editorial & Enterprise Delivery',
+    title: 'Deliver graded masters and multi-channel brand assets',
+    description:
+      'Final cuts undergo color grading, sound finishing, and aspect-ratio mastering for theatrical 16:9, campaign feeds, and vertical mobile storytelling.',
+    tags: ['Color Grading', 'Multi-Ratio Export', 'Human QA Gate'],
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
+    imageAlt: 'Color-graded maritime heritage film frame',
+    ctaLabel: 'Request Enterprise Delivery',
+    contactService: 'AI Movie Creation',
+  },
+];
+
 export type ShowcaseCategoryId =
   | 'video-generation'
   | 'image-generation'
   | 'voice-generation'
   | 'movie-creation';
 
+export interface ShowcaseVideoItem {
+  id: string;
+  label: string;
+  caption: string;
+  videoSrc: string;
+  posterSrc: string;
+  caseStudySlug?: string;
+}
+
+export interface ShowcaseGalleryFrame {
+  id: string;
+  src: string;
+  label: string;
+  caption: string;
+}
+
 export interface VoiceSample {
   id: string;
   label: string;
   role: string;
   src: string;
-  transcript: string;
+  note: string;
+  durationHint: string;
 }
 
 export interface ShowcaseCategory {
@@ -69,14 +158,13 @@ export interface ShowcaseCategory {
   eyebrow: string;
   headline: string;
   description: string;
-  mediaType: 'video' | 'image-reel' | 'audio';
-  videoSrc?: string;
+  mediaType: 'video-playlist' | 'image-slideshow' | 'audio';
   posterSrc: string;
-  aspectRatio: string;
   ctaLabel: string;
   contactService: ContactServiceOption;
   highlights: string[];
-  galleryFrames?: { src: string; label: string; caption: string }[];
+  videoItems?: ShowcaseVideoItem[];
+  galleryFrames?: ShowcaseGalleryFrame[];
   voiceSamples?: VoiceSample[];
 }
 
@@ -84,96 +172,157 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
   {
     id: 'video-generation',
     label: 'VIDEO GENERATION',
-    eyebrow: 'Category 01 · Motion & Commercials',
-    headline: 'Campaign-ready AI video directed frame by frame',
+    eyebrow: 'Category 01 · Motion, Commercials & AI Prototypes',
+    headline: 'Directed AI video sequences built for real productions',
     description:
-      'Produce launch visuals, brand stories, and commercial sequences with deliberate pacing, consistent environments, and cinema-grade lighting — without traditional crew and location bottlenecks.',
-    mediaType: 'video',
-    videoSrc: '/assets/new-site/enterprise/videos/video-generation-demo.mp4',
-    posterSrc: '/assets/new-site/enterprise/posters/video-generation-poster.jpg',
-    aspectRatio: '16 / 9',
+      'Real Nunnarivu.ai generative video clips spanning historical action choreography, product commercials, industrial AI prototypes, and luminous motion art.',
+    mediaType: 'video-playlist',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
     ctaLabel: 'Request AI Video Production',
     contactService: 'AI Video Generation',
     highlights: [
-      'Directed shot lists & controlled camera movement',
-      'Commercial-ready 16:9, 1:1, and vertical deliverables',
-      'Iterative look-development with human art direction',
+      'Directed shot lists & controlled camera movement across scenes',
+      'Browser-optimized H.264 masters for 16:9, 1:1, and 9:16 delivery',
+      'Iterative look-development with human art direction at every stage',
+    ],
+    videoItems: [
+      {
+        id: 'courtyard-action',
+        label: '01 · Historical Courtyard Action',
+        caption: 'Sunlit courtyard martial arts choreography with period costume continuity',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+        caseStudySlug: 'historical-courtyard-martial-arts',
+      },
+      {
+        id: 'bizznet-ad',
+        label: '02 · Bizznet Commercial Spot',
+        caption: '40-second commercial digital product video advertisement',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-bizznet-ad-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-bizznet-v2.webp',
+        caseStudySlug: 'bizznet-commercial-ad',
+      },
+      {
+        id: 'student-prototype',
+        label: '03 · AI Textile Vision Prototype',
+        caption: 'Student demonstrating an industrial defect-detection unit on a live factory loom',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-student-prototype-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+        caseStudySlug: 'student-mentorship-innovation',
+      },
+      {
+        id: 'sacred-lotus',
+        label: '04 · Golden Lotus Motion Study',
+        caption: 'Atmospheric generative light and blooming lotus motion sequence',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-sacred-lotus-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-sacred-lotus-v2.webp',
+        caseStudySlug: 'cosmic-sacred-geometry-visuals',
+      },
     ],
   },
   {
     id: 'image-generation',
     label: 'IMAGE GENERATION',
-    eyebrow: 'Category 02 · Worlds, Concept & Brand Visuals',
-    headline: 'From concept frame to cohesive campaign imagery',
+    eyebrow: 'Category 02 · Worlds, Characters & Brand Visuals',
+    headline: 'Photorealistic worlds, luxury products, and character sheets',
     description:
-      'Build repeatable visual worlds, editorial key art, product imagery, and character concepts with strict continuity across every touchpoint of your brand campaign.',
-    mediaType: 'image-reel',
-    videoSrc: '/assets/new-site/enterprise/videos/image-generation-demo.mp4',
-    posterSrc: '/assets/new-site/enterprise/posters/image-generation-poster.jpg',
-    aspectRatio: '16 / 9',
+      'Original Nunnarivu.ai generated imagery across maritime epics, precision agri-tech, luxury jewelry, and multi-angle identity-locked character turnaround sheets.',
+    mediaType: 'image-slideshow',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/img-ship-sunset-v2.webp',
     ctaLabel: 'Request AI Image Production',
     contactService: 'AI Image Generation',
     highlights: [
-      'Concept boards, environments, and key-art stills',
-      'Consistent lighting, palette, and art direction',
-      'High-resolution assets ready for digital & print campaigns',
+      'Multi-angle character turnarounds and expression continuity sheets',
+      'Luxury product lighting, architectural worlds, and editorial key art',
+      'Consistent palette and art direction across full campaign kits',
     ],
     galleryFrames: [
       {
-        src: '/assets/images/Concept.jpeg',
-        label: '01 · Concept',
-        caption: 'Visual moodboards and studio reference framing',
+        id: 'ship-sunset',
+        src: '/assets/new-site/enterprise/media-v2/images/img-ship-sunset-v2.webp',
+        label: '01 · Maritime World',
+        caption: 'Legendary sailing vessel silhouetted against a golden ocean sunset',
       },
       {
-        src: '/assets/images/Generative world.jpeg',
-        label: '02 · Generative World',
-        caption: 'Architectural scale, atmosphere, and consistent lighting',
+        id: 'agri-drone',
+        src: '/assets/new-site/enterprise/media-v2/images/img-agri-drone-v2.webp',
+        label: '02 · Agri-Drone Visual',
+        caption: 'Precision agricultural spraying drone over golden sunrise paddy fields',
       },
       {
-        src: '/assets/images/Characters.jpeg',
-        label: '03 · Characters',
-        caption: 'Identity-consistent subjects integrated into the scene',
+        id: 'jewelry-ring',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
+        label: '03 · Luxury Product',
+        caption: 'Macro sculptural gold and solitaire diamond ring on deep studio velvet',
       },
       {
-        src: '/assets/images/Final frame.jpeg',
-        label: '04 · Final Frame',
-        caption: 'Color-graded widescreen master output',
+        id: 'char-sheet',
+        src: '/assets/new-site/enterprise/media-v2/images/img-char-sheet-v2.webp',
+        label: '04 · Character Sheet',
+        caption: 'Multi-angle identity, expression, and lighting reference sheet',
+      },
+      {
+        id: 'temple-twilight',
+        src: '/assets/new-site/enterprise/media-v2/images/img-temple-twilight-v2.webp',
+        label: '05 · Twilight Cityscape',
+        caption: 'Illuminated South Indian temple spire amidst a twilight cityscape',
+      },
+      {
+        id: 'warrior-turnaround',
+        src: '/assets/new-site/enterprise/media-v2/images/img-warrior-turnaround-v2.webp',
+        label: '06 · Warrior Turnaround',
+        caption: 'Full-body and close-up character continuity sheet for period cinema',
       },
     ],
   },
   {
     id: 'voice-generation',
-    label: 'VOICE GENERATION',
-    eyebrow: 'Category 03 · Narration & Audio Identity',
-    headline: 'Expressive AI voiceovers tailored to your brand tone',
+    label: 'VOICE / AUDIO GENERATION',
+    eyebrow: 'Category 03 · Studio Narration & Audio Production',
+    headline: 'Studio-balanced audio & voice tracks under human direction',
     description:
-      'Deliver clear, studio-balanced narration for product explainers, brand films, training modules, and localized enterprise communications with full human editorial review.',
+      'Preview real audio tracks from Nunnarivu.ai productions and studio narration demos. Click Play to listen — audible playback always waits for your explicit action.',
     mediaType: 'audio',
     posterSrc: '/assets/new-site/enterprise/images/voice-studio.webp',
-    aspectRatio: '16 / 9',
     ctaLabel: 'Request AI Voice Production',
     contactService: 'AI Voice Generation',
     highlights: [
-      'Broadcast-normalized studio narration & commercial reads',
-      'Pacing, pronunciation, and emotional emphasis tuning',
-      'Multi-format delivery for films, e-learning, and ads',
+      'Click-to-play studio audio previews with live progress & waveform',
+      'Clean loudness balancing for films, commercials, and training modules',
+      'Human editorial review on pacing, clarity, and brand tone',
     ],
     voiceSamples: [
       {
-        id: 'narrator',
-        label: 'Enterprise Film Narrator',
-        role: 'Measured Documentary Tone · Studio Normalized',
-        src: '/assets/new-site/enterprise/audio/nunnarivu-voice-narrator.mp3',
-        transcript:
-          '“Welcome to Nunnarivu AI. From concept and script to final cinema frame, our AI voice and creative production pipelines help enterprise teams deliver broadcast-ready storytelling across every market.”',
+        id: 'archive-reel-01',
+        label: 'Archive Studio Track 01',
+        role: 'Nunnarivu Archive Audio · 1:34 · Click Play to listen',
+        src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-01-v2.mp3',
+        note: 'Full-length compressed audio track sourced directly from the Nunnarivu production archive.',
+        durationHint: '1:34',
       },
       {
-        id: 'commercial',
-        label: 'Brand Commercial Voiceover',
-        role: 'Crisp Product Launch Tone · Studio Normalized',
-        src: '/assets/new-site/enterprise/audio/nunnarivu-voice-commercial.mp3',
-        transcript:
-          '“Nunnarivu AI Studio brings generative video, visual direction, and expressive narration into one cohesive workflow. Clear, consistent brand voice for product launches, films, and campaigns.”',
+        id: 'archive-reel-02',
+        label: 'Archive Studio Track 02',
+        role: 'Nunnarivu Archive Audio · 1:25 · Click Play to listen',
+        src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-02-v2.mp3',
+        note: 'Second long-form production audio sample from the Nunnarivu media archive.',
+        durationHint: '1:25',
+      },
+      {
+        id: 'archive-cue-01',
+        label: 'Short Voice / Audio Cue',
+        role: 'Nunnarivu Archive Cue · 0:04 · Click Play to listen',
+        src: '/assets/new-site/enterprise/media-v2/audio/aud-studio-cue-01-v2.mp3',
+        note: 'Concise studio audio cue prepared for rapid campaign and film cut integration.',
+        durationHint: '0:04',
+      },
+      {
+        id: 'studio-narrator',
+        label: 'Enterprise Studio Narrator',
+        role: 'Nunnarivu Studio Demo · Broadcast Normalized',
+        src: '/assets/new-site/enterprise/audio/nunnarivu-voice-narrator.mp3',
+        note: 'Measured documentary-style studio narration demonstrating enterprise brand film delivery.',
+        durationHint: '0:14',
       },
     ],
   },
@@ -181,19 +330,43 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
     id: 'movie-creation',
     label: 'MOVIE CREATION',
     eyebrow: 'Category 04 · End-to-End AI Filmmaking',
-    headline: 'Original short films built through our six-stage pipeline',
+    headline: 'Original narrative short films & heritage epics',
     description:
-      'Combine scriptwriting, worldbuilding, consistent casting, camera blocking, sound design, and color grading into complete narrative films crafted at Nunnarivu.ai Studio.',
-    mediaType: 'video',
-    videoSrc: '/assets/new-site/enterprise/videos/movie-creation-demo.mp4',
-    posterSrc: '/assets/new-site/enterprise/posters/movie-creation-poster.jpg',
-    aspectRatio: '16 / 9',
+      'Complete cinematic works directed through Nunnarivu.ai — combining scriptwriting, historical worldbuilding, character continuity, sound design, and theatrical finishing.',
+    mediaType: 'video-playlist',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
     ctaLabel: 'Start an AI Film Project',
     contactService: 'AI Movie Creation',
     highlights: [
-      'Complete 6-stage pipeline: Concept to Final Frame',
-      'Widescreen CinemaScope composition & sound finishing',
-      'Built for brand films, teasers, and narrative cinema',
+      'Full 6-stage pipeline from Concept & Script to Graded Master',
+      'Optimized web previews paired with full-length project detail pages',
+      'Mythological, historical, monochrome narrative, and brand cinema',
+    ],
+    videoItems: [
+      {
+        id: 'chola-epic',
+        label: '01 · Chola Maritime & Heritage Epic',
+        caption: 'Web preview cut from Nunnarivu’s 4K heritage cinema master',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-preview-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
+        caseStudySlug: 'chola-maritime-heritage-film',
+      },
+      {
+        id: 'mahabharata-film',
+        label: '02 · Mahabharata — Prompt Engineering Film',
+        caption: 'Original Nunnarivu mythological cinema showcase connecting wisdom and AI',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
+        caseStudySlug: 'mahabharata-ai-prompt-engineering',
+      },
+      {
+        id: 'sk-exam-film',
+        label: '03 · SK Super TMT Monochrome Exam Film',
+        caption: 'Black-and-white narrative classroom drama with period atmosphere',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-sk-exam-student-v2.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
+        caseStudySlug: 'sk-super-tmt-exam-film',
+      },
     ],
   },
 ];
@@ -277,92 +450,93 @@ export interface CinemaControl {
   headline: string;
   caption: string;
   imageSrc: string;
+  videoSrc?: string;
   filterCss?: string;
   aspectTag: string;
 }
 
 export const CINEMA_CONTROLS: CinemaControl[] = [
   {
-    id: 'concept',
-    label: 'Concept',
+    id: 'genre',
+    label: 'Genre',
     side: 'left',
-    stageTag: 'Stage 01 · Pre-Visualization',
-    headline: 'Turn a single brief into a tactile studio moodboard',
-    caption: 'We lock references, silhouette language, and visual tone before a single shot enters generation.',
-    imageSrc: '/assets/images/Concept.jpeg',
-    aspectTag: 'Studio Board · Reference Lock',
+    stageTag: 'Historical Maritime Epic',
+    headline: 'Direct historical, mythological, and contemporary film worlds',
+    caption: 'Storm-lit naval fleets and sweeping maritime horizon composition built for theatrical scale.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
+    aspectTag: '16:9 Theatrical · Epic',
   },
   {
-    id: 'script',
-    label: 'Script & Blocking',
+    id: 'era',
+    label: 'Era',
     side: 'left',
-    stageTag: 'Stage 02 · Narrative Blueprint',
-    headline: 'Shot-by-shot storyboards written for generative cinema',
-    caption: 'Dialogue beats, pacing, and camera transitions are structured deliberately from draft one.',
-    imageSrc: '/assets/images/Script.jpeg',
-    aspectTag: 'Shot List · Dialogue & Timing',
+    stageTag: 'Period & Architecture Lock',
+    headline: 'Maintain authentic architectural stonework and period light',
+    caption: 'Warm golden-hour temple courtyards and heritage textures rendered with cohesive tonal discipline.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-temple-courtyard-v2.webp',
+    aspectTag: 'Heritage · Golden Hour',
+  },
+  {
+    id: 'character',
+    label: 'Character',
+    side: 'left',
+    stageTag: 'Subject Continuity',
+    headline: 'Hold character expression and wardrobe steady across angles',
+    caption: 'From historical martial artists to monochrome classroom leads, every frame preserves casting fidelity.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-courtyard-boy-v2.webp',
+    aspectTag: 'Identity Lock · Study',
   },
   {
     id: 'locations',
     label: 'Locations',
     side: 'left',
-    stageTag: 'Stage 03 · Generative Worlds',
-    headline: 'Build monumental environments with coherent architecture',
-    caption: 'Weather, scale, and atmosphere stay physically consistent across wide and close-up angles.',
-    imageSrc: '/assets/images/Generative world.jpeg',
-    aspectTag: 'World Lock · 3D Depth',
-  },
-  {
-    id: 'ai-cast',
-    label: 'Characters',
-    side: 'left',
-    stageTag: 'Stage 04 · Subject Continuity',
-    headline: 'Keep character wardrobe and identity locked across scenes',
-    caption: 'Directed performances hold costume, silhouette, and emotional presence across every cut.',
-    imageSrc: '/assets/images/Characters.jpeg',
-    aspectTag: 'Identity Lock · Multi-Angle',
+    stageTag: 'Environment Design',
+    headline: 'Stage lived-in stations, riverlands, and atmospheric interiors',
+    caption: 'Multi-angle location references lock spatial layout before camera blocking begins.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-kharagpur-station-v2.webp',
+    aspectTag: '4-View Location Plate',
   },
   {
     id: 'camera-movement',
     label: 'Camera Movement',
     side: 'right',
-    stageTag: 'Stage 05 · Cinematography',
-    headline: 'Direct lenses, framing, and kinetic camera blocking',
-    caption: 'Every shot uses intentional focal lengths, horizon balance, and motivated movement.',
-    imageSrc: '/assets/images/Camera.jpeg',
-    aspectTag: '35mm Anamorphic · Directed Rig',
-  },
-  {
-    id: 'color-grading',
-    label: 'Color Grading',
-    side: 'right',
-    stageTag: 'Stage 06 · Finishing & LUTs',
-    headline: 'Cinema-grade tonal balance and print-inspired color',
-    caption: 'Compare neutral log framing against warm-amber and deep-shadow theatrical finishing.',
-    imageSrc: '/assets/images/Final frame.jpeg',
-    filterCss: 'contrast(1.08) saturate(1.12)',
-    aspectTag: '2.39:1 CinemaScope · Master Grade',
+    stageTag: 'Directed Cinematography',
+    headline: 'Choreograph motion sequences with intentional lens movement',
+    caption: 'Live motion clip from the Historical Courtyard action production with sunlit atmospheric dust.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
+    aspectTag: '24fps Motion · Directed Rig',
   },
   {
     id: 'lighting',
-    label: 'Lighting Mood',
+    label: 'Lighting',
     side: 'right',
-    stageTag: 'Look-Dev · Atmospheric Key',
-    headline: 'Sculpt golden-hour rims, practicals, and moody studio contrast',
-    caption: 'Controlled light direction anchors synthetic frames in photographic realism.',
-    imageSrc: '/assets/images/Generative AI Media.jpeg',
-    filterCss: 'contrast(1.05) brightness(0.98)',
-    aspectTag: 'Practical Key · Studio Rig',
+    stageTag: 'Practical & Firelight Key',
+    headline: 'Sculpt molten highlights, lamplight rims, and shadow depth',
+    caption: 'Controlled directional light grounds synthetic frames in tactile photographic realism.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-molten-foundry-v2.webp',
+    aspectTag: 'High-Contrast Practical Key',
   },
   {
-    id: 'final-finish',
-    label: 'Final Delivery',
+    id: 'color-grading',
+    label: 'Colour Grading',
     side: 'right',
-    stageTag: 'Master Export · Multi-Format',
-    headline: 'Delivered ready for theatrical, broadcast, and digital feeds',
-    caption: 'Sound mix, color polish, and clean aspect-ratio deliverables packaged for your campaign.',
-    imageSrc: '/assets/images/Final frame.jpeg',
-    aspectTag: 'Master Cut · Ready to Publish',
+    stageTag: 'Monochrome & Theatrical LUTs',
+    headline: 'Shift cleanly between golden cinema warmth and crisp monochrome',
+    caption: 'High-contrast black-and-white tonal grading from the SK Super TMT classroom examination film.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
+    aspectTag: 'B&W Cinema Grade',
+  },
+  {
+    id: 'film-sequence',
+    label: 'Film Sequence',
+    side: 'right',
+    stageTag: 'Master Film Preview',
+    headline: 'Assemble multi-shot sequences into finished widescreen films',
+    caption: 'Preview excerpt from Nunnarivu’s Chola Maritime & Heritage 4K production master.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-preview-v2.mp4',
+    aspectTag: 'Master Cut · 16:9 Cinema',
   },
 ];
 
@@ -371,43 +545,43 @@ export const STUDIO_TABS = [
     id: 'cinema-studio',
     label: 'Cinema Studio',
     wordmark: 'NUNNARIVU CINEMA',
-    bottomTitle: 'Six stages of directed AI filmmaking',
-    bottomSubtitle: 'Inspect each production stage from concept wall to color-graded final frame',
+    bottomTitle: 'Directed AI filmmaking from era to final sequence',
+    bottomSubtitle: 'Select any director control around the preview to inspect real Nunnarivu frames and motion cuts',
   },
   {
-    id: 'character-creation',
-    label: 'Character Creation',
+    id: 'character-studio',
+    label: 'Character Studio',
     wordmark: 'CHARACTER STUDIO',
-    bottomTitle: 'Consistent characters across every shot',
-    bottomSubtitle: 'Maintain wardrobe, facial structure, and lighting fidelity from wide to close-up',
+    bottomTitle: 'Identity-locked characters across angles, costumes & motion',
+    bottomSubtitle: 'Inspect multi-angle reference sheets, expression studies, and real image-to-video continuity',
   },
   {
-    id: 'ai-video-production',
-    label: 'AI Video Production',
-    wordmark: 'VIDEO PRODUCTION',
-    bottomTitle: 'Motion sequences engineered for real campaigns',
-    bottomSubtitle: 'Directed generative footage with controlled pacing and cinema framing',
+    id: 'ai-production',
+    label: 'AI Production',
+    wordmark: 'AI PRODUCTION',
+    bottomTitle: 'Live production footage & applied innovation workflows',
+    bottomSubtitle: 'Switch between real Nunnarivu production clips covering industrial prototypes, mentorship, and action',
   },
   {
     id: 'creative-canvas',
     label: 'Creative Canvas',
     wordmark: 'CREATIVE CANVAS',
-    bottomTitle: 'Connected storyboard & production pipeline',
-    bottomSubtitle: 'Select any stage node below (or use arrow keys) to trace how assets flow into the final cut',
+    bottomTitle: 'Visual development boards: locations, props & continuity',
+    bottomSubtitle: 'Inspect real reference sheets, prop collages, and era comparisons used before filming',
   },
   {
-    id: 'marketing-creatives',
-    label: 'Marketing Creatives',
-    wordmark: 'MARKETING CREATIVES',
-    bottomTitle: 'On-brand visuals built for every channel',
-    bottomSubtitle: 'Adapt one core creative direction across widescreen, square, and vertical campaign formats',
+    id: 'marketing-studio',
+    label: 'Marketing Studio',
+    wordmark: 'MARKETING STUDIO',
+    bottomTitle: 'High-craft brand visuals adapted across every format',
+    bottomSubtitle: 'Switch between real commercial stills and preview 16:9, 1:1, and 9:16 campaign framing',
   },
   {
-    id: 'ai-advertisements',
-    label: 'AI Advertisements',
-    wordmark: 'AI ADVERTISEMENTS',
-    bottomTitle: 'Studio-grade product commercials without location limits',
-    bottomSubtitle: 'Combine generative environments, product hero shots, and voiceover into launch-ready ads',
+    id: 'ai-advertising',
+    label: 'AI Advertising',
+    wordmark: 'AI ADVERTISING',
+    bottomTitle: 'Completed brand commercials and promotional films',
+    bottomSubtitle: 'Watch real Nunnarivu commercial spots including Bizznet, SK Super TMT, and Mahabharata Prompt Engineering',
   },
 ] as const;
 
@@ -481,7 +655,6 @@ export const ENTERPRISE_FAQS: FaqItem[] = [
 
 /**
  * Exact verified social URLs reused from src/components/layout/Footer.jsx.
- * Unconfigured platforms (e.g. YouTube) are intentionally omitted.
  */
 export const VERIFIED_SOCIAL_LINKS = [
   {

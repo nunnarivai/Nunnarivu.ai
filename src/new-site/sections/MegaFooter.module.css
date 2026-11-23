@@ -47,16 +47,42 @@
   color: var(--light-text-primary);
 }
 
-.brandDesc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--light-text-secondary);
+.officesList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 4px;
 }
 
-.addressText {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--light-text-muted);
+.officeBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.officeHeading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--light-text-primary);
+  margin: 0;
+}
+
+.officePin {
+  color: var(--light-accent);
+  flex-shrink: 0;
+}
+
+.officeAddress {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1.58;
+  color: var(--light-text-secondary);
+  padding-left: 20px;
 }
 
 .columnsGrid {

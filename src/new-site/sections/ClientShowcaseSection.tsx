@@ -47,7 +47,17 @@ export const ClientShowcaseSection: React.FC = () => {
         <div
           ref={trackRef}
           className={styles.track}
+          tabIndex={0}
           onScroll={handleScroll}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              scrollByCards(1);
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              scrollByCards(-1);
+            }
+          }}
           aria-label="Nunnarivu.ai Portfolio Case Studies"
         >
           {PORTFOLIO_CASE_STUDIES.map((study) => (

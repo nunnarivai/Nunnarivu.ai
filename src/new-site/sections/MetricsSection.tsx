@@ -1,11 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ENTERPRISE_METRICS } from '../data/enterpriseData';
+import { ArrowRight, Play, Pause } from 'lucide-react';
+import {
+  ENTERPRISE_METRICS,
+  ENTERPRISE_WORKFLOW_STAGES,
+  type ContactServiceOption,
+} from '../data/enterpriseData';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import styles from './MetricsSection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const WORKFLOW_ROTATE_MS = 5000;
+
+interface MetricsSectionProps {
+  onRequestService?: (service: ContactServiceOption) => void;
+}
 
 const LaurelBranch: React.FC<{ flip?: boolean }> = ({ flip }) => (
   <svg
@@ -40,9 +51,18 @@ const WireframeGlobe: React.FC = () => (
   </svg>
 );
 
-export const MetricsSection: React.FC = () => {
+export const MetricsSection: React.FC<MetricsSectionProps> = ({ onRequestService }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const workflowRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
+
+  const [activeWorkflowIdx, setActiveWorkflowIdx] = useState(0);
+  const [workflowInView, setWorkflowInView] = useState(false);
+  const [tabVisible, setTabVisible] = useState(
+    () => (typeof document !== 'undefined' ? document.visibilityState === 'visible' : true)
+  );
+  const [isAutoPlaying, setIsAutoPlaying] = useState(() => !reducedMotion);
+
   const [counts, setCounts] = useState<Record<string, number>>(() => ({
     'service-categories': 18,
     'automation-ready': 100,
@@ -50,6 +70,23 @@ export const MetricsSection: React.FC = () => {
     'film-stages': 6,
   }));
 
+  // Respect prefers-reduced-motion if toggled dynamically
+  useEffect(() => {
+    if (reducedMotion) {
+      setIsAutoPlaying(false);
+    }
+  }, [reducedMotion]);
+
+  // Preload workflow images once so transitions crossfade cleanly with zero flicker
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    ENTERPRISE_WORKFLOW_STAGES.forEach((stage) => {
+      const img = new Image();
+      img.src = stage.imageSrc;
+    });
+  }, []);
+
+  // GSAP metrics counter animation
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || reducedMotion) return;
@@ -84,9 +121,58 @@ export const MetricsSection: React.FC = () => {
     return () => ctx.revert();
   }, [reducedMotion]);
 
+  // Start cycling only when Workflow section is >= ~50% visible; pause when offscreen
+  useEffect(() => {
+    const el = workflowRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setWorkflowInView(entry.isIntersecting && entry.intersectionRatio >= 0.45);
+      },
+      { threshold: [0, 0.25, 0.5, 0.75] }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Pause when browser tab becomes hidden
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const onVis = () => setTabVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, []);
+
+  const isActivelyCycling = workflowInView && tabVisible && isAutoPlaying && !reducedMotion;
+
+  // Single deterministic 5-second timer; cleanly cleared on unmount, manual click, pause, or offscreen
+  useEffect(() => {
+    if (!isActivelyCycling) return;
+
+    const timerId = window.setTimeout(() => {
+      setActiveWorkflowIdx((prev) => (prev + 1) % ENTERPRISE_WORKFLOW_STAGES.length);
+    }, WORKFLOW_ROTATE_MS);
+
+    return () => window.clearTimeout(timerId);
+  }, [isActivelyCycling, activeWorkflowIdx]);
+
+  const handleManualTabSelect = (idx: number) => {
+    setActiveWorkflowIdx(idx);
+    // Pause automatic cycling when user manually selects a tab so content stays put
+    setIsAutoPlaying(false);
+  };
+
+  const handleToggleAutoCycle = () => {
+    if (reducedMotion) return;
+    setIsAutoPlaying((prev) => !prev);
+  };
+
+  const activeStage = ENTERPRISE_WORKFLOW_STAGES[activeWorkflowIdx] || ENTERPRISE_WORKFLOW_STAGES[0];
+
   return (
     <section id="metrics" ref={sectionRef} className={`section--light ${styles.section}`}>
-      <h2 className={styles.srOnly}>Nunnarivu.ai Enterprise Capabilities</h2>
+      <h2 className={styles.srOnly}>Nunnarivu.ai Enterprise Capabilities &amp; Workflow</h2>
 
       <div className={`hf-container ${styles.grid}`}>
         {ENTERPRISE_METRICS.map((item) => {
@@ -152,6 +238,116 @@ export const MetricsSection: React.FC = () => {
             </article>
           );
         })}
+      </div>
+
+      {/* Interactive 4-Stage Enterprise Creative Workflow with Automatic 5s Rotation */}
+      <div id="workflow" ref={workflowRef} className={`hf-container ${styles.workflowWrap}`}>
+        <div className={styles.workflowTopRow}>
+          <div className={styles.workflowHeader}>
+            <span className={styles.workflowEyebrow}>One Creative Pipeline</span>
+            <h3 className={`hf-heading-md ${styles.workflowHeading}`}>
+              PRO CONTROL OVER EVERY CREATIVE WORKFLOW
+            </h3>
+          </div>
+
+          {!reducedMotion && (
+            <button
+              type="button"
+              className={`${styles.workflowAutoBtn} ${
+                isAutoPlaying ? styles.workflowAutoBtnActive : ''
+              }`}
+              aria-pressed={isAutoPlaying}
+              onClick={handleToggleAutoCycle}
+              data-workflow-auto-toggle
+            >
+              {isAutoPlaying ? <Pause size={12} /> : <Play size={12} />}
+              <span>{isAutoPlaying ? 'Auto-Cycle: On' : 'Resume Auto-Cycle'}</span>
+            </button>
+          )}
+        </div>
+
+        <div
+          className={styles.workflowTabRow}
+          role="tablist"
+          aria-label="Enterprise Creative Workflow Stages"
+        >
+          {ENTERPRISE_WORKFLOW_STAGES.map((st, idx) => {
+            const active = idx === activeWorkflowIdx;
+            return (
+              <button
+                key={st.id}
+                type="button"
+                role="tab"
+                id={`workflow-tab-${st.id}`}
+                aria-selected={active}
+                aria-controls="workflow-tabpanel"
+                className={`${styles.workflowTab} ${active ? styles.workflowTabActive : ''}`}
+                onClick={() => handleManualTabSelect(idx)}
+              >
+                <span className={styles.workflowStepNum}>{st.step}</span>
+                <span>{st.tabLabel}</span>
+                {active && (
+                  <span className={styles.workflowTabProgressTrack} aria-hidden="true">
+                    <span
+                      key={`${st.id}-${isActivelyCycling ? 'run' : 'idle'}`}
+                      className={`${styles.workflowTabProgressFill} ${
+                        isActivelyCycling ? styles.workflowTabProgressRunning : ''
+                      }`}
+                    />
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          id="workflow-tabpanel"
+          className={styles.workflowStageCard}
+          role="tabpanel"
+          aria-labelledby={`workflow-tab-${activeStage.id}`}
+        >
+          <div key={activeStage.id} className={styles.workflowCopy}>
+            <span className={styles.workflowStageEyebrow}>{activeStage.eyebrow}</span>
+            <h4 className={styles.workflowStageTitle}>{activeStage.title}</h4>
+            <p className={styles.workflowStageDesc}>{activeStage.description}</p>
+            <div className={styles.workflowTags}>
+              {activeStage.tags.map((tag) => (
+                <span key={tag} className={styles.workflowTag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            {onRequestService && (
+              <button
+                type="button"
+                className={styles.workflowCta}
+                onClick={() => onRequestService(activeStage.contactService)}
+              >
+                <span>{activeStage.ctaLabel}</span>
+                <ArrowRight size={14} />
+              </button>
+            )}
+          </div>
+
+          <div className={styles.workflowPreviewFrame}>
+            {ENTERPRISE_WORKFLOW_STAGES.map((stage, idx) => {
+              const isVisible = idx === activeWorkflowIdx;
+              return (
+                <img
+                  key={stage.id}
+                  src={stage.imageSrc}
+                  alt={stage.imageAlt}
+                  aria-hidden={!isVisible}
+                  className={`${styles.workflowPreviewImg} ${
+                    isVisible ? styles.workflowPreviewImgActive : ''
+                  }`}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );

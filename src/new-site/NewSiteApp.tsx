@@ -40,8 +40,8 @@ const EnterpriseLandingPage: React.FC<EnterpriseLandingPageProps> = ({
         {/* PHASE 1 — PRESERVED CINEMATIC HERO VIDEO (UNMODIFIED) */}
         <HeroSection />
 
-        {/* VERIFIED NUNNARIVU CAPABILITY METRICS */}
-        <MetricsSection />
+        {/* VERIFIED NUNNARIVU CAPABILITY METRICS & WORKFLOW */}
+        <MetricsSection onRequestService={handleRequestService} />
 
         {/* PHASE 3 — AI CREATIVE PRODUCTION SHOWCASE (4 CATEGORIES) */}
         <CreativeShowcaseSection
