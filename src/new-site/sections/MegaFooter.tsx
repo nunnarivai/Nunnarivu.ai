@@ -20,14 +20,17 @@ declare global {
 }
 
 interface MegaFooterProps {
+  variant?: 'enterprise' | 'blog';
   onSelectShowcaseCategory?: (category: ShowcaseCategoryId) => void;
   onRequestService?: (service: ContactServiceOption) => void;
 }
 
 export const MegaFooter: React.FC<MegaFooterProps> = ({
+  variant = 'enterprise',
   onSelectShowcaseCategory,
   onRequestService,
 }) => {
+  const isBlogVariant = variant === 'blog';
   const navigate = useNavigate();
   const location = useLocation();
   const currentYear = new Date().getFullYear();
@@ -56,9 +59,14 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
   };
 
   return (
-    <footer id="footer" className={`section--light ${styles.footer}`} data-testid="mega-footer">
+    <footer
+      id="footer"
+      className={`section--light ${styles.footer} ${isBlogVariant ? styles.footerBlog : ''}`}
+      data-testid={isBlogVariant ? 'blog-footer' : 'mega-footer'}
+      data-footer-variant={variant}
+    >
       <div className={`hf-container ${styles.inner}`}>
-        <div className={styles.topSection}>
+        <div className={`${styles.topSection} ${isBlogVariant ? styles.topSectionBlog : ''}`}>
           {/* SECTION 1 — BRAND & OFFICE ADDRESSES */}
           <div className={styles.brandCol}>
             <Link to="/" className={styles.brandMarkRow}>
@@ -71,7 +79,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
               <span className={styles.brandName}>Nunnarivu.ai</span>
             </Link>
 
-            <div className={styles.officesList}>
+            <div className={`${styles.officesList} ${isBlogVariant ? styles.officesListBlog : ''}`}>
               <div className={styles.officeBlock} data-office="uk">
                 <h3 className={styles.officeHeading}>
                   <MapPin size={14} className={styles.officePin} aria-hidden="true" />
@@ -105,132 +113,136 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
             </div>
           </div>
 
-          {/* 3 Clean Link Columns */}
-          <div className={styles.columnsGrid}>
-            {/* SECTION 2 — QUICK LINKS */}
-            <nav className={styles.column} aria-label="Quick Links">
-              <h3 className={styles.colHeading}>Quick Links</h3>
-              <ul className={styles.linkList}>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => scrollToSection('hero')}
-                  >
-                    Home
-                  </button>
-                </li>
-                <li>
-                  <Link to="/old-site" className={styles.footerLink}>
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => scrollToSection('creative-showcase')}
-                  >
-                    Our Services
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => scrollToSection('our-work')}
-                  >
-                    Creative Work
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => scrollToSection('studios')}
-                  >
-                    Cinema Studio
-                  </button>
-                </li>
-                <li>
-                  <Link to="/academy" className={styles.footerLink}>
-                    Academy
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => scrollToSection('enterprise-contact')}
-                  >
-                    Contact
-                  </button>
-                </li>
-              </ul>
-            </nav>
+          {/* Link Columns (Blog variant excludes Quick Links & Services) */}
+          <div className={`${styles.columnsGrid} ${isBlogVariant ? styles.columnsGridBlog : ''}`}>
+            {!isBlogVariant && (
+              <>
+                {/* SECTION 2 — QUICK LINKS */}
+                <nav className={styles.column} aria-label="Quick Links">
+                  <h3 className={styles.colHeading}>Quick Links</h3>
+                  <ul className={styles.linkList}>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => scrollToSection('hero')}
+                      >
+                        Home
+                      </button>
+                    </li>
+                    <li>
+                      <Link to="/old-site" className={styles.footerLink}>
+                        About
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => scrollToSection('creative-showcase')}
+                      >
+                        Our Services
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => scrollToSection('our-work')}
+                      >
+                        Creative Work
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => scrollToSection('studios')}
+                      >
+                        Cinema Studio
+                      </button>
+                    </li>
+                    <li>
+                      <Link to="/academy" className={styles.footerLink}>
+                        Academy
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => scrollToSection('enterprise-contact')}
+                      >
+                        Contact
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
 
-            {/* SECTION 3 — SERVICES */}
-            <nav className={styles.column} aria-label="Services">
-              <h3 className={styles.colHeading}>Services</h3>
-              <ul className={styles.linkList}>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => handleServiceLink('video-generation')}
-                  >
-                    AI Video
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => handleServiceLink('image-generation')}
-                  >
-                    AI Image
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => handleServiceLink('voice-generation')}
-                  >
-                    AI Voice
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => handleServiceLink('movie-creation')}
-                  >
-                    AI Movie Creation
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className={styles.footerLink}
-                    onClick={() => {
-                      if (onRequestService && isLanding) {
-                        onRequestService('Enterprise AI Solutions');
-                      } else {
-                        scrollToSection('enterprise-contact');
-                      }
-                    }}
-                  >
-                    Enterprise AI Solutions
-                  </button>
-                </li>
-              </ul>
-            </nav>
+                {/* SECTION 3 — SERVICES */}
+                <nav className={styles.column} aria-label="Services">
+                  <h3 className={styles.colHeading}>Services</h3>
+                  <ul className={styles.linkList}>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => handleServiceLink('video-generation')}
+                      >
+                        AI Video
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => handleServiceLink('image-generation')}
+                      >
+                        AI Image
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => handleServiceLink('voice-generation')}
+                      >
+                        AI Voice
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => handleServiceLink('movie-creation')}
+                      >
+                        AI Movie Creation
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className={styles.footerLink}
+                        onClick={() => {
+                          if (onRequestService && isLanding) {
+                            onRequestService('Enterprise AI Solutions');
+                          } else {
+                            scrollToSection('enterprise-contact');
+                          }
+                        }}
+                      >
+                        Enterprise AI Solutions
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </>
+            )}
 
             {/* SECTION 4 — CONNECT */}
             <nav className={styles.column} aria-label="Connect">
               <h3 className={styles.colHeading}>Connect</h3>
-              <ul className={styles.linkList}>
+              <ul className={`${styles.linkList} ${isBlogVariant ? styles.linkListBlog : ''}`}>
                 {VERIFIED_SOCIAL_LINKS.map((soc) => (
                   <li key={soc.id}>
                     <a

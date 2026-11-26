@@ -1,6 +1,10 @@
 const BASE_URL = import.meta.env.VITE_BLOG_API_BASE_URL
 const SITE_KEY = import.meta.env.VITE_BLOG_SITE_KEY || 'nunnarivu'
 
+const listCache = new Map()
+const postCache = new Map()
+const CACHE_TTL_MS = 60_000
+
 function assertConfig() {
   if (!BASE_URL) {
     throw new Error(
@@ -24,6 +28,31 @@ function resolveImageUrl(value) {
   return null
 }
 
+/** Calculate reading time strictly from actual article text content (words / 220 wpm). */
+export function estimateReadTime(htmlOrText) {
+  if (!htmlOrText || typeof htmlOrText !== 'string') return null
+  const plain = htmlOrText
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+  if (!plain) return null
+  const words = plain.split(' ').filter(Boolean).length
+  if (words < 30) return null
+  return Math.max(1, Math.ceil(words / 220))
+}
+
+export function formatBlogDate(dateStr, style = 'short') {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  if (Number.isNaN(date.getTime())) return ''
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: style === 'long' ? 'long' : 'short',
+    year: 'numeric',
+  })
+}
+
 // Normalize the public CMS API response in one place. The CMS may expose
 // media as coverImage, cover_image, or a nested media object depending on API version.
 function normalizePost(post = {}) {
@@ -33,6 +62,13 @@ function normalizePost(post = {}) {
     media ?? post.coverImageUrl ?? post.cover_image_url ?? post.imageUrl ?? post.image_url
   )
 
+  const content = post.content ?? post.body ?? post.html ?? ''
+  const explicitReadTime = post.readTime ?? post.readingTimeMinutes ?? post.reading_time_minutes ?? null
+  const readTime = explicitReadTime ? Number(explicitReadTime) : estimateReadTime(content)
+  const rawTags = Array.isArray(post.tags)
+    ? post.tags.map((t) => (typeof t === 'object' ? t?.name ?? t?.title ?? '' : String(t))).filter(Boolean)
+    : []
+
   return {
     ...post,
     coverImage,
@@ -41,10 +77,14 @@ function normalizePost(post = {}) {
     category: typeof post.category === 'object'
       ? post.category?.name ?? post.category?.title
       : post.category ?? post.categoryName ?? post.category_name,
+    excerpt: post.excerpt ?? post.summary ?? post.description ?? '',
+    featured: Boolean(post.featured ?? post.isFeatured ?? post.is_featured),
     publishedAt: post.publishedAt ?? post.published_at ?? post.publishAt ?? null,
-    readTime: post.readTime ?? post.readingTimeMinutes ?? post.reading_time_minutes ?? null,
+    updatedAt: post.updatedAt ?? post.updated_at ?? null,
+    readTime,
+    tags: rawTags,
     author: post.author ?? (post.authorName ? { name: post.authorName } : undefined),
-    content: post.content ?? post.body ?? post.html ?? '',
+    content,
   }
 }
 
@@ -63,18 +103,39 @@ async function apiFetch(path) {
 }
 
 /** GET /api/v1/public/sites/:siteKey/blogs?page=&limit= */
-export async function listBlogs({ page = 1, limit = 10 } = {}) {
+export async function listBlogs({ page = 1, limit = 10, forceRefresh = false, bypassCache = false } = {}) {
+  const key = `${page}:${limit}`
+  const cached = listCache.get(key)
+  if (!forceRefresh && !bypassCache && cached && Date.now() - cached.ts < CACHE_TTL_MS) {
+    return cached.data
+  }
+
   const data = await apiFetch(`/api/v1/public/sites/${SITE_KEY}/blogs?page=${page}&limit=${limit}`)
   const items = data.items ?? data.blogs ?? data.posts ?? data.data ?? []
-  return {
+  const normalized = {
     ...data,
     items: Array.isArray(items) ? items.map(normalizePost) : [],
   }
+  listCache.set(key, { ts: Date.now(), data: normalized })
+  return normalized
 }
 
 /** GET /api/v1/public/sites/:siteKey/blogs/:slug */
-export async function getBlog(slug) {
+export async function getBlog(slug, { forceRefresh = false, bypassCache = false } = {}) {
+  const cached = postCache.get(slug)
+  if (!forceRefresh && !bypassCache && cached && Date.now() - cached.ts < CACHE_TTL_MS) {
+    return cached.data
+  }
+
   const data = await apiFetch(`/api/v1/public/sites/${SITE_KEY}/blogs/${encodeURIComponent(slug)}`)
-  const post = data.blog ?? data.post ?? data.data ?? data
-  return { ...data, blog: normalizePost(post) }
+  const rawPost = data.blog ?? data.post ?? data.data ?? data
+  const blog = normalizePost(rawPost)
+  const rawRelated = rawPost?.related ?? rawPost?.relatedPosts ?? data.related ?? data.relatedPosts ?? []
+  if (Array.isArray(rawRelated) && rawRelated.length > 0) {
+    blog.related = rawRelated.map(normalizePost).filter((p) => p.slug && p.slug !== blog.slug)
+  }
+
+  const normalized = { ...data, blog }
+  postCache.set(slug, { ts: Date.now(), data: normalized })
+  return normalized
 }

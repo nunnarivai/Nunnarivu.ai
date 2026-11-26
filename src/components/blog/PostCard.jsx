@@ -1,53 +1,58 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
+import { formatBlogDate } from '../../lib/blogService'
+import styles from '../../styles/blog.module.css'
 
-function formatDate(dateStr) {
-  if (!dateStr) return ''
-  const date = new Date(dateStr)
-  if (Number.isNaN(date.getTime())) return ''
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric', month: 'short', year: 'numeric',
-  })
-}
-
-export default function PostCard({ post }) {
+export default function PostCard({ post, returnTo, headingAs = 'h2' }) {
   const { title, slug, excerpt, coverImage, coverImageAlt, category, publishedAt, readTime } = post
+  const [imgFailed, setImgFailed] = useState(false)
   const href = `/blogs/${slug}`
+  const HeadingTag = headingAs === 'h3' ? 'h3' : 'h2'
+  const dateLabel = formatBlogDate(publishedAt, 'short')
 
   return (
-    <article className="post-card" data-reveal>
-      <Link className="post-card__media" to={href} aria-label={`Read ${title}`}>
-        {coverImage ? (
-          <img
-            className="post-card__img is-loaded"
-            src={coverImage}
-            alt={coverImageAlt || title}
-            loading="lazy"
-            onError={(event) => {
-              event.currentTarget.style.display = 'none'
-            }}
-          />
-        ) : (
-          <div className="post-card__ph" aria-hidden="true" />
-        )}
-        <span className="post-card__image-label">Nunnarivu Journal</span>
-      </Link>
-
-      <div className="post-card__body">
-        {category && <span className="post-cat">{category}</span>}
-        <h2 className="post-card__title">
-          <Link to={href}>{title}</Link>
-        </h2>
-        {excerpt && <p className="post-card__excerpt">{excerpt}</p>}
-        <div className="post-card__footer">
-          <div className="post-card__meta">
-            {publishedAt && <time dateTime={publishedAt}>{formatDate(publishedAt)}</time>}
-            {readTime && <span>{readTime} min read</span>}
-          </div>
-          <Link className="post-card__read" to={href}>
-            Read article <span aria-hidden="true">↗</span>
-          </Link>
+    <article className={styles.postCard} data-testid="blog-post-card" data-post-slug={slug}>
+      <Link
+        className={styles.postCardLink}
+        to={href}
+        state={returnTo ? { from: returnTo } : undefined}
+        aria-label={`Read ${title}`}
+      >
+        <div className={styles.cardMedia}>
+          {coverImage && !imgFailed ? (
+            <img
+              className={styles.cardImg}
+              src={coverImage}
+              alt={coverImageAlt || title}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgFailed(true)}
+            />
+          ) : (
+            <div className={styles.mediaFallback} aria-hidden="true">
+              Nunnarivu Journal
+            </div>
+          )}
         </div>
-      </div>
+
+        <div className={styles.cardBody}>
+          {category && <span className={styles.categoryBadgeLight}>{category}</span>}
+          <HeadingTag className={styles.cardTitle}>{title}</HeadingTag>
+          {excerpt && <p className={styles.cardExcerpt}>{excerpt}</p>}
+
+          <div className={styles.cardFooter}>
+            <div className={styles.cardMeta}>
+              {dateLabel && <time dateTime={publishedAt}>{dateLabel}</time>}
+              {dateLabel && readTime && <span aria-hidden="true">·</span>}
+              {readTime && <span>{readTime} min read</span>}
+            </div>
+            <span className={styles.cardReadCue}>
+              Read <ArrowUpRight size={14} aria-hidden="true" />
+            </span>
+          </div>
+        </div>
+      </Link>
     </article>
   )
 }

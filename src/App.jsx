@@ -13,6 +13,7 @@ import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
 import BlogListPage from './pages/BlogListPage'
 import BlogArticlePage from './pages/BlogArticlePage'
+import BlogLayout from './components/blog/BlogLayout'
 
 const NewSiteApp = lazy(() => import('./new-site/NewSiteApp'))
 
@@ -104,18 +105,16 @@ function OldSiteShell() {
   )
 }
 
-/** Existing Nunnarivu.ai Blog pages at /blogs and /blogs/:slug (no old-site Preloader) */
+/** Redesigned Nunnarivu.ai Blog pages at /blogs and /blogs/:slug (no header, no hamburger, simplified New-Site footer) */
 function BlogShell() {
   return (
-    <LenisProvider>
-      <LegacyChrome showPreloader={false}>
-        <Routes>
-          <Route index element={<BlogListPage />} />
-          <Route path=":slug" element={<BlogArticlePage />} />
-          <Route path="*" element={<Navigate to="/blogs" replace />} />
-        </Routes>
-      </LegacyChrome>
-    </LenisProvider>
+    <BlogLayout>
+      <Routes>
+        <Route index element={<BlogListPage />} />
+        <Route path=":slug" element={<BlogArticlePage />} />
+        <Route path="*" element={<Navigate to="/blogs" replace />} />
+      </Routes>
+    </BlogLayout>
   )
 }
 
