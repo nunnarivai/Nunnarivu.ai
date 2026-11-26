@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
+import { BrandLogo } from '../../components/common/BrandLogo';
 import {
   VERIFIED_SOCIAL_LINKS,
   NUNNARIVU_OFFICE_ADDRESS_LINES,
@@ -69,14 +70,8 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
         <div className={`${styles.topSection} ${isBlogVariant ? styles.topSectionBlog : ''}`}>
           {/* SECTION 1 — BRAND & OFFICE ADDRESSES */}
           <div className={styles.brandCol}>
-            <Link to="/" className={styles.brandMarkRow}>
-              <img
-                src="/assets/images/logo-emblem.png"
-                alt="Nunnarivu.ai"
-                className={styles.brandEmblem}
-                loading="lazy"
-              />
-              <span className={styles.brandName}>Nunnarivu.ai</span>
+            <Link to="/" className={styles.brandMarkRow} aria-label="Nunnarivu.ai home">
+              <BrandLogo variant="footer" />
             </Link>
 
             <div className={`${styles.officesList} ${isBlogVariant ? styles.officesListBlog : ''}`}>

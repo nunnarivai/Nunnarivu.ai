@@ -479,7 +479,18 @@ video.galleryMedia {
 }
 
 @media (max-width: 600px) {
-  .brandMini {
-    display: none;
+  .topBarInner {
+    gap: 10px;
+  }
+
+  .backLink {
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .topCta {
+    height: 32px;
+    padding-inline: 11px;
+    font-size: 11.5px;
   }
 }

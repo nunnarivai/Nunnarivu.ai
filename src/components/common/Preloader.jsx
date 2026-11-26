@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { useLenis } from '../../contexts/LenisContext'
+import BrandLogo from './BrandLogo'
 
 export default function Preloader({ onComplete }) {
   const preRef = useRef(null)
@@ -68,14 +69,7 @@ export default function Preloader({ onComplete }) {
   return (
     <div className="preloader" ref={preRef} aria-hidden="true">
       <div className="preloader__mark">
-        <img
-          className="preloader__emblem"
-          src="/assets/images/logo-emblem.png"
-          alt=""
-          width="490"
-          height="546"
-          aria-hidden="true"
-        />
+        <BrandLogo variant="preloader" decorative loading="eager" />
         <span className="preloader__text">
           <span className="preloader__word">Nunnarivu</span>
           <span className="preloader__dot">.ai</span>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { useLenis } from '../../contexts/LenisContext'
+import BrandLogo from '../common/BrandLogo'
 
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789×'
 
@@ -90,8 +91,7 @@ export default function Nav({ menuOpen, onMenuToggle }) {
     <header className={navClass} id="nav">
       <div className="nav__inner">
         <Link className="nav__logo" to="/" aria-label="Nunnarivu.ai home">
-          <img className="nav__logo-mark" src="/assets/images/logo-emblem.png" alt="" width="490" height="546" />
-          <span className="nav__logo-word">Nunnarivu<span className="nav__logo-ext">.ai</span></span>
+          <BrandLogo variant="header" loading="eager" />
         </Link>
 
         <nav className="nav__links" aria-label="Primary">

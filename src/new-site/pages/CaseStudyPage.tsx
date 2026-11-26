@@ -8,6 +8,7 @@ import {
 import type { ContactServiceOption } from '../data/enterpriseData';
 import { usePageMeta } from '../../hooks/usePageMeta';
 import { MegaFooter } from '../sections/MegaFooter';
+import { BrandLogo } from '../../components/common/BrandLogo';
 import styles from './CaseStudyPage.module.css';
 
 interface CaseStudyPageProps {
@@ -172,9 +173,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ onSelectService })
             <span>Back to Our Work</span>
           </Link>
 
-          <Link to="/" className={styles.brandMini}>
-            <img src="/assets/images/logo-emblem.png" alt="" className={styles.brandLogoImg} />
-            <span>Nunnarivu.ai</span>
+          <Link to="/" className={styles.brandMini} aria-label="Nunnarivu.ai home">
+            <BrandLogo variant="header" loading="eager" />
           </Link>
 
           <button type="button" className={styles.topCta} onClick={handleStartProject}>

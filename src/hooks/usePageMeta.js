@@ -68,7 +68,7 @@ export function usePageMeta({
           name: SITE_NAME,
           logo: {
             '@type': 'ImageObject',
-            url: 'https://www.nunnarivu.ai/assets/images/logo-full.png',
+            url: 'https://www.nunnarivu.ai/assets/brand/nunnarivu-logo-symbol.png',
           },
         },
         ...article,

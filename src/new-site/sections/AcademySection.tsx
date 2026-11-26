@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { BrandLogo } from '../../components/common/BrandLogo';
 import styles from './AcademySection.module.css';
 
 export const AcademySection: React.FC = () => {
@@ -14,12 +15,7 @@ export const AcademySection: React.FC = () => {
         <div className={styles.bannerCard} data-reveal>
           <div className={styles.leftContent}>
             <div className={styles.brandRow}>
-              <img
-                src="/assets/images/logo-emblem.png"
-                alt=""
-                className={styles.brandLogoImg}
-                loading="lazy"
-              />
+              <BrandLogo variant="academy" decorative />
               <span>NUNNARIVU.AI ACADEMY</span>
             </div>
 

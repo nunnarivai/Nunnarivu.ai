@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { SECURITY_PRACTICE_ITEMS, type ContactServiceOption } from '../data/enterpriseData';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { BrandLogo } from '../../components/common/BrandLogo';
 import styles from './SecuritySection.module.css';
 
 interface SecuritySectionProps {
@@ -67,12 +68,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onRequestServi
             <div className={styles.provisioningStage}>
               <div className={styles.ownerNode}>
                 <span className={styles.memberName}>
-                  <img
-                    src="/assets/images/logo-emblem.png"
-                    alt=""
-                    className={styles.miniEmblem}
-                    loading="lazy"
-                  />
+                  <BrandLogo variant="compact" decorative />
                   Nunnarivu Workspace
                 </span>
                 <span className={styles.roleGreen}>Project Lead</span>
@@ -350,12 +346,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onRequestServi
 
               <div className={styles.accessFooterCard}>
                 <div className={styles.accessBrandRow}>
-                  <img
-                    src="/assets/images/logo-emblem.png"
-                    alt=""
-                    className={styles.miniEmblem}
-                    loading="lazy"
-                  />
+                  <BrandLogo variant="compact" decorative />
                   <div>
                     <div className={styles.ssoBrand}>Nunnarivu.ai Workspace</div>
                     <div className={styles.ssoSub}>Dedicated enterprise onboarding</div>

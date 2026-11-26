@@ -1,6 +1,7 @@
 
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useLenis } from '../../contexts/LenisContext'
+import BrandLogo from '../common/BrandLogo'
 
 export default function Footer() {
   const location = useLocation()
@@ -38,14 +39,9 @@ export default function Footer() {
 
         {/* Brand */}
         <div className="footer__brand">
-          <img
-            className="footer__logo"
-            src="/assets/images/logo-full.png"
-            alt="Nunnarivu.ai — Orchestrating Artificial into Ficial Art"
-            width="865"
-            height="746"
-            loading="lazy"
-          />
+          <Link to="/" aria-label="Nunnarivu.ai home" style={{ display: 'inline-flex', marginBottom: '12px' }}>
+            <BrandLogo variant="footer" />
+          </Link>
           <p>
             AI-first company. We build businesses, media and products
             with artificial intelligence.

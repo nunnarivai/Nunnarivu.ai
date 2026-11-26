@@ -1,0 +1,55 @@
+.picture {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.logoImg {
+  display: block;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  aspect-ratio: 313 / 414;
+  filter: drop-shadow(0 2px 6px rgba(13, 8, 22, 0.22));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.header {
+  height: 40px;
+}
+
+.footer {
+  height: 58px;
+}
+
+.academy {
+  height: 32px;
+}
+
+.compact {
+  height: 24px;
+}
+
+.preloader {
+  height: clamp(112px, 16vw, 152px);
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 34px;
+  }
+
+  .footer {
+    height: 50px;
+  }
+
+  .academy {
+    height: 28px;
+  }
+
+  .compact {
+    height: 22px;
+  }
+}
