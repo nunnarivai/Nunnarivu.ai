@@ -35,7 +35,7 @@ export const AcademySection: React.FC = () => {
                 projects—from your first idea to professional results.
               </p>
 
-              <Link to="/new-site/academy" className={styles.ctaBtn}>
+              <Link to="/academy" className={styles.ctaBtn}>
                 <span>Explore Academy</span>
                 <ChevronRight size={15} />
               </Link>

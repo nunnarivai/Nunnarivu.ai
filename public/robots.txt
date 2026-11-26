@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /old-site
+
+Sitemap: https://www.nunnarivu.ai/sitemap.xml

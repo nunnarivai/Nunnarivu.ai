@@ -411,18 +411,132 @@
   z-index: 1;
 }
 
-@media (max-width: 960px) {
-  .workflowTabRow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.workflowDesktop {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.workflowMobileAccordion {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordionItem {
+  border-radius: var(--radius-lg);
+  background: var(--light-card);
+  border: 1.5px solid var(--light-border);
+  overflow: hidden;
+  box-shadow: var(--light-shadow);
+  transition: border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.accordionItemActive {
+  border-color: var(--light-accent);
+  box-shadow: 0 10px 26px rgba(98, 80, 216, 0.14);
+}
+
+.accordionTrigger {
+  position: relative;
+  width: 100%;
+  padding: 15px 16px 17px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  color: var(--light-text-secondary);
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+.accordionTriggerActive {
+  background: var(--light-card-tinted);
+  color: var(--light-text-primary);
+}
+
+.accordionTriggerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.accordionLabel {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+
+.accordionChevron {
+  color: var(--light-accent);
+  flex-shrink: 0;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordionChevronOpen {
+  transform: rotate(180deg);
+}
+
+.accordionBodyWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.36s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
+}
+
+.accordionBodyWrapOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.accordionBodyInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.accordionContent {
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 1px solid var(--light-border);
+}
+
+.accordionPreviewFrame {
+  width: 100%;
+  margin-top: 4px;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #171122;
+  border: 1px solid var(--light-border);
+}
+
+.accordionPreviewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .workflowDesktop {
+    display: none;
   }
 
-  .workflowStageCard {
-    grid-template-columns: 1fr;
+  .workflowMobileAccordion {
+    display: flex;
   }
 }
 
-@media (max-width: 520px) {
-  .workflowTabRow {
-    grid-template-columns: 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .accordionBodyWrap,
+  .accordionChevron,
+  .workflowPreviewImg {
+    transition: none;
   }
 }

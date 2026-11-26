@@ -16,8 +16,10 @@ export interface PortfolioCaseStudy {
   serviceType: ContactServiceOption;
   summary: string;
   thumbnail: string;
+  cardPreviewVideo?: string;
   heroImage: string;
   heroVideo?: string;
+  heroAspect?: 'landscape' | 'portrait';
   clientLabel: string;
   year: string;
   overview: string;
@@ -33,11 +35,81 @@ export interface PortfolioCaseStudy {
 }
 
 /**
- * 12 Verified Nunnarivu.ai Creative Productions backed directly by real media
+ * 10 Verified Nunnarivu.ai Creative Productions backed directly by real media
  * from the verified Nunnarivu production archive (Footages for site.zip) and
- * existing repository assets. Every card uses a distinct poster image (zero repetition).
+ * existing repository assets. Luxury Jewelry leads the portfolio carousel;
+ * Cosmic Motion has been removed from public listings.
  */
 export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
+  {
+    slug: 'luxury-jewelry-editorial-fashion',
+    title: 'Luxury Jewelry & Editorial Fashion Continuity',
+    shortTitle: 'LUXURY & FASHION',
+    category: 'Marketing Studio',
+    serviceType: 'AI Video Generation',
+    summary:
+      'Luxury heritage gold, pearl, ruby, and diamond jewelry commercial advertisement paired with high-craft macro stills and bridal lookbooks.',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-preview-v3.mp4',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
+    clientLabel: 'Nunnarivu.ai Commercial Visuals',
+    year: '2026',
+    overview:
+      'A complete 30-second luxury South Indian heritage jewelry commercial film and commercial look-development showcase — featuring gold-and-pearl necklaces draped on emerald and crimson silk, diamond drop earrings, carved antique gold bangles, and warm temple-lit bridal suites.',
+    problem:
+      'Luxury jewelry and heritage retail brands demand razor-sharp metallic specular reflections, gemstone refraction, rich silk textures, and cinematic macro motion without costly physical vault shoots and studio logistics.',
+    objective:
+      'Deliver a full broadcast-ready luxury jewelry commercial advertisement alongside studio-grade macro stills and editorial bridal key art.',
+    creativeStrategy:
+      'Macro camera glides reveal gold filigree, pearl luster, and crimson/emerald silk weaves under warm directional lighting, anchored by coordinated editorial jewelry stills and lookbook frames.',
+    toolsAndWorkflow: [
+      '4K-sourced 30-second luxury jewelry commercial cinematography with synchronized audio',
+      'Macro metallic specular & gemstone highlight look-development across gold, pearls, and rubies',
+      'High-resolution commercial stills & editorial bridal jewelry photography',
+      'Browser-optimized 1080p H.264 full master and lightweight muted carousel preview',
+    ],
+    deliverables: [
+      'Complete 30-second Luxury Heritage Jewelry commercial film (1920×1080 H.264 master with stereo audio)',
+      'Muted carousel preview loop and high-resolution crimson-velvet bridal suite poster',
+      'Emerald-velvet necklace, diamond solitaire ring, and bridal editorial key-art suite',
+    ],
+    gallery: [
+      {
+        type: 'video',
+        src: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+        alt: 'Full 30-second luxury South Indian heritage gold jewelry commercial advertisement',
+        caption: 'Complete 30-second Luxury Heritage Jewelry commercial advertisement (1080p with audio)',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-emerald-v2.webp',
+        alt: 'Heritage South Indian gold necklace displayed on deep emerald velvet',
+        caption: 'Commercial still: heritage gold necklace on emerald velvet',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
+        alt: 'Macro gold and solitaire diamond ring on black velvet',
+        caption: 'Sculptural gold & diamond ring macro commercial visual',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-bridal-v2.webp',
+        alt: 'Bridal portrait showcasing heritage gold necklace in dramatic light',
+        caption: 'Editorial bridal jewelry portrait in warm studio key light',
+      },
+    ],
+    relatedSlugs: [
+      'character-continuity-studio',
+      'bizznet-commercial-ad',
+      'chola-maritime-heritage-film',
+    ],
+    seoTitle: 'Luxury Jewelry & Editorial Fashion Continuity — Portfolio · Nunnarivu.ai',
+    seoDescription:
+      'Watch Nunnarivu.ai’s luxury gold jewelry commercial advertisement and explore its macro jewelry visuals and bridal lookbook.',
+  },
   {
     slug: 'chola-maritime-heritage-film',
     title: 'Chola Maritime & Tamil Heritage Cinematic Film',
@@ -47,6 +119,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Full-length widescreen heritage cinema weaving Chola naval fleets, golden temple architecture, riverlands, and foundry craftsmanship.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-chola-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-full-v2.mp4',
     clientLabel: 'Nunnarivu.ai Cinema Production',
@@ -126,6 +199,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Clean, studio-paced 40-second digital product commercial demonstrating product storytelling and broadcast-ready motion finishing.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-bizznet-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-bizznet-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-bizznet-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-bizznet-ad-v2.mp4',
     clientLabel: 'Bizznet Commercial Production',
@@ -181,6 +255,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Atmospheric black-and-white narrative classroom film integrating SK Super TMT Steel clock iconography with expressive student performances.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-sk-exam-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-sk-exam-student-v2.mp4',
     clientLabel: 'SK Super TMT Steel Creative Film',
@@ -261,6 +336,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Period action sequences featuring a rugged mentor, wooden Wing Chun dummy, and young trainees practicing inside a sunlit dusty courtyard.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
     clientLabel: 'Nunnarivu.ai Period Action Study',
@@ -332,38 +408,47 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     category: 'Vertical Narrative Series',
     serviceType: 'AI Movie Creation',
     summary:
-      'Multi-era vertical 9:16 family cricket series tracking a Chennai living room, iconic #7 jersey, Kharagpur station, and roaring yellow stadium stands.',
+      'Complete 19-scene vertical 9:16 family cricket film tracing a father and son from a 2011 Chennai living room and iconic #7 jersey to stadium nights and a 2026 reunion.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/img-cricket-stadium-v2.webp',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/img-cricket-stadium-v2.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-cricket-crowd-v2.mp4',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-cricket-preview-v3.mp4',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-cricket-full-story-v3.webp',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-cricket-full-story-v3.mp4',
+    heroAspect: 'portrait',
     clientLabel: 'Nunnarivu.ai Vertical Storytelling',
     year: '2026',
     overview:
-      'An expansive vertical-first narrative production spanning 20 motion sequences and nearly 30 continuity boards — following a father and son’s shared cricket ritual from a warm 2011 Chennai living room to 2026 stadium nights.',
+      'A complete 1m 54s vertical-first 9:16 narrative production assembled from 19 confirmed sequential story scenes and nearly 30 continuity boards — following a father and son’s shared cricket bond across 2011 living-room celebrations, campus matches, Kharagpur Station, roaring yellow stadium nights, and their 2026 homecoming reunion.',
     problem:
       'Telling a multi-decade emotional story across vertical mobile video requires strict continuity of aging props, living-room architecture, jersey wear, and multi-generational faces.',
     objective:
-      'Build an exhaustive visual bible (2011 vs 2026 rooms, fresh vs worn #7 jerseys, Kharagpur station plates, vintage household props, and 5-angle cast sheets) driving 20 cohesive 9:16 story clips.',
+      'Build an exhaustive visual bible (2011 vs 2026 rooms, fresh vs worn #7 jerseys, Kharagpur station plates, vintage household props, and 5-angle cast sheets) driving a complete, continuous 9:16 narrative film.',
     creativeStrategy:
-      'Every era change was engineered deliberately: comparing sofa fabric wear, CRT-to-modern TV sets, fresh-to-faded yellow jerseys, and multi-angle actor sheets before generating the vertical sequences.',
+      'Every era change was engineered deliberately: comparing sofa fabric wear, CRT-to-modern TV sets, fresh-to-faded yellow jerseys, and multi-angle actor sheets before generating and sequencing the complete vertical story arc.',
     toolsAndWorkflow: [
       '2011 vs 2026 interior continuity boards (Chennai living room & furniture aging)',
       'Costume & prop texture sheets (fresh vs worn #7 jerseys, cricket gear, household objects)',
       'Multi-angle cast turnaround sheets across generations',
-      'Vertical 9:16 mobile cinema generation across home, station, and stadium scenes',
+      'Full 19-scene chronological 9:16 portrait film assembly preserving original vertical framing',
     ],
     deliverables: [
-      '20 vertical 9:16 story sequences (featured stadium & family highlights included)',
-      'Comprehensive location, prop, and costume continuity lookbook',
-      'Multi-generational character reference library',
+      'Complete 114-second (1m 54s) 9:16 vertical narrative film from 2026 opening through 2011 flashbacks, stadium arc, and 2026 reunion ending',
+      'Short vertical teaser clips for highlight reels',
+      'Comprehensive location, prop, costume, and multi-generational character continuity lookbook',
     ],
     gallery: [
+      {
+        type: 'video',
+        src: '/assets/new-site/enterprise/media-v2/videos/vid-cricket-crowd-v2.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/img-cricket-stadium-v2.webp',
+        alt: 'Vertical 9:16 Chennai night stadium crowd highlight teaser',
+        caption: 'Short portfolio teaser: roaring yellow stadium night clip (9:16)',
+      },
       {
         type: 'video',
         src: '/assets/new-site/enterprise/media-v2/videos/vid-cricket-family-v2.mp4',
         poster: '/assets/new-site/enterprise/media-v2/images/img-cricket-living-v2.webp',
         alt: 'Emotional father and son cricket celebration in vertical 9:16 format',
-        caption: 'Vertical 9:16 family celebration clip',
+        caption: 'Vertical 9:16 2011 father & son living-room celebration excerpt',
       },
       {
         type: 'image',
@@ -414,6 +499,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Original 48-second Nunnarivu.ai cinematic showcase uniting Krishna and Arjuna’s timeless dialogue with the discipline of AI Prompt Engineering.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-mahabharata-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v2.mp4',
     clientLabel: 'Nunnarivu.ai Academy Showcase',
@@ -469,6 +555,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     summary:
       'Nine-clip narrative series capturing students building electronic prototypes, demonstrating textile-defect AI on factory looms, and working with mentors.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-student-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-student-prototype-v2.mp4',
     clientLabel: 'Nunnarivu.ai Innovation & Mentorship',
@@ -523,161 +610,46 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
       'Watch Nunnarivu.ai’s generative narrative series on student engineering prototypes, factory AI inspection, and mentorship.',
   },
   {
-    slug: 'luxury-jewelry-editorial-fashion',
-    title: 'Luxury Jewelry & Editorial Fashion Continuity',
-    shortTitle: 'LUXURY & FASHION',
-    category: 'Marketing Studio',
-    serviceType: 'AI Image Generation',
-    summary:
-      'High-craft commercial gold jewelry macro stills paired with a five-pose fashion character series seamlessly translated into interior motion.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/img-jewelry-emerald-v2.webp',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/img-jewelry-emerald-v2.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-fashion-continuity-v2.mp4',
-    clientLabel: 'Nunnarivu.ai Commercial Visuals',
-    year: '2026',
-    overview:
-      'A commercial look-development showcase pairing opulent South Indian heritage jewelry photography with multi-angle studio fashion portraits that carry exact wardrobe and face continuity into live motion.',
-    problem:
-      'Luxury retail and apparel brands demand razor-sharp metallic specular detail, fabric texture realism, and repeatable models across lookbooks and campaign videos.',
-    objective:
-      'Demonstrate studio-grade jewelry macro lighting and seamless still-to-video fashion model continuity.',
-    creativeStrategy:
-      'Macro jewelry visuals were lit against deep emerald and black velvet to emphasize gold filigree, while a five-pose studio coat lookbook anchored an animated warm-interior video sequence.',
-    toolsAndWorkflow: [
-      'High-resolution studio macro product generation (jewelry & gemstones)',
-      '5-frame editorial model lookbook locking coat, scarf, and facial identity',
-      'Direct image-to-video continuity bringing the studio model into an interior scene',
-      'Multi-ratio framing ready for billboards, lookbooks, and vertical ads',
-    ],
-    deliverables: [
-      'Luxury jewelry macro & bridal editorial key-art suite',
-      '5-pose fashion lookbook + 12-second character continuity motion clip',
-    ],
-    gallery: [
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
-        alt: 'Macro gold and solitaire diamond ring on black velvet',
-        caption: 'Sculptural gold & diamond ring macro commercial visual',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-bridal-v2.webp',
-        alt: 'Bridal portrait showcasing heritage gold necklace in dramatic light',
-        caption: 'Editorial bridal jewelry portrait in warm studio key light',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-fashion-coat-01-v2.webp',
-        alt: 'Editorial fashion model in brown overcoat and cream scarf pose 1',
-        caption: 'Fashion lookbook reference frame 01',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-fashion-coat-03-v2.webp',
-        alt: 'Editorial fashion model in brown overcoat and cream scarf pose 3',
-        caption: 'Fashion lookbook reference frame 02 locking coat & scarf identity',
-      },
-    ],
-    relatedSlugs: [
-      'character-continuity-studio',
-      'bizznet-commercial-ad',
-      'cosmic-sacred-geometry-visuals',
-    ],
-    seoTitle: 'Luxury Jewelry & Editorial Fashion Continuity — Portfolio · Nunnarivu.ai',
-    seoDescription:
-      'Explore Nunnarivu.ai’s luxury gold jewelry commercial visuals and still-to-video editorial fashion continuity.',
-  },
-  {
-    slug: 'cosmic-sacred-geometry-visuals',
-    title: 'Cosmic & Sacred Geometry Motion Art',
-    shortTitle: 'COSMIC MOTION',
-    category: 'Generative Motion Art',
-    serviceType: 'AI Video Generation',
-    summary:
-      'Four 20-second luminous motion studies exploring cosmic nebulae, sacred concentric geometry, golden stardust, and blooming lotus light.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-cosmic-geometry-v2.webp',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-cosmic-geometry-v2.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-cosmic-geometry-v2.mp4',
-    clientLabel: 'Nunnarivu.ai Visual R&D',
-    year: '2026',
-    overview:
-      'A suite of atmospheric generative motion backgrounds and title-sequence studies crafted for keynote openers, brand reveals, and contemplative visual storytelling.',
-    problem:
-      'Bespoke particle simulations and abstract 3D title sequences typically require specialized Houdini or Cinema 4D pipelines with long render turnaround.',
-    objective:
-      'Produce fluid, hypnotic 24fps motion textures suitable for title sequences, stage backdrops, and brand identity films.',
-    creativeStrategy:
-      'We directed controlled luminous palettes — chalk-drawn concentric cosmos, golden particle bursts, and softly unfolding lotus petals — for seamless looping and editorial overlay.',
-    toolsAndWorkflow: [
-      'Abstract generative motion direction across 4 distinct visual moods',
-      '24fps temporal smoothness and dark-field contrast calibration',
-      'Lightweight H.264 web loops optimized for instant streaming',
-    ],
-    deliverables: [
-      'Concentric Sacred Geometry & Golden Lotus motion loops',
-      'High-resolution poster stills for keynote and title-card integration',
-    ],
-    gallery: [
-      {
-        type: 'video',
-        src: '/assets/new-site/enterprise/media-v2/videos/vid-sacred-lotus-v2.mp4',
-        poster: '/assets/new-site/enterprise/media-v2/images/poster-sacred-lotus-v2.webp',
-        alt: 'Luminous golden lotus blooming motion art',
-        caption: 'Luminous golden lotus bloom motion sequence',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/poster-cosmic-geometry-v2.webp',
-        alt: 'Concentric sacred geometry spiral on dark textured field',
-        caption: 'Sacred concentric geometry key frame',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/poster-sacred-lotus-v2.webp',
-        alt: 'Golden backlit lotus bloom still',
-        caption: 'Golden lotus light study',
-      },
-    ],
-    relatedSlugs: [
-      'chola-maritime-heritage-film',
-      'mahabharata-ai-prompt-engineering',
-      'luxury-jewelry-editorial-fashion',
-    ],
-    seoTitle: 'Cosmic & Sacred Geometry Motion Art — Portfolio · Nunnarivu.ai',
-    seoDescription:
-      'Watch Nunnarivu.ai’s generative cosmic geometry and luminous golden lotus motion studies.',
-  },
-  {
     slug: 'agriculture-drone-heritage',
     title: 'Precision Agriculture & South Indian Landscape Visuals',
     shortTitle: 'AGRI-DRONE & LAND',
     category: 'Brand & Concept Visuals',
-    serviceType: 'AI Image Generation',
+    serviceType: 'AI Video Generation',
     summary:
-      'Widescreen generative imagery uniting modern agricultural spraying drones over sunrise paddy fields with misty South Indian riverlands.',
+      'Widescreen generative film and visual plates uniting precision agricultural spraying drones over golden sunrise paddy fields with South Indian riverlands and twilight rural life.',
     thumbnail: '/assets/new-site/enterprise/media-v2/images/img-agri-drone-v2.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-agri-drone-preview-v3.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/img-agri-drone-v2.webp',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-agri-drone-land-v3.mp4',
     clientLabel: 'Nunnarivu.ai Visual Direction',
     year: '2026',
     overview:
-      'A widescreen 16:9 environmental visual series showcasing how modern technology — such as precision agricultural drones — harmonizes with lush South Indian landscapes and twilight rural life.',
+      'A widescreen 16:9 generative film sequence and environmental still suite showcasing how precision agricultural spraying drones harmonize with golden sunrise paddy fields, misty South Indian riverlands, and twilight rural innovation.',
     problem:
-      'Agri-tech and regional enterprise brands often lack high-craft, culturally authentic widescreen photography taken during peak golden-hour atmospheric conditions.',
+      'Agri-tech and regional enterprise brands often lack high-craft, culturally authentic widescreen aerial cinematography and photography captured during peak golden-hour atmospheric conditions.',
     objective:
-      'Generate crisp, realistic 16:9 landscape plates with accurate lighting, water reflection physics, and regional architectural detail.',
+      'Deliver fluid widescreen spraying-drone motion footage alongside crisp 16:9 landscape plates with accurate sunrise lighting, mist dispersion, and regional architectural detail.',
     creativeStrategy:
-      'Pair misty sunrise atmospheric depth with crisp foreground technological subjects (spraying drones, laptops by twilight courtyard lamps) for natural editorial believability.',
+      'Pair continuous golden-hour aerial drone sweeps over flooded paddy fields with smooth transitions into twilight rural courtyards and misty riverland plates for natural editorial believability.',
     toolsAndWorkflow: [
-      'Widescreen 16:9 golden-hour landscape & atmospheric direction',
-      'Realistic water mist, droplet physics, and twilight lighting balance',
-      'WebP delivery optimized for landing pages and campaign key art',
+      'Directed 4K-sourced widescreen aerial drone motion sequence over sunrise paddy fields',
+      'Widescreen 16:9 golden-hour landscape & atmospheric mist direction',
+      'Realistic spray dispersion, water reflection physics, and twilight lighting transitions',
+      'Web-optimized H.264 video master and WebP campaign key art',
     ],
     deliverables: [
+      '21-second Precision Agriculture Drone & Twilight Rural Innovation widescreen video sequence with audio',
       'Golden sunrise agricultural spraying drone hero plate',
       'Misty riverlands, dawn crown splash, and twilight courtyard study suite',
     ],
     gallery: [
+      {
+        type: 'video',
+        src: '/assets/new-site/enterprise/media-v2/videos/vid-agri-drone-land-v3.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/img-agri-drone-v2.webp',
+        alt: 'Agricultural spraying drone flying across golden sunrise rice fields into twilight courtyard',
+        caption: 'Precision agricultural spraying drone & rural twilight innovation sequence (16:9)',
+      },
       {
         type: 'image',
         src: '/assets/new-site/enterprise/media-v2/images/img-agri-drone-v2.webp',
@@ -791,42 +763,43 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
   },
   {
     slug: 'nunnarivu-original-ai-short-film',
-    title: 'Nunnarivu Original CinemaScope AI Short Film',
+    title: 'Nunnarivu.ai — Official Introduction & Entry Film',
     shortTitle: 'NUNNARIVU FILM',
     category: 'AI Movie Creation',
     serviceType: 'AI Movie Creation',
     summary:
-      'Original widescreen 2.39:1 CinemaScope showcase demonstrating Nunnarivu’s six-stage pipeline from Concept wall to Final Frame.',
-    thumbnail: '/assets/images/Final frame.jpeg',
-    heroImage: '/assets/images/Final frame.jpeg',
-    heroVideo: '/assets/new-site/enterprise/videos/movie-creation-demo.mp4',
+      'Official 2-minute Nunnarivu.ai entry film tracing the journey from cosmic spark, nature, and Tamil heritage craft to AI amplification and the Nunnarivu.ai emblem reveal.',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-nunnarivu-film-v3.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-nunnarivu-preview-v3.mp4',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-nunnarivu-film-v3.webp',
+    heroVideo: '/assets/videos/Nunnarivu_Full_Film.mp4',
     clientLabel: 'Nunnarivu.ai Flagship Studio',
     year: '2026',
     overview:
-      'Nunnarivu.ai’s original widescreen generative cinema showcase directed and finished in-house — proving broadcast-grade architectural scale, atmospheric mist, and theatrical color grading.',
+      'Nunnarivu.ai’s flagship two-minute entry and introduction film directed and finished in-house — weaving cosmic origin patterns, blooming nature, Tamil palm-leaf scripts, classical dance, handloom weaving, and golden neural geometry into the brand’s core philosophy: “Turning the artificial into art.”',
     problem:
-      'High-concept cinema visuals traditionally require physical location scouting, large lighting crews, and weeks of VFX post-production.',
+      'Communicating an AI-first studio’s cultural roots, artistic craft, and technological ambition in one cohesive introductory film requires seamless visual transitions across worlds and eras.',
     objective:
-      'Demonstrate a repeatable six-stage generative filmmaking pipeline — Concept, Script, Generative World, Characters, Camera, and Final Frame — on a complete widescreen production.',
+      'Present the complete, full-soundtrack Nunnarivu.ai entry film alongside the six-stage generative filmmaking pipeline — Concept, Script, Generative World, Characters, Camera, and Final Frame.',
     creativeStrategy:
-      'Every sequence followed live-action discipline: locking visual moodboards first, translating story beats into a shot list, establishing monumental concrete-and-waterfall architecture, and finishing in 2.39:1 CinemaScope.',
+      'Pair poetic voice narration and custom orchestral sound design with seamless generative transitions from primordial spark to living heritage and modern intelligence, culminating in the animated Nunnarivu.ai logo reveal.',
     toolsAndWorkflow: [
+      'Complete 127-second 1080p brand introduction film with synchronized narration and score',
       'Six-stage Nunnarivu generative film pipeline (Concept → Final Frame)',
-      'Architectural world lock and atmospheric depth consistency',
-      '2.39:1 CinemaScope framing & theatrical color grading',
-      'Synchronized sound design and master H.264 finishing',
+      'Seamless cross-era visual continuity from nature and Tamil heritage to neural light',
+      'Theatrical widescreen framing, color grading, and master H.264 finishing',
     ],
     deliverables: [
-      'Full-length 1920×1080 widescreen AI film master',
+      'Complete 2:07 Nunnarivu.ai Official Entry Film (1920×1080 H.264 master with full audio)',
       'Six-stage lookbook stills spanning Concept, Script, World, Characters, Camera, and Final Frame',
     ],
     gallery: [
       {
         type: 'video',
-        src: '/assets/new-site/enterprise/videos/movie-creation-demo.mp4',
-        poster: '/assets/new-site/enterprise/posters/movie-creation-poster.jpg',
-        alt: 'Nunnarivu Original AI Short Film excerpt',
-        caption: 'Widescreen sequence from the Nunnarivu Original AI Short Film',
+        src: '/assets/videos/Nunnarivu_Full_Film.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/poster-nunnarivu-film-v3.webp',
+        alt: 'Nunnarivu.ai Official Entry & Introduction Film',
+        caption: 'Complete 2:07 Nunnarivu.ai entry film with narration and soundscape',
       },
       {
         type: 'image',
@@ -852,9 +825,9 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
       'mahabharata-ai-prompt-engineering',
       'sk-super-tmt-exam-film',
     ],
-    seoTitle: 'Nunnarivu Original AI Short Film — Portfolio · Nunnarivu.ai',
+    seoTitle: 'Nunnarivu.ai Official Entry Film — Portfolio · Nunnarivu.ai',
     seoDescription:
-      'Watch Nunnarivu.ai’s original CinemaScope AI short film and trace its six-stage generative production pipeline.',
+      'Watch Nunnarivu.ai’s official 2-minute introductory AI film and explore its six-stage generative production pipeline.',
   },
 ];
 

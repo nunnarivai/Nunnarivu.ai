@@ -33,7 +33,7 @@ export default function Nav({ menuOpen, onMenuToggle }) {
     ? window.matchMedia('(hover: hover) and (pointer: fine)').matches
     : false
 
-  const isHome = location.pathname === '/'
+  const isHome = location.pathname === '/old-site' || location.pathname === '/old-site/'
   const isBlog = location.pathname.startsWith('/blogs')
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function Nav({ menuOpen, onMenuToggle }) {
         else el.scrollIntoView({ behavior: 'smooth' })
       }
     } else {
-      navigate(`/${hash}`)
+      navigate(`/old-site${hash}`)
     }
   }
 

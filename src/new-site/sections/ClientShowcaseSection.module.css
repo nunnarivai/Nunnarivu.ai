@@ -92,21 +92,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.65s var(--ease-out-expo);
+  display: block;
+  transition: transform 0.65s var(--ease-out-expo), filter 0.35s ease;
 }
 
 .card:hover .posterImg {
-  transform: scale(1.06);
+  transform: scale(1.05);
+  filter: brightness(1.08);
 }
 
 .posterScrim {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(16, 13, 24, 0.5) 0%,
-    rgba(18, 15, 28, 0.34) 45%,
-    rgba(16, 13, 24, 0.92) 100%
+    rgba(16, 12, 26, 0.56) 0%,
+    rgba(18, 14, 30, 0.36) 42%,
+    rgba(16, 12, 26, 0.92) 100%
   );
 }
 
@@ -117,6 +120,43 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+}
+
+.topRightActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.liveDotBadge,
+.fallbackPlayBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(18, 15, 28, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(184, 167, 255, 0.3);
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.liveDotBadgeActive {
+  border-color: rgba(223, 186, 131, 0.55);
+  color: var(--btn-gold);
+}
+
+.fallbackPlayBtn {
+  cursor: pointer;
+  border-color: rgba(223, 186, 131, 0.6);
+  color: var(--btn-gold);
+}
+
+.fallbackPlayBtn:hover {
+  background: var(--btn-gold);
+  color: var(--btn-gold-text);
 }
 
 .categoryTag {

@@ -6,7 +6,7 @@ export default function Footer() {
   const location = useLocation()
   const navigate = useNavigate()
   const lenisRef = useLenis()
-  const isHome = location.pathname === '/'
+  const isHome = location.pathname === '/old-site' || location.pathname === '/old-site/'
 
   const scrollTo = (e, hash) => {
     e.preventDefault()
@@ -21,7 +21,7 @@ export default function Footer() {
         else el.scrollIntoView({ behavior: 'smooth' })
       }
     } else {
-      navigate(`/${hash}`)
+      navigate(`/old-site${hash}`)
     }
   }
 

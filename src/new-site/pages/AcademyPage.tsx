@@ -101,7 +101,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
     description:
       'Explore practical AI learning, creative workflows, and real-world enterprise projects with Nunnarivu.ai Academy.',
     ogImage: 'https://www.nunnarivu.ai/assets/new-site/enterprise/academy/academy-banner.webp',
-    canonical: 'https://www.nunnarivu.ai/new-site/academy',
+    canonical: 'https://www.nunnarivu.ai/academy',
   });
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
 
   const handleEnquire = () => {
     onSelectService?.('Training / Academy');
-    navigate('/new-site#enterprise-contact');
+    navigate('/#enterprise-contact');
   };
 
   const toggleTrackAudio = () => {

@@ -22,20 +22,22 @@ export default function Cursor() {
       cursor.style.opacity = '1'
     }
 
-    gsap.ticker.add(() => {
-      gsap.to(cursor.querySelector('.cursor__dot'), { x: mx, y: my, duration: 0.08, ease: 'none' })
-      gsap.to(ring, { x: mx, y: my, duration: 0.55, ease: 'power3.out' })
-    })
+    const dot = cursor.querySelector('.cursor__dot')
+    const onTick = () => {
+      if (dot) gsap.to(dot, { x: mx, y: my, duration: 0.08, ease: 'none' })
+      if (ring) gsap.to(ring, { x: mx, y: my, duration: 0.55, ease: 'power3.out' })
+    }
+    gsap.ticker.add(onTick)
 
     const onEnter = (e) => {
-      const el = e.target.closest('[data-cursor]')
+      const el = e.target instanceof Element ? e.target.closest('[data-cursor]') : null
       if (!el) return
       const type = el.dataset.cursor
       ring.classList.add(`cursor--${type}`)
       if (type === 'play') label.textContent = 'Play'
     }
     const onLeave = (e) => {
-      const el = e.target.closest('[data-cursor]')
+      const el = e.target instanceof Element ? e.target.closest('[data-cursor]') : null
       if (!el) return
       const type = el.dataset.cursor
       ring.classList.remove(`cursor--${type}`)
@@ -47,6 +49,7 @@ export default function Cursor() {
     document.addEventListener('mouseleave', onLeave, true)
 
     return () => {
+      gsap.ticker.remove(onTick)
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseenter', onEnter, true)
       document.removeEventListener('mouseleave', onLeave, true)

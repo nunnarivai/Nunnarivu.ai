@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import styles from './HeroSection.module.css';
@@ -89,6 +90,9 @@ export const HeroSection: React.FC = () => {
             <a href="#enterprise-contact" className={styles.ctaButton}>
               Contact Sales
             </a>
+            <Link to="/blogs" className={styles.blogsButton} data-testid="hero-blogs-cta">
+              Blogs
+            </Link>
           </div>
         </div>
       </div>

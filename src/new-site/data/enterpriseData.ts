@@ -72,8 +72,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Every project begins by locking visual references, scripts, location boards, and brand guidelines so creative teams and engineers work from one clear blueprint.',
     tags: ['Reference Boards', 'Script & Shot List', 'Scope Lock'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-chennai-room-2011-v2.webp',
-    imageAlt: 'Four-view location reference board from Nunnarivu production',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-01-discover-v3.webp',
+    imageAlt: 'Nunnarivu.ai concept storyboard wall and annotated script pre-production desk',
     ctaLabel: 'Discuss Your Brief',
     contactService: 'Enterprise AI Solutions',
   },
@@ -86,8 +86,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Before motion generation begins, we establish turnaround character sheets, costume details, and architectural worlds so identity stays coherent across every cut.',
     tags: ['Turnaround Sheets', 'Prop & Wardrobe Lock', 'World Geometry'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-char-sheet-v2.webp',
-    imageAlt: 'Multi-angle character expression and turnaround reference sheet',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-02-characters-v3.webp',
+    imageAlt: 'Historical martial arts character turnaround, courtyard world environment, cast and wooden dummy prop continuity board',
     ctaLabel: 'Explore Character Direction',
     contactService: 'AI Image Generation',
   },
@@ -100,8 +100,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Our studio combines directed generative video, photorealistic editorial stills, and broadcast-normalized voice tracks under human art-direction checkpoints.',
     tags: ['Directed Motion', 'Commercial Stills', 'Studio Audio'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
-    imageAlt: 'Directed historical courtyard martial arts scene',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-03-multimodal-v3.webp',
+    imageAlt: 'Multi-modal production workspace combining Nunnarivu AI video frames, generated commercial images, and studio audio waveform',
     ctaLabel: 'Start a Production',
     contactService: 'AI Video Generation',
   },
@@ -114,8 +114,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Final cuts undergo color grading, sound finishing, and aspect-ratio mastering for theatrical 16:9, campaign feeds, and vertical mobile storytelling.',
     tags: ['Color Grading', 'Multi-Ratio Export', 'Human QA Gate'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
-    imageAlt: 'Color-graded maritime heritage film frame',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-04-finishing-v3.webp',
+    imageAlt: 'Color-graded CinemaScope final master paired with camera cinematography and 16:9, 1:1, and 9:16 multi-ratio deliverables',
     ctaLabel: 'Request Enterprise Delivery',
     contactService: 'AI Movie Creation',
   },
@@ -146,10 +146,14 @@ export interface ShowcaseGalleryFrame {
 export interface VoiceSample {
   id: string;
   label: string;
+  styleLabel: string;
   role: string;
   src: string;
+  avatarSrc: string;
+  avatarAlt: string;
   note: string;
   durationHint: string;
+  waveformPeaks: number[];
 }
 
 export interface ShowcaseCategory {
@@ -216,7 +220,6 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         caption: 'Atmospheric generative light and blooming lotus motion sequence',
         videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-sacred-lotus-v2.mp4',
         posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-sacred-lotus-v2.webp',
-        caseStudySlug: 'cosmic-sacred-geometry-visuals',
       },
     ],
   },
@@ -294,35 +297,63 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
     voiceSamples: [
       {
         id: 'archive-reel-01',
-        label: 'Archive Studio Track 01',
-        role: 'Nunnarivu Archive Audio · 1:34 · Click Play to listen',
+        label: 'Studio Sample 01',
+        styleLabel: 'Long-Form Production',
+        role: 'Production Audio Track · Representative portrait',
         src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-01-v2.mp3',
-        note: 'Full-length compressed audio track sourced directly from the Nunnarivu production archive.',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-01.webp',
+        avatarAlt: 'Representative studio presenter portrait for Studio Sample 01',
+        note: 'Full-length studio-balanced audio track from a Nunnarivu.ai production. Select any portrait to switch tracks and listen.',
         durationHint: '1:34',
+        waveformPeaks: [
+          73, 79, 81, 57, 84, 90, 89, 98, 84, 78, 73, 84, 80, 79, 90, 79,
+          94, 94, 93, 91, 74, 73, 78, 81, 78, 79, 84, 93, 80, 88, 91, 76,
+        ],
       },
       {
         id: 'archive-reel-02',
-        label: 'Archive Studio Track 02',
-        role: 'Nunnarivu Archive Audio · 1:25 · Click Play to listen',
+        label: 'Studio Sample 02',
+        styleLabel: 'Creative Storyteller',
+        role: 'Long-Form Narrative Track · Representative portrait',
         src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-02-v2.mp3',
-        note: 'Second long-form production audio sample from the Nunnarivu media archive.',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-02.webp',
+        avatarAlt: 'Representative creative storyteller portrait for Studio Sample 02',
+        note: 'Extended creative audio track engineered for narrative storytelling, brand reels, and studio film cuts.',
         durationHint: '1:25',
+        waveformPeaks: [
+          94, 70, 82, 80, 60, 69, 60, 97, 98, 94, 97, 89, 98, 87, 92, 98,
+          96, 97, 89, 81, 87, 87, 90, 78, 51, 66, 73, 83, 79, 82, 53, 42,
+        ],
       },
       {
         id: 'archive-cue-01',
-        label: 'Short Voice / Audio Cue',
-        role: 'Nunnarivu Archive Cue · 0:04 · Click Play to listen',
+        label: 'Studio Cue',
+        styleLabel: 'Short Brand Sting',
+        role: 'Short Audio Cue · Representative portrait',
         src: '/assets/new-site/enterprise/media-v2/audio/aud-studio-cue-01-v2.mp3',
-        note: 'Concise studio audio cue prepared for rapid campaign and film cut integration.',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-03.webp',
+        avatarAlt: 'Representative presenter portrait for Studio Cue',
+        note: 'Concise studio audio cue prepared for rapid campaign transitions, motion graphics, and digital spots.',
         durationHint: '0:04',
+        waveformPeaks: [
+          28, 78, 47, 56, 25, 28, 67, 84, 88, 30, 46, 30, 18, 18, 18, 51,
+          60, 98, 46, 24, 18, 60, 37, 24, 42, 22, 82, 62, 25, 20, 18, 19,
+        ],
       },
       {
         id: 'studio-narrator',
-        label: 'Enterprise Studio Narrator',
-        role: 'Nunnarivu Studio Demo · Broadcast Normalized',
+        label: 'Enterprise Narrator',
+        styleLabel: 'Broadcast Narration',
+        role: 'Broadcast-Normalized Demo · Representative portrait',
         src: '/assets/new-site/enterprise/audio/nunnarivu-voice-narrator.mp3',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-04.webp',
+        avatarAlt: 'Representative narrator portrait for Enterprise Narrator',
         note: 'Measured documentary-style studio narration demonstrating enterprise brand film delivery.',
         durationHint: '0:14',
+        waveformPeaks: [
+          90, 95, 92, 61, 18, 53, 93, 63, 66, 98, 76, 82, 29, 86, 80, 71,
+          67, 67, 92, 77, 83, 73, 67, 90, 77, 69, 79, 88, 76, 87, 18, 18,
+        ],
       },
     ],
   },
@@ -701,5 +732,12 @@ export const VERIFIED_SOCIAL_LINKS = [
   },
 ] as const;
 
-export const NUNNARIVU_OFFICE_ADDRESS =
-  '2nd Floor, Oorvasi Theatre Complex, Annasilai, Chinthamani, Trichy – 620002';
+export const NUNNARIVU_OFFICE_ADDRESS_LINES = [
+  '2nd Floor, Oorvasi Theatre Complex,',
+  'Annasilai, Chinthamani,',
+  'Thiruchi, Tamil Nadu, India',
+] as const;
+
+export const NUNNARIVU_OFFICE_ADDRESS = NUNNARIVU_OFFICE_ADDRESS_LINES.join(' ');
+
+export const BODHI_MULTIVERSE_URL = 'https://www.bodhimutiverse.com/';

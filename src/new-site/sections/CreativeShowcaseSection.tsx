@@ -9,6 +9,8 @@ import {
   Pause,
   Volume2,
   VolumeX,
+  Maximize2,
+  Minimize2,
   ArrowRight,
   ArrowUpRight,
   ChevronLeft,
@@ -48,9 +50,12 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
   onRequestService,
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const stageShellRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const touchStartX = useRef<number | null>(null);
+  const autoBeforeFullscreenRef = useRef<boolean | null>(null);
+  const scrollYBeforeFullscreenRef = useRef<number | null>(null);
   useScrollReveal(sectionRef);
   const reducedMotion = useReducedMotion();
 
@@ -59,6 +64,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
     () => (typeof document !== 'undefined' ? document.visibilityState === 'visible' : true)
   );
   const [autoSequence, setAutoSequence] = useState(() => !reducedMotion);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Per-category item index
   const [videoIdx, setVideoIdx] = useState(0);
@@ -188,22 +194,90 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
     }
   }, [activeCategory]);
 
-  // Reset audio element cleanly when switching between voice samples
+  // Reset audio element cleanly when switching between voice samples without user-click autoplay
+  const handledVoiceSwitchRef = useRef<number | null>(null);
+
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !activeVoice) return;
+
+    // If handleSelectVoicePortrait already loaded & started this track inside the click gesture, do not pause it!
+    if (handledVoiceSwitchRef.current === voiceIdx) {
+      handledVoiceSwitchRef.current = null;
+      return;
+    }
+
     audio.pause();
     audio.currentTime = 0;
     setIsAudioPlaying(false);
     setAudioCurrent(0);
     setAudioDuration(0);
     setAudioError(false);
-  }, [voiceIdx]);
+
+    if (audio.getAttribute('src') !== activeVoice.src) {
+      audio.src = activeVoice.src;
+      audio.load();
+    }
+  }, [voiceIdx, activeVoice]);
+
+  // Sync fullscreen state across standard Fullscreen API + WebKit/iOS native video fullscreen
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleFullscreenState = (activeNow: boolean) => {
+      setIsFullscreen((prev) => {
+        if (prev && !activeNow) {
+          // Exiting fullscreen: restore prior Auto-Reel setting and original scroll position
+          if (autoBeforeFullscreenRef.current !== null) {
+            setAutoSequence(autoBeforeFullscreenRef.current);
+            autoBeforeFullscreenRef.current = null;
+          }
+          const savedScrollY = scrollYBeforeFullscreenRef.current;
+          if (savedScrollY !== null && typeof window !== 'undefined') {
+            scrollYBeforeFullscreenRef.current = null;
+            window.requestAnimationFrame(() => {
+              if (Math.abs(window.scrollY - savedScrollY) > 64) {
+                window.scrollTo({ top: savedScrollY, behavior: 'instant' as ScrollBehavior });
+              }
+            });
+          }
+        }
+        return activeNow;
+      });
+    };
+
+    const onDocFullscreenChange = () => {
+      const doc = document as Document & { webkitFullscreenElement?: Element | null };
+      const fsEl = document.fullscreenElement || doc.webkitFullscreenElement || null;
+      const stage = stageShellRef.current;
+      const vid = videoRef.current;
+      const active = Boolean(fsEl && (fsEl === stage || fsEl === vid || stage?.contains(fsEl)));
+      handleFullscreenState(active);
+    };
+
+    const vid = videoRef.current;
+    const onWebkitBegin = () => handleFullscreenState(true);
+    const onWebkitEnd = () => handleFullscreenState(false);
+
+    document.addEventListener('fullscreenchange', onDocFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onDocFullscreenChange as EventListener);
+    vid?.addEventListener('webkitbeginfullscreen', onWebkitBegin as EventListener);
+    vid?.addEventListener('webkitendfullscreen', onWebkitEnd as EventListener);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', onDocFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', onDocFullscreenChange as EventListener);
+      vid?.removeEventListener('webkitbeginfullscreen', onWebkitBegin as EventListener);
+      vid?.removeEventListener('webkitendfullscreen', onWebkitEnd as EventListener);
+    };
+  }, [activeVideoItem?.videoSrc]);
 
   // Manage muted video playback strictly based on viewport + tab visibility + active category
   useEffect(() => {
     const video = videoRef.current;
     if (!video || current.mediaType !== 'video-playlist' || !activeVideoItem) return;
+    // Never interrupt or override user's play/pause state while in fullscreen
+    if (isFullscreen) return;
 
     const shouldPlay = inView && tabVisible && !reducedMotion && autoSequence;
     if (shouldPlay) {
@@ -216,7 +290,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
       if (!video.paused) video.pause();
       setIsVideoPlaying(false);
     }
-  }, [inView, tabVisible, reducedMotion, autoSequence, current.mediaType, activeVideoItem, isVideoMuted]);
+  }, [inView, tabVisible, reducedMotion, autoSequence, isFullscreen, current.mediaType, activeVideoItem, isVideoMuted]);
 
   // Pause audio if user scrolls away or hides tab
   useEffect(() => {
@@ -230,7 +304,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
 
   // Timed automatic progression for Image Slideshow & silent Audio Visual Preview
   useEffect(() => {
-    if (!inView || !tabVisible || reducedMotion || !autoSequence) return;
+    if (!inView || !tabVisible || reducedMotion || !autoSequence || isFullscreen) return;
     if (current.mediaType === 'video-playlist') return;
     if (current.mediaType === 'audio' && isAudioPlaying) return;
 
@@ -271,13 +345,13 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
       v.play()
         .then(() => {
           setIsVideoPlaying(true);
-          setAutoSequence(true);
+          if (!isFullscreen) setAutoSequence(true);
         })
         .catch(() => setIsVideoPlaying(false));
     } else {
       v.pause();
       setIsVideoPlaying(false);
-      setAutoSequence(false);
+      if (!isFullscreen) setAutoSequence(false);
     }
   };
 
@@ -288,6 +362,78 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
     setIsVideoMuted(v.muted);
   };
 
+  const toggleVideoFullscreen = async () => {
+    if (typeof document === 'undefined') return;
+    const doc = document as Document & {
+      webkitFullscreenElement?: Element | null;
+      webkitExitFullscreen?: () => Promise<void> | void;
+    };
+    const stage = stageShellRef.current as
+      | (HTMLDivElement & { webkitRequestFullscreen?: () => Promise<void> | void })
+      | null;
+    const video = videoRef.current as
+      | (HTMLVideoElement & {
+          webkitEnterFullscreen?: () => void;
+          webkitExitFullscreen?: () => void;
+          webkitRequestFullscreen?: () => Promise<void> | void;
+        })
+      | null;
+
+    if (!stage || !video) return;
+
+    const activeFs = doc.fullscreenElement || doc.webkitFullscreenElement;
+    if (activeFs) {
+      try {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (doc.webkitExitFullscreen) {
+          await doc.webkitExitFullscreen();
+        }
+      } catch {
+        setIsFullscreen(false);
+      }
+      return;
+    }
+
+    // Snapshot Auto-Reel preference & scroll offset before entering fullscreen, and suspend Auto-Reel
+    autoBeforeFullscreenRef.current = autoSequence;
+    scrollYBeforeFullscreenRef.current = typeof window !== 'undefined' ? window.scrollY : null;
+    setAutoSequence(false);
+
+    try {
+      if (stage.requestFullscreen) {
+        await stage.requestFullscreen();
+        return;
+      }
+      if (stage.webkitRequestFullscreen) {
+        await stage.webkitRequestFullscreen();
+        return;
+      }
+    } catch {
+      // Fall through to native video fullscreen (e.g., iOS Safari)
+    }
+
+    try {
+      if (typeof video.webkitEnterFullscreen === 'function') {
+        video.webkitEnterFullscreen();
+        return;
+      }
+      if (video.requestFullscreen) {
+        await video.requestFullscreen();
+        return;
+      }
+      if (video.webkitRequestFullscreen) {
+        await video.webkitRequestFullscreen();
+      }
+    } catch {
+      // Restore auto-reel if fullscreen is unavailable/blocked
+      if (autoBeforeFullscreenRef.current !== null) {
+        setAutoSequence(autoBeforeFullscreenRef.current);
+        autoBeforeFullscreenRef.current = null;
+      }
+    }
+  };
+
   const handleVideoSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = videoRef.current;
     if (!v || !videoDuration) return;
@@ -296,14 +442,61 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
     setVideoProgress(Number(e.target.value));
   };
 
+  const handleSelectVoicePortrait = (idx: number) => {
+    const samples = current.voiceSamples;
+    if (!samples || !samples[idx]) return;
+    const audio = audioRef.current;
+    setAutoSequence(false);
+
+    // Clicking the already selected voice toggles Play / Pause
+    if (idx === voiceIdx) {
+      toggleAudioPlay();
+      return;
+    }
+
+    // Stop previous track immediately and start the newly selected sample inside the user's click gesture
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      setIsAudioPlaying(false);
+      setAudioCurrent(0);
+      setAudioDuration(0);
+      setAudioError(false);
+      handledVoiceSwitchRef.current = idx;
+      audio.src = samples[idx].src;
+      audio.load();
+      setVoiceIdx(idx);
+      const p = audio.play();
+      if (p) {
+        p.then(() => setIsAudioPlaying(true)).catch(() => {
+          setIsAudioPlaying(false);
+        });
+      }
+    } else {
+      setVoiceIdx(idx);
+    }
+  };
+
+  const handleWaveformSeek = (barIdx: number, totalBars: number) => {
+    const a = audioRef.current;
+    if (!a || !audioDuration) return;
+    const nextTime = ((barIdx + 0.5) / totalBars) * audioDuration;
+    a.currentTime = nextTime;
+    setAudioCurrent(nextTime);
+  };
+
   const toggleAudioPlay = () => {
     const a = audioRef.current;
-    if (!a) return;
+    if (!a || !activeVoice) return;
+    if (!a.getAttribute('src') || a.getAttribute('src') !== activeVoice.src) {
+      a.src = activeVoice.src;
+      a.load();
+    }
     if (a.paused) {
       setAutoSequence(false);
       a.play()
         .then(() => setIsAudioPlaying(true))
-        .catch(() => setAudioError(true));
+        .catch(() => setIsAudioPlaying(false));
     } else {
       a.pause();
       setIsAudioPlaying(false);
@@ -443,7 +636,12 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
           <div className={styles.mediaColumn}>
             {current.mediaType === 'video-playlist' && activeVideoItem && (
               <>
-                <div className={styles.stageShell}>
+                <div
+                  ref={stageShellRef}
+                  className={`${styles.stageShell} ${
+                    isFullscreen ? styles.stageShellFullscreen : ''
+                  }`}
+                >
                   {videoError ? (
                     <div className={styles.mediaFallback}>
                       <img
@@ -461,7 +659,9 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                       <video
                         key={activeVideoItem.videoSrc}
                         ref={videoRef}
-                        className={styles.stageVideo}
+                        className={`${styles.stageVideo} ${
+                          isFullscreen ? styles.stageVideoFullscreen : ''
+                        }`}
                         poster={activeVideoItem.posterSrc}
                         muted={isVideoMuted}
                         playsInline
@@ -479,7 +679,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                           if (d > 0) setVideoProgress((e.currentTarget.currentTime / d) * 100);
                         }}
                         onEnded={() => {
-                          if (autoSequence) {
+                          if (autoSequence && !isFullscreen) {
                             handleStepItem(1, true);
                           } else {
                             setIsVideoPlaying(false);
@@ -498,58 +698,75 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                         {videoLoading && <span className={styles.loadingBadge}>Loading preview…</span>}
                       </div>
 
-                      <div className={styles.videoControlsBar}>
-                        <button
-                          type="button"
-                          className={styles.controlIconBtn}
-                          aria-label="Previous clip"
-                          onClick={() => handleStepItem(-1, false)}
-                        >
-                          <ChevronLeft size={15} />
-                        </button>
+                      <div className={styles.videoControlsBar} data-testid="showcase-video-controls">
+                        <div className={styles.controlTransportGroup}>
+                          <button
+                            type="button"
+                            className={styles.controlIconBtn}
+                            aria-label="Previous clip"
+                            onClick={() => handleStepItem(-1, false)}
+                          >
+                            <ChevronLeft size={15} />
+                          </button>
 
-                        <button
-                          type="button"
-                          className={styles.controlIconBtn}
-                          aria-label={isVideoPlaying ? 'Pause video preview' : 'Play video preview'}
-                          onClick={toggleVideoPlay}
-                        >
-                          {isVideoPlaying ? <Pause size={14} /> : <Play size={14} />}
-                        </button>
+                          <button
+                            type="button"
+                            className={styles.controlIconBtn}
+                            aria-label={isVideoPlaying ? 'Pause video preview' : 'Play video preview'}
+                            onClick={toggleVideoPlay}
+                          >
+                            {isVideoPlaying ? <Pause size={14} /> : <Play size={14} />}
+                          </button>
 
-                        <button
-                          type="button"
-                          className={styles.controlIconBtn}
-                          aria-label="Next clip"
-                          onClick={() => handleStepItem(1, false)}
-                        >
-                          <ChevronRight size={15} />
-                        </button>
+                          <button
+                            type="button"
+                            className={styles.controlIconBtn}
+                            aria-label="Next clip"
+                            onClick={() => handleStepItem(1, false)}
+                          >
+                            <ChevronRight size={15} />
+                          </button>
+                        </div>
 
-                        <input
-                          type="range"
-                          min={0}
-                          max={100}
-                          step={0.5}
-                          value={videoProgress}
-                          onChange={handleVideoSeek}
-                          aria-label="Seek video preview"
-                          className={styles.scrubber}
-                        />
+                        <div className={styles.controlTimelineGroup}>
+                          <input
+                            type="range"
+                            min={0}
+                            max={100}
+                            step={0.5}
+                            value={videoProgress}
+                            onChange={handleVideoSeek}
+                            aria-label="Seek video preview"
+                            className={styles.scrubber}
+                          />
 
-                        <span className={styles.timeReadout}>
-                          {formatTime((videoProgress / 100) * videoDuration)} /{' '}
-                          {formatTime(videoDuration)}
-                        </span>
+                          <span className={styles.timeReadout} data-testid="showcase-time-readout">
+                            {formatTime((videoProgress / 100) * videoDuration)} /{' '}
+                            {formatTime(videoDuration)}
+                          </span>
+                        </div>
 
-                        <button
-                          type="button"
-                          className={styles.controlIconBtn}
-                          aria-label={isVideoMuted ? 'Unmute video preview' : 'Mute video preview'}
-                          onClick={toggleVideoMute}
-                        >
-                          {isVideoMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-                        </button>
+                        <div className={styles.controlUtilityGroup}>
+                          <button
+                            type="button"
+                            className={styles.controlIconBtn}
+                            aria-label={isVideoMuted ? 'Unmute video preview' : 'Mute video preview'}
+                            onClick={toggleVideoMute}
+                          >
+                            {isVideoMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                          </button>
+
+                          <button
+                            type="button"
+                            className={styles.controlIconBtn}
+                            aria-label={isFullscreen ? 'Exit fullscreen' : 'Open video fullscreen'}
+                            title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+                            data-testid="showcase-fullscreen-btn"
+                            onClick={toggleVideoFullscreen}
+                          >
+                            {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+                          </button>
+                        </div>
                       </div>
                     </>
                   )}
@@ -680,54 +897,114 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                   )}
 
                   <div className={styles.voiceContent}>
-                    <div className={styles.voiceSampleTabs} role="group" aria-label="Studio audio samples">
-                      {current.voiceSamples?.map((sample, idx) => (
-                        <button
-                          key={sample.id}
-                          type="button"
-                          className={`${styles.voicePill} ${
-                            idx === voiceIdx ? styles.voicePillActive : ''
-                          }`}
-                          onClick={() => setVoiceIdx(idx)}
-                        >
-                          {sample.label}
-                        </button>
-                      ))}
+                    <div
+                      className={styles.voiceAvatarGrid}
+                      role="group"
+                      aria-label="Select a human voice sample"
+                      data-testid="voice-avatar-grid"
+                    >
+                      {current.voiceSamples?.map((sample, idx) => {
+                        const isSelected = idx === voiceIdx;
+                        const isSamplePlaying = isSelected && isAudioPlaying;
+                        return (
+                          <button
+                            key={sample.id}
+                            type="button"
+                            className={`${styles.voiceAvatarCard} ${
+                              isSelected ? styles.voiceAvatarCardActive : ''
+                            } ${isSamplePlaying ? styles.voiceAvatarCardPlaying : ''}`}
+                            aria-pressed={isSelected}
+                            aria-label={`${isSamplePlaying ? 'Pause' : 'Play'} ${sample.label} — ${sample.styleLabel}`}
+                            data-voice-id={sample.id}
+                            data-selected={isSelected ? 'true' : 'false'}
+                            onClick={() => handleSelectVoicePortrait(idx)}
+                          >
+                            <span className={styles.voicePortraitWrap}>
+                              <img
+                                src={sample.avatarSrc}
+                                alt={sample.avatarAlt}
+                                className={styles.voicePortraitImg}
+                                width={96}
+                                height={96}
+                                loading="lazy"
+                              />
+                              <span className={styles.voicePlayBadge} aria-hidden="true">
+                                {isSamplePlaying ? <Pause size={11} /> : <Play size={11} />}
+                              </span>
+                            </span>
+
+                            <span className={styles.voiceAvatarLabel}>{sample.label}</span>
+                            <span className={styles.voiceAvatarSub}>{sample.styleLabel}</span>
+
+                            {isSamplePlaying && (
+                              <span className={styles.voiceMiniEq} aria-hidden="true">
+                                <span />
+                                <span />
+                                <span />
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
 
                     <div className={styles.voiceMetaBlock}>
-                      <span className={styles.voiceRoleTag}>{activeVoice.role}</span>
+                      <span className={styles.voiceRoleTag}>
+                        {activeVoice.label} · {activeVoice.role}
+                      </span>
                       <p className={styles.voiceTranscript}>{activeVoice.note}</p>
                     </div>
 
-                    {/* Animated equalizer waveform synced strictly to actual audio playback */}
+                    {/* Real per-track acoustic waveform synced to active sample & playback progress */}
                     <div
                       className={`${styles.waveBars} ${
                         isAudioPlaying ? styles.waveBarsActive : ''
                       }`}
-                      aria-hidden="true"
+                      role="group"
+                      aria-label={`Audio waveform for ${activeVoice.label}`}
+                      data-testid="voice-waveform"
                     >
-                      {Array.from({ length: 32 }).map((_, idx) => (
-                        <span
-                          key={idx}
-                          className={styles.waveBar}
-                          style={{
-                            height: `${20 + ((idx * 23) % 64)}%`,
-                            animationDelay: `${(idx % 8) * 0.09}s`,
-                          }}
-                        />
-                      ))}
+                      {activeVoice.waveformPeaks.map((peak, idx) => {
+                        const total = activeVoice.waveformPeaks.length;
+                        const progressRatio =
+                          audioDuration > 0 ? audioCurrent / audioDuration : 0;
+                        const isPlayed = progressRatio > 0 && idx / total <= progressRatio;
+                        return (
+                          <button
+                            key={`${activeVoice.id}-bar-${idx}`}
+                            type="button"
+                            tabIndex={-1}
+                            aria-label={`Seek to ${Math.round(((idx + 0.5) / total) * 100)}%`}
+                            onClick={() => handleWaveformSeek(idx, total)}
+                            className={`${styles.waveBar} ${
+                              isPlayed ? styles.waveBarPlayed : ''
+                            }`}
+                            style={{
+                              height: `${peak}%`,
+                              animationDelay: `${(idx % 8) * 0.08}s`,
+                            }}
+                          />
+                        );
+                      })}
                     </div>
 
                     <audio
-                      key={activeVoice.src}
                       ref={audioRef}
-                      src={activeVoice.src}
                       preload="metadata"
                       onLoadedMetadata={(e) => setAudioDuration(e.currentTarget.duration || 0)}
+                      onDurationChange={(e) => {
+                        if (Number.isFinite(e.currentTarget.duration) && e.currentTarget.duration > 0) {
+                          setAudioDuration(e.currentTarget.duration);
+                        }
+                      }}
                       onTimeUpdate={(e) => setAudioCurrent(e.currentTarget.currentTime || 0)}
+                      onPlay={() => setIsAudioPlaying(true)}
+                      onPause={() => setIsAudioPlaying(false)}
                       onEnded={() => setIsAudioPlaying(false)}
-                      onError={() => setAudioError(true)}
+                      onError={() => {
+                        setIsAudioPlaying(false);
+                        setAudioError(true);
+                      }}
                     />
 
                     {audioError ? (
@@ -793,7 +1070,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                   <p className={styles.nowPlayingCaption}>{activeVideoItem.caption}</p>
                   {activeVideoItem.caseStudySlug && (
                     <Link
-                      to={`/new-site/case-studies/${activeVideoItem.caseStudySlug}`}
+                      to={`/case-studies/${activeVideoItem.caseStudySlug}`}
                       className={styles.projectInlineLink}
                     >
                       <span>Open Full Project Page</span>

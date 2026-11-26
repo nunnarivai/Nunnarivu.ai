@@ -4,7 +4,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import {
   VERIFIED_SOCIAL_LINKS,
-  NUNNARIVU_OFFICE_ADDRESS,
+  NUNNARIVU_OFFICE_ADDRESS_LINES,
+  BODHI_MULTIVERSE_URL,
   type ShowcaseCategoryId,
   type ContactServiceOption,
 } from '../data/enterpriseData';
@@ -32,15 +33,16 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
   const currentYear = new Date().getFullYear();
 
   const isLanding =
+    location.pathname === '/' ||
+    location.pathname === '/enterprise' ||
     location.pathname === '/new-site' ||
-    location.pathname === '/new-site/' ||
-    location.pathname === '/new-site/enterprise';
+    location.pathname === '/new-site/';
 
   const scrollToSection = (sectionId: string) => {
     if (isLanding) {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      navigate(`/new-site#${sectionId}`);
+      navigate(`/#${sectionId}`);
     }
   };
 
@@ -49,7 +51,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
       onSelectShowcaseCategory(categoryId);
       document.getElementById('creative-showcase')?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      navigate('/new-site#creative-showcase');
+      navigate('/#creative-showcase');
     }
   };
 
@@ -59,7 +61,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
         <div className={styles.topSection}>
           {/* SECTION 1 — BRAND & OFFICE ADDRESSES */}
           <div className={styles.brandCol}>
-            <Link to="/new-site" className={styles.brandMarkRow}>
+            <Link to="/" className={styles.brandMarkRow}>
               <img
                 src="/assets/images/logo-emblem.png"
                 alt="Nunnarivu.ai"
@@ -73,7 +75,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
               <div className={styles.officeBlock} data-office="uk">
                 <h3 className={styles.officeHeading}>
                   <MapPin size={14} className={styles.officePin} aria-hidden="true" />
-                  <span>Our UK Company</span>
+                  <span>Our Merchantice Company</span>
                 </h3>
                 <address className={styles.officeAddress}>
                   Profronted UK Pvt Ltd
@@ -89,9 +91,16 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
               <div className={styles.officeBlock} data-office="trichy">
                 <h3 className={styles.officeHeading}>
                   <MapPin size={14} className={styles.officePin} aria-hidden="true" />
-                  <span>Trichy Office</span>
+                  <span>Our Thiruchi Office</span>
                 </h3>
-                <address className={styles.officeAddress}>{NUNNARIVU_OFFICE_ADDRESS}</address>
+                <address className={styles.officeAddress}>
+                  {NUNNARIVU_OFFICE_ADDRESS_LINES.map((line, idx) => (
+                    <React.Fragment key={line}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </React.Fragment>
+                  ))}
+                </address>
               </div>
             </div>
           </div>
@@ -112,7 +121,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
                   </button>
                 </li>
                 <li>
-                  <Link to="/" className={styles.footerLink}>
+                  <Link to="/old-site" className={styles.footerLink}>
                     About
                   </Link>
                 </li>
@@ -144,7 +153,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
                   </button>
                 </li>
                 <li>
-                  <Link to="/new-site/academy" className={styles.footerLink}>
+                  <Link to="/academy" className={styles.footerLink}>
                     Academy
                   </Link>
                 </li>
@@ -236,6 +245,27 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
                 ))}
               </ul>
             </nav>
+          </div>
+
+          {/* SECTION 5 — BODHI MULTIVERSE PARENT ECOSYSTEM LOGO */}
+          <div className={styles.partnerCol} data-testid="bodhi-multiverse-badge">
+            <a
+              href={BODHI_MULTIVERSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.bodhiLink}
+              aria-label="Visit Bodhi Multiverse"
+              title="Visit Bodhi Multiverse"
+            >
+              <img
+                src="/assets/new-site/enterprise/brand/bodhi-multiverse-logo.png"
+                alt="Bodhi Multiverse"
+                className={styles.bodhiLogo}
+                width={148}
+                height={148}
+                loading="lazy"
+              />
+            </a>
           </div>
         </div>
 

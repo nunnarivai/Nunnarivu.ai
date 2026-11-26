@@ -15,8 +15,8 @@
 
 .topSection {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.85fr);
-  gap: clamp(32px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.55fr) auto;
+  gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 
@@ -128,6 +128,43 @@
   color: var(--light-accent);
 }
 
+.partnerCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2px;
+}
+
+.bodhiLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 20px;
+  transition: transform 0.22s ease, filter 0.22s ease, background-color 0.22s ease;
+}
+
+.bodhiLink:hover,
+.bodhiLink:focus-visible {
+  transform: translateY(-3px) scale(1.03);
+  filter: drop-shadow(0 10px 22px rgba(93, 75, 216, 0.22));
+  background: rgba(93, 75, 216, 0.06);
+  outline: none;
+}
+
+.bodhiLink:focus-visible {
+  box-shadow: 0 0 0 2px var(--light-accent);
+}
+
+.bodhiLogo {
+  width: clamp(120px, 11vw, 152px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
 .bottomBar {
   padding-top: 24px;
   border-top: 1px solid var(--light-border);
@@ -154,9 +191,31 @@
   opacity: 0.72;
 }
 
+@media (max-width: 1080px) {
+  .topSection {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  }
+
+  .partnerCol {
+    grid-column: 1 / -1;
+    align-items: center;
+    padding-top: 8px;
+  }
+}
+
 @media (max-width: 960px) {
   .topSection {
     grid-template-columns: 1fr;
+  }
+
+  .partnerCol {
+    grid-column: auto;
+    align-items: center;
+    padding-top: 4px;
+  }
+
+  .bodhiLogo {
+    width: 124px;
   }
 }
 
@@ -164,5 +223,9 @@
   .columnsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 28px 16px;
+  }
+
+  .bodhiLogo {
+    width: 118px;
   }
 }

@@ -158,7 +158,7 @@ export const ContactSalesSection: React.FC<ContactSalesSectionProps> = ({
           interest: values.interest,
           message: values.message.trim(),
           companyFax: values.companyFax,
-          pageUrl: typeof window !== 'undefined' ? window.location.href : '/new-site',
+          pageUrl: typeof window !== 'undefined' ? window.location.href : '/',
           consentGiven: true,
         }),
       });

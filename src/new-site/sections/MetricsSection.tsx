@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Play, Pause } from 'lucide-react';
+import { ArrowRight, Play, Pause, ChevronDown } from 'lucide-react';
 import {
   ENTERPRISE_METRICS,
   ENTERPRISE_WORKFLOW_STAGES,
@@ -121,16 +121,23 @@ export const MetricsSection: React.FC<MetricsSectionProps> = ({ onRequestService
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  // Start cycling only when Workflow section is >= ~50% visible; pause when offscreen
+  // Start cycling only when Workflow section is meaningfully visible; pause when offscreen
   useEffect(() => {
     const el = workflowRef.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        setWorkflowInView(entry.isIntersecting && entry.intersectionRatio >= 0.45);
+        const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
+        const tallVisible =
+          entry.isIntersecting &&
+          entry.boundingClientRect.top < vh * 0.85 &&
+          entry.boundingClientRect.bottom > vh * 0.25;
+        setWorkflowInView(
+          entry.isIntersecting && (entry.intersectionRatio >= 0.4 || tallVisible)
+        );
       },
-      { threshold: [0, 0.25, 0.5, 0.75] }
+      { threshold: [0, 0.15, 0.3, 0.45, 0.65] }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -266,87 +273,188 @@ export const MetricsSection: React.FC<MetricsSectionProps> = ({ onRequestService
           )}
         </div>
 
+        {/* DESKTOP WORKFLOW LAYOUT (> 900px): 4 horizontal tabs + 1 shared stage panel */}
+        <div className={styles.workflowDesktop} data-workflow-desktop>
+          <div
+            className={styles.workflowTabRow}
+            role="tablist"
+            aria-label="Enterprise Creative Workflow Stages"
+          >
+            {ENTERPRISE_WORKFLOW_STAGES.map((st, idx) => {
+              const active = idx === activeWorkflowIdx;
+              return (
+                <button
+                  key={st.id}
+                  type="button"
+                  role="tab"
+                  id={`workflow-tab-${st.id}`}
+                  aria-selected={active}
+                  aria-controls="workflow-tabpanel"
+                  className={`${styles.workflowTab} ${active ? styles.workflowTabActive : ''}`}
+                  onClick={() => handleManualTabSelect(idx)}
+                >
+                  <span className={styles.workflowStepNum}>{st.step}</span>
+                  <span>{st.tabLabel}</span>
+                  {active && (
+                    <span className={styles.workflowTabProgressTrack} aria-hidden="true">
+                      <span
+                        key={`${st.id}-${isActivelyCycling ? 'run' : 'idle'}`}
+                        className={`${styles.workflowTabProgressFill} ${
+                          isActivelyCycling ? styles.workflowTabProgressRunning : ''
+                        }`}
+                      />
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            id="workflow-tabpanel"
+            className={styles.workflowStageCard}
+            role="tabpanel"
+            aria-labelledby={`workflow-tab-${activeStage.id}`}
+          >
+            <div key={activeStage.id} className={styles.workflowCopy}>
+              <span className={styles.workflowStageEyebrow}>{activeStage.eyebrow}</span>
+              <h4 className={styles.workflowStageTitle}>{activeStage.title}</h4>
+              <p className={styles.workflowStageDesc}>{activeStage.description}</p>
+              <div className={styles.workflowTags}>
+                {activeStage.tags.map((tag) => (
+                  <span key={tag} className={styles.workflowTag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              {onRequestService && (
+                <button
+                  type="button"
+                  className={styles.workflowCta}
+                  onClick={() => onRequestService(activeStage.contactService)}
+                >
+                  <span>{activeStage.ctaLabel}</span>
+                  <ArrowRight size={14} />
+                </button>
+              )}
+            </div>
+
+            <div className={styles.workflowPreviewFrame}>
+              {ENTERPRISE_WORKFLOW_STAGES.map((stage, idx) => {
+                const isVisible = idx === activeWorkflowIdx;
+                return (
+                  <img
+                    key={stage.id}
+                    src={stage.imageSrc}
+                    alt={stage.imageAlt}
+                    aria-hidden={!isVisible}
+                    className={`${styles.workflowPreviewImg} ${
+                      isVisible ? styles.workflowPreviewImgActive : ''
+                    }`}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* MOBILE & TABLET WORKFLOW ACCORDION (<= 900px): each stage expands immediately below its own tab */}
         <div
-          className={styles.workflowTabRow}
-          role="tablist"
+          className={styles.workflowMobileAccordion}
+          data-workflow-mobile-accordion
           aria-label="Enterprise Creative Workflow Stages"
         >
           {ENTERPRISE_WORKFLOW_STAGES.map((st, idx) => {
             const active = idx === activeWorkflowIdx;
+            const panelId = `workflow-mobile-panel-${st.id}`;
+            const headerId = `workflow-mobile-btn-${st.id}`;
             return (
-              <button
+              <div
                 key={st.id}
-                type="button"
-                role="tab"
-                id={`workflow-tab-${st.id}`}
-                aria-selected={active}
-                aria-controls="workflow-tabpanel"
-                className={`${styles.workflowTab} ${active ? styles.workflowTabActive : ''}`}
-                onClick={() => handleManualTabSelect(idx)}
+                className={`${styles.accordionItem} ${active ? styles.accordionItemActive : ''}`}
+                data-workflow-stage={st.id}
+                data-expanded={active ? 'true' : 'false'}
               >
-                <span className={styles.workflowStepNum}>{st.step}</span>
-                <span>{st.tabLabel}</span>
-                {active && (
-                  <span className={styles.workflowTabProgressTrack} aria-hidden="true">
-                    <span
-                      key={`${st.id}-${isActivelyCycling ? 'run' : 'idle'}`}
-                      className={`${styles.workflowTabProgressFill} ${
-                        isActivelyCycling ? styles.workflowTabProgressRunning : ''
-                      }`}
-                    />
+                <button
+                  type="button"
+                  id={headerId}
+                  className={`${styles.accordionTrigger} ${
+                    active ? styles.accordionTriggerActive : ''
+                  }`}
+                  aria-expanded={active}
+                  aria-controls={panelId}
+                  onClick={() => handleManualTabSelect(idx)}
+                >
+                  <span className={styles.accordionTriggerLeft}>
+                    <span className={styles.workflowStepNum}>{st.step}</span>
+                    <span className={styles.accordionLabel}>{st.tabLabel}</span>
                   </span>
-                )}
-              </button>
+                  <ChevronDown
+                    size={18}
+                    className={`${styles.accordionChevron} ${
+                      active ? styles.accordionChevronOpen : ''
+                    }`}
+                    aria-hidden="true"
+                  />
+                  {active && (
+                    <span className={styles.workflowTabProgressTrack} aria-hidden="true">
+                      <span
+                        key={`mob-${st.id}-${isActivelyCycling ? 'run' : 'idle'}`}
+                        className={`${styles.workflowTabProgressFill} ${
+                          isActivelyCycling ? styles.workflowTabProgressRunning : ''
+                        }`}
+                      />
+                    </span>
+                  )}
+                </button>
+
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={headerId}
+                  aria-hidden={!active}
+                  className={`${styles.accordionBodyWrap} ${
+                    active ? styles.accordionBodyWrapOpen : ''
+                  }`}
+                >
+                  <div className={styles.accordionBodyInner}>
+                    <div className={styles.accordionContent}>
+                      <span className={styles.workflowStageEyebrow}>{st.eyebrow}</span>
+                      <h4 className={styles.workflowStageTitle}>{st.title}</h4>
+                      <p className={styles.workflowStageDesc}>{st.description}</p>
+                      <div className={styles.workflowTags}>
+                        {st.tags.map((tag) => (
+                          <span key={tag} className={styles.workflowTag}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      {onRequestService && (
+                        <button
+                          type="button"
+                          className={styles.workflowCta}
+                          tabIndex={active ? 0 : -1}
+                          onClick={() => onRequestService(st.contactService)}
+                        >
+                          <span>{st.ctaLabel}</span>
+                          <ArrowRight size={14} />
+                        </button>
+                      )}
+                      <div className={styles.accordionPreviewFrame}>
+                        <img
+                          src={st.imageSrc}
+                          alt={st.imageAlt}
+                          className={styles.accordionPreviewImg}
+                          loading={idx === 0 ? 'eager' : 'lazy'}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </div>
-
-        <div
-          id="workflow-tabpanel"
-          className={styles.workflowStageCard}
-          role="tabpanel"
-          aria-labelledby={`workflow-tab-${activeStage.id}`}
-        >
-          <div key={activeStage.id} className={styles.workflowCopy}>
-            <span className={styles.workflowStageEyebrow}>{activeStage.eyebrow}</span>
-            <h4 className={styles.workflowStageTitle}>{activeStage.title}</h4>
-            <p className={styles.workflowStageDesc}>{activeStage.description}</p>
-            <div className={styles.workflowTags}>
-              {activeStage.tags.map((tag) => (
-                <span key={tag} className={styles.workflowTag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-            {onRequestService && (
-              <button
-                type="button"
-                className={styles.workflowCta}
-                onClick={() => onRequestService(activeStage.contactService)}
-              >
-                <span>{activeStage.ctaLabel}</span>
-                <ArrowRight size={14} />
-              </button>
-            )}
-          </div>
-
-          <div className={styles.workflowPreviewFrame}>
-            {ENTERPRISE_WORKFLOW_STAGES.map((stage, idx) => {
-              const isVisible = idx === activeWorkflowIdx;
-              return (
-                <img
-                  key={stage.id}
-                  src={stage.imageSrc}
-                  alt={stage.imageAlt}
-                  aria-hidden={!isVisible}
-                  className={`${styles.workflowPreviewImg} ${
-                    isVisible ? styles.workflowPreviewImgActive : ''
-                  }`}
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                />
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>

@@ -15,7 +15,7 @@ export default function HomePage() {
     title: 'Nunnarivu.ai — AI Business Solutions, Generative Media and Flagship Products',
     description:
       'Nunnarivu.ai is an AI-first company building businesses, cinematic media and proprietary products with artificial intelligence.',
-    canonical: 'https://www.nunnarivu.ai/',
+    canonical: 'https://www.nunnarivu.ai/old-site',
     ogImage: 'https://www.nunnarivu.ai/assets/images/og-cover.jpg',
   })
 

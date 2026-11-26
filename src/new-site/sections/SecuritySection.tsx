@@ -264,7 +264,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onRequestServi
                 </ul>
               )}
 
-              <Link to="/new-site/academy" className={styles.academyInlineLink}>
+              <Link to="/academy" className={styles.academyInlineLink}>
                 <GraduationCap size={13} />
                 <span>Explore Nunnarivu.ai Academy</span>
                 <ArrowRight size={12} />

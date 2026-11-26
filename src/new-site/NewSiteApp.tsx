@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom';
 import './styles/global.css';
+import { usePageMeta } from '../hooks/usePageMeta';
 import { HeroSection } from './sections/HeroSection';
 import { MetricsSection } from './sections/MetricsSection';
 import { CreativeShowcaseSection } from './sections/CreativeShowcaseSection';
@@ -25,6 +26,14 @@ const EnterpriseLandingPage: React.FC<EnterpriseLandingPageProps> = ({
   onSelectService,
 }) => {
   const [activeCategory, setActiveCategory] = useState<ShowcaseCategoryId>('video-generation');
+
+  usePageMeta({
+    title: 'Nunnarivu.ai — Enterprise AI Creative Production',
+    description:
+      'Every leading AI model in one secure workspace, delivering campaign-ready video, imagery, voice, cinema, and enterprise AI automation.',
+    canonical: 'https://www.nunnarivu.ai/',
+    ogImage: 'https://www.nunnarivu.ai/assets/images/og-cover.jpg',
+  });
 
   const handleRequestService = useCallback(
     (service: ContactServiceOption) => {
@@ -79,6 +88,11 @@ const EnterpriseLandingPage: React.FC<EnterpriseLandingPageProps> = ({
       />
     </>
   );
+};
+
+const WorkSlugRedirect: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={slug ? `/case-studies/${slug}` : '/#our-work'} replace />;
 };
 
 export const NewSiteApp: React.FC = () => {
@@ -145,11 +159,12 @@ export const NewSiteApp: React.FC = () => {
           path="case-studies/:slug"
           element={<CaseStudyPage onSelectService={setPreselectedService} />}
         />
+        <Route path="work/:slug" element={<WorkSlugRedirect />} />
         <Route
           path="academy"
           element={<AcademyPage onSelectService={setPreselectedService} />}
         />
-        <Route path="*" element={<Navigate to="/new-site" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
