@@ -78,7 +78,7 @@ export const MegaFooter: React.FC<MegaFooterProps> = ({
               <div className={styles.officeBlock} data-office="uk">
                 <h3 className={styles.officeHeading}>
                   <MapPin size={14} className={styles.officePin} aria-hidden="true" />
-                  <span>Our Merchantice Company</span>
+                  <span>Our Manchester Company</span>
                 </h3>
                 <address className={styles.officeAddress}>
                   Profronted UK Pvt Ltd
