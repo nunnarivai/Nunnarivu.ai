@@ -70,11 +70,31 @@
 }
 
 /* Cinema Studio 3-Column Interactive Control Layout */
+.cinemaStudioWrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .cinemaLayout {
   display: grid;
   grid-template-columns: 196px minmax(0, 1fr) 196px;
   gap: 20px;
   align-items: center;
+}
+
+.cinemaSubSlot {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cinemaSubSlotActive {
+  pointer-events: auto;
 }
 
 .pillsCol {
@@ -116,12 +136,54 @@
 
 .cinemaCenterStage {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cinemaSubBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: var(--light-card);
+  border: 1px solid var(--light-border);
+  box-shadow: 0 6px 18px rgba(25, 22, 39, 0.05);
+}
+
+.cinemaSubChip {
+  height: 32px;
+  padding-inline: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--light-bg-primary);
+  border: 1px solid var(--light-border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--light-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.cinemaSubChip:hover,
+.cinemaSubChipPreview {
+  border-color: var(--light-accent);
+  background: var(--light-card-tinted);
+  color: var(--light-accent);
+}
+
+.cinemaSubChipActive,
+.cinemaSubChipActive:hover {
+  background: var(--btn-violet);
+  border-color: var(--btn-violet);
+  color: #ffffff;
 }
 
 .cinemaFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--light-border);
@@ -134,16 +196,13 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #141022;
   display: block;
   opacity: 0;
-  transition: opacity 0.24s ease;
+  z-index: 0;
+  transition: opacity 0.14s ease;
   pointer-events: none;
-}
-
-.cinemaCrossfadeImgVisible {
-  opacity: 1;
-  z-index: 1;
 }
 
 .cinemaVideoLayer {
@@ -151,10 +210,160 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #141022;
   display: block;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease;
+}
+
+.cinemaLayerBase {
+  opacity: 1;
+  z-index: 1;
+  transition: none;
+}
+
+.cinemaCrossfadeImgVisible {
+  opacity: 1;
   z-index: 2;
-  animation: studioMediaFadeIn 0.24s ease both;
+}
+
+.cinemaVideoLayerVisible {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* 2×2 Multi-Angle Camera Movement Grid inside Nunnarivu Cinema Stage */
+.cameraMultiGrid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  background: #100c1b;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease;
+}
+
+.cameraMultiGridBase {
+  opacity: 1;
+  z-index: 1;
+  transition: none;
+}
+
+.cameraMultiGridVisible {
+  opacity: 1;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.cameraGridCell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #141022;
+  border: 1px solid rgba(184, 167, 255, 0.22);
+}
+
+.cameraGridPoster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.cameraGridVideo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.cameraGridScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 12, 26, 0.44) 0%,
+    rgba(16, 12, 26, 0) 36%,
+    rgba(16, 12, 26, 0) 68%,
+    rgba(16, 12, 26, 0.48) 100%
+  );
+}
+
+.cameraAngleTag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.48);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.cameraLensChip {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.72);
+  border: 1px solid rgba(184, 167, 255, 0.28);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #e6ddf7;
+  pointer-events: none;
+}
+
+.cameraGridPlayBtn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 5;
+  height: 30px;
+  padding-inline: 12px;
+  border-radius: 999px;
+  background: rgba(18, 15, 28, 0.86);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 186, 131, 0.54);
+  color: var(--btn-gold);
+  font-size: 11.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.cameraGridPlayBtn:hover {
+  background: var(--btn-gold);
+  color: var(--btn-gold-text);
 }
 
 .studioMediaFade {
@@ -182,16 +391,32 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  padding: 18px 20px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.12s ease;
   background: linear-gradient(
     180deg,
-    rgba(18, 15, 28, 0.48) 0%,
-    rgba(18, 15, 28, 0.08) 42%,
-    rgba(18, 15, 28, 0.88) 100%
+    rgba(18, 15, 28, 0.28) 0%,
+    rgba(18, 15, 28, 0.02) 34%,
+    rgba(18, 15, 28, 0.06) 62%,
+    rgba(18, 15, 28, 0.84) 100%
   );
+}
+
+.cinemaFrameOverlayHidden {
+  opacity: 0;
+}
+
+.cinemaFrameOverlayHidden button {
+  pointer-events: none;
+}
+
+.cinemaFrameOverlay button {
+  pointer-events: auto;
 }
 
 .cinemaBadgeRow {
@@ -330,6 +555,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+video.panelImg {
+  object-fit: contain;
+  background: #141022;
 }
 
 .videoFloatingBtn {
@@ -636,6 +866,15 @@
     grid-template-columns: 1fr;
   }
 
+  .cinemaSubSlot {
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .cinemaSubSlotActive {
+    margin-top: 12px;
+  }
+
   .pillsCol {
     flex-direction: row;
     flex-wrap: wrap;
@@ -662,6 +901,55 @@
     flex: 1 1 calc(50% - 6px);
     padding-inline: 8px;
     font-size: 12px;
+  }
+
+  .cinemaFrameOverlay {
+    padding: 10px 12px;
+  }
+
+  .aspectMetaPill,
+  .cinemaCaptionBlock p {
+    display: none;
+  }
+
+  .cinemaCaptionBlock h4 {
+    font-size: 13px;
+    line-height: 1.25;
+    margin-bottom: 0;
+  }
+
+  .inlinePlayChip {
+    height: 30px;
+    padding-inline: 11px;
+    font-size: 11.5px;
+  }
+
+  .cameraMultiGrid {
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .cameraGridCell {
+    border-radius: 8px;
+  }
+
+  .cameraAngleTag {
+    top: 5px;
+    left: 5px;
+    padding: 2px 6px;
+    font-size: 9px;
+  }
+
+  .cameraLensChip {
+    display: none;
+  }
+
+  .cameraGridPlayBtn {
+    right: 10px;
+    bottom: 10px;
+    height: 26px;
+    padding-inline: 9px;
+    font-size: 10px;
   }
 
   .canvasNodesGrid,

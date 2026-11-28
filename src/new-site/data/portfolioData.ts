@@ -37,79 +37,10 @@ export interface PortfolioCaseStudy {
 /**
  * 10 Verified Nunnarivu.ai Creative Productions backed directly by real media
  * from the verified Nunnarivu production archive (Footages for site.zip) and
- * existing repository assets. Luxury Jewelry leads the portfolio carousel;
- * Cosmic Motion has been removed from public listings.
+ * existing repository assets. Chola Maritime & Tamil Heritage Epic leads the
+ * portfolio carousel at position #1.
  */
 export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
-  {
-    slug: 'luxury-jewelry-editorial-fashion',
-    title: 'Luxury Jewelry & Editorial Fashion Continuity',
-    shortTitle: 'LUXURY & FASHION',
-    category: 'Marketing Studio',
-    serviceType: 'AI Video Generation',
-    summary:
-      'Luxury heritage gold, pearl, ruby, and diamond jewelry commercial advertisement paired with high-craft macro stills and bridal lookbooks.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
-    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-preview-v3.mp4',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
-    clientLabel: 'Nunnarivu.ai Commercial Visuals',
-    year: '2026',
-    overview:
-      'A complete 30-second luxury South Indian heritage jewelry commercial film and commercial look-development showcase — featuring gold-and-pearl necklaces draped on emerald and crimson silk, diamond drop earrings, carved antique gold bangles, and warm temple-lit bridal suites.',
-    problem:
-      'Luxury jewelry and heritage retail brands demand razor-sharp metallic specular reflections, gemstone refraction, rich silk textures, and cinematic macro motion without costly physical vault shoots and studio logistics.',
-    objective:
-      'Deliver a full broadcast-ready luxury jewelry commercial advertisement alongside studio-grade macro stills and editorial bridal key art.',
-    creativeStrategy:
-      'Macro camera glides reveal gold filigree, pearl luster, and crimson/emerald silk weaves under warm directional lighting, anchored by coordinated editorial jewelry stills and lookbook frames.',
-    toolsAndWorkflow: [
-      '4K-sourced 30-second luxury jewelry commercial cinematography with synchronized audio',
-      'Macro metallic specular & gemstone highlight look-development across gold, pearls, and rubies',
-      'High-resolution commercial stills & editorial bridal jewelry photography',
-      'Browser-optimized 1080p H.264 full master and lightweight muted carousel preview',
-    ],
-    deliverables: [
-      'Complete 30-second Luxury Heritage Jewelry commercial film (1920×1080 H.264 master with stereo audio)',
-      'Muted carousel preview loop and high-resolution crimson-velvet bridal suite poster',
-      'Emerald-velvet necklace, diamond solitaire ring, and bridal editorial key-art suite',
-    ],
-    gallery: [
-      {
-        type: 'video',
-        src: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
-        poster: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
-        alt: 'Full 30-second luxury South Indian heritage gold jewelry commercial advertisement',
-        caption: 'Complete 30-second Luxury Heritage Jewelry commercial advertisement (1080p with audio)',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-emerald-v2.webp',
-        alt: 'Heritage South Indian gold necklace displayed on deep emerald velvet',
-        caption: 'Commercial still: heritage gold necklace on emerald velvet',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
-        alt: 'Macro gold and solitaire diamond ring on black velvet',
-        caption: 'Sculptural gold & diamond ring macro commercial visual',
-      },
-      {
-        type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-bridal-v2.webp',
-        alt: 'Bridal portrait showcasing heritage gold necklace in dramatic light',
-        caption: 'Editorial bridal jewelry portrait in warm studio key light',
-      },
-    ],
-    relatedSlugs: [
-      'character-continuity-studio',
-      'bizznet-commercial-ad',
-      'chola-maritime-heritage-film',
-    ],
-    seoTitle: 'Luxury Jewelry & Editorial Fashion Continuity — Portfolio · Nunnarivu.ai',
-    seoDescription:
-      'Watch Nunnarivu.ai’s luxury gold jewelry commercial advertisement and explore its macro jewelry visuals and bridal lookbook.',
-  },
   {
     slug: 'chola-maritime-heritage-film',
     title: 'Chola Maritime & Tamil Heritage Cinematic Film',
@@ -118,9 +49,9 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     serviceType: 'AI Movie Creation',
     summary:
       'Full-length widescreen heritage cinema weaving Chola naval fleets, golden temple architecture, riverlands, and foundry craftsmanship.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/img-temple-sunrise-v2.webp',
     cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-chola-preview-v3.mp4',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/img-temple-sunrise-v2.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-full-v2.mp4',
     clientLabel: 'Nunnarivu.ai Cinema Production',
     year: '2026',
@@ -189,6 +120,75 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     seoTitle: 'Chola Maritime & Tamil Heritage Film — Portfolio · Nunnarivu.ai',
     seoDescription:
       'Watch Nunnarivu.ai’s Chola Maritime & Tamil Heritage AI film and explore its environment plates and generative cinema workflow.',
+  },
+  {
+    slug: 'luxury-jewelry-editorial-fashion',
+    title: 'Luxury Jewelry & Editorial Fashion Continuity',
+    shortTitle: 'LUXURY & FASHION',
+    category: 'Marketing Studio',
+    serviceType: 'AI Video Generation',
+    summary:
+      'Luxury heritage gold, pearl, ruby, and diamond jewelry commercial advertisement paired with high-craft macro stills and bridal lookbooks.',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-preview-v3.mp4',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
+    clientLabel: 'Nunnarivu.ai Commercial Visuals',
+    year: '2026',
+    overview:
+      'A complete 30-second luxury South Indian heritage jewelry commercial film and commercial look-development showcase — featuring gold-and-pearl necklaces draped on emerald and crimson silk, diamond drop earrings, carved antique gold bangles, and warm temple-lit bridal suites.',
+    problem:
+      'Luxury jewelry and heritage retail brands demand razor-sharp metallic specular reflections, gemstone refraction, rich silk textures, and cinematic macro motion without costly physical vault shoots and studio logistics.',
+    objective:
+      'Deliver a full broadcast-ready luxury jewelry commercial advertisement alongside studio-grade macro stills and editorial bridal key art.',
+    creativeStrategy:
+      'Macro camera glides reveal gold filigree, pearl luster, and crimson/emerald silk weaves under warm directional lighting, anchored by coordinated editorial jewelry stills and lookbook frames.',
+    toolsAndWorkflow: [
+      '4K-sourced 30-second luxury jewelry commercial cinematography with synchronized audio',
+      'Macro metallic specular & gemstone highlight look-development across gold, pearls, and rubies',
+      'High-resolution commercial stills & editorial bridal jewelry photography',
+      'Browser-optimized 1080p H.264 full master and lightweight muted carousel preview',
+    ],
+    deliverables: [
+      'Complete 30-second Luxury Heritage Jewelry commercial film (1920×1080 H.264 master with stereo audio)',
+      'Muted carousel preview loop and high-resolution crimson-velvet bridal suite poster',
+      'Emerald-velvet necklace, diamond solitaire ring, and bridal editorial key-art suite',
+    ],
+    gallery: [
+      {
+        type: 'video',
+        src: '/assets/new-site/enterprise/media-v2/videos/vid-luxury-jewelry-ad-v3.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/poster-luxury-jewelry-ad-v3.webp',
+        alt: 'Full 30-second luxury South Indian heritage gold jewelry commercial advertisement',
+        caption: 'Complete 30-second Luxury Heritage Jewelry commercial advertisement (1080p with audio)',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-emerald-v2.webp',
+        alt: 'Heritage South Indian gold necklace displayed on deep emerald velvet',
+        caption: 'Commercial still: heritage gold necklace on emerald velvet',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
+        alt: 'Macro gold and solitaire diamond ring on black velvet',
+        caption: 'Sculptural gold & diamond ring macro commercial visual',
+      },
+      {
+        type: 'image',
+        src: '/assets/new-site/enterprise/media-v2/images/img-jewelry-bridal-v2.webp',
+        alt: 'Bridal portrait showcasing heritage gold necklace in dramatic light',
+        caption: 'Editorial bridal jewelry portrait in warm studio key light',
+      },
+    ],
+    relatedSlugs: [
+      'character-continuity-studio',
+      'bizznet-commercial-ad',
+      'chola-maritime-heritage-film',
+    ],
+    seoTitle: 'Luxury Jewelry & Editorial Fashion Continuity — Portfolio · Nunnarivu.ai',
+    seoDescription:
+      'Watch Nunnarivu.ai’s luxury gold jewelry commercial advertisement and explore its macro jewelry visuals and bridal lookbook.',
   },
   {
     slug: 'bizznet-commercial-ad',
@@ -498,10 +498,10 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     serviceType: 'Training / Academy',
     summary:
       'Original 48-second Nunnarivu.ai cinematic showcase uniting Krishna and Arjuna’s timeless dialogue with the discipline of AI Prompt Engineering.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
-    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-mahabharata-preview-v3.mp4',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v2.mp4',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
+    cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-mahabharata-preview-v4.mp4',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
     clientLabel: 'Nunnarivu.ai Academy Showcase',
     year: '2026',
     overview:
@@ -525,16 +525,16 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     gallery: [
       {
         type: 'video',
-        src: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v2.mp4',
-        poster: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
+        src: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+        poster: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
         alt: 'Mahabharata AI Prompt Engineering showcase film by Nunnarivu.ai',
         caption: 'Complete 48-second Mahabharata Prompt Engineering film',
       },
       {
         type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
-        alt: 'Krishna guiding Arjuna on chariot in widescreen frame',
-        caption: 'Widescreen chariot key frame from the Nunnarivu Academy film',
+        src: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
+        alt: 'Krishna guiding Arjuna on golden chariot across the Kurukshetra battlefield',
+        caption: 'Enhanced uncropped Krishna & Arjuna chariot key frame from the Nunnarivu Academy film',
       },
     ],
     relatedSlugs: [

@@ -72,8 +72,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Every project begins by locking visual references, scripts, location boards, and brand guidelines so creative teams and engineers work from one clear blueprint.',
     tags: ['Reference Boards', 'Script & Shot List', 'Scope Lock'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-01-discover-v3.webp',
-    imageAlt: 'Nunnarivu.ai concept storyboard wall and annotated script pre-production desk',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-01-discover-v4.webp',
+    imageAlt: 'Nunnarivu.ai pre-production film storyboards, shot list with camera lens specs, location scouting boards, and approved color look book',
     ctaLabel: 'Discuss Your Brief',
     contactService: 'Enterprise AI Solutions',
   },
@@ -100,8 +100,8 @@ export const ENTERPRISE_WORKFLOW_STAGES: EnterpriseWorkflowStage[] = [
     description:
       'Our studio combines directed generative video, photorealistic editorial stills, and broadcast-normalized voice tracks under human art-direction checkpoints.',
     tags: ['Directed Motion', 'Commercial Stills', 'Studio Audio'],
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-03-multimodal-v3.webp',
-    imageAlt: 'Multi-modal production workspace combining Nunnarivu AI video frames, generated commercial images, and studio audio waveform',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/workflow-03-multimodal-v4.webp',
+    imageAlt: 'Multi-modal production pipeline showcasing uncropped Mahabharata Krishna and Arjuna chariot scene, Chola fleet, luxury jewelry, character sheet, agri-drone, studio voice audio, and monochrome film grading',
     ctaLabel: 'Start a Production',
     contactService: 'AI Video Generation',
   },
@@ -296,14 +296,14 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
     ],
     voiceSamples: [
       {
-        id: 'archive-reel-01',
-        label: 'Studio Sample 01',
-        styleLabel: 'Long-Form Production',
-        role: 'Production Audio Track · Representative portrait',
+        id: 'heritage-narrator-male',
+        label: 'Heritage Narrator',
+        styleLabel: 'Tamil Documentary · Male',
+        role: 'Authoritative Male Documentary Voice',
         src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-01-v2.mp3',
-        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-01.webp',
-        avatarAlt: 'Representative studio presenter portrait for Studio Sample 01',
-        note: 'Full-length studio-balanced audio track from a Nunnarivu.ai production. Select any portrait to switch tracks and listen.',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-05-male-narrator.webp',
+        avatarAlt: 'Distinguished mature male Tamil documentary narrator portrait in violet studio',
+        note: 'Authoritative male Tamil documentary narration chronicling Kaveri, Karikala Cholan, and Thanjavur heritage.',
         durationHint: '1:34',
         waveformPeaks: [
           73, 79, 81, 57, 84, 90, 89, 98, 84, 78, 73, 84, 80, 79, 90, 79,
@@ -311,14 +311,14 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         ],
       },
       {
-        id: 'archive-reel-02',
-        label: 'Studio Sample 02',
-        styleLabel: 'Creative Storyteller',
-        role: 'Long-Form Narrative Track · Representative portrait',
+        id: 'storyteller-male',
+        label: 'Creative Storyteller',
+        styleLabel: 'Narrative Reel · Male',
+        role: 'Expressive Male Storytelling Voice',
         src: '/assets/new-site/enterprise/media-v2/audio/aud-nunnarivu-reel-02-v2.mp3',
         avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-02.webp',
-        avatarAlt: 'Representative creative storyteller portrait for Studio Sample 02',
-        note: 'Extended creative audio track engineered for narrative storytelling, brand reels, and studio film cuts.',
+        avatarAlt: 'Expressive young male creative storyteller portrait in violet studio',
+        note: 'Dynamic male Tamil narrative voice bringing emotional storytelling, character journeys, and studio reels to life.',
         durationHint: '1:25',
         waveformPeaks: [
           94, 70, 82, 80, 60, 69, 60, 97, 98, 94, 97, 89, 98, 87, 92, 98,
@@ -326,29 +326,29 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         ],
       },
       {
-        id: 'archive-cue-01',
-        label: 'Studio Cue',
-        styleLabel: 'Short Brand Sting',
-        role: 'Short Audio Cue · Representative portrait',
-        src: '/assets/new-site/enterprise/media-v2/audio/aud-studio-cue-01-v2.mp3',
-        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-03.webp',
-        avatarAlt: 'Representative presenter portrait for Studio Cue',
-        note: 'Concise studio audio cue prepared for rapid campaign transitions, motion graphics, and digital spots.',
-        durationHint: '0:04',
+        id: 'brand-commercial-female',
+        label: 'Brand Presenter',
+        styleLabel: 'Commercial Voice · Female',
+        role: 'Polished Female Commercial Voice',
+        src: '/assets/new-site/enterprise/audio/nunnarivu-voice-commercial.mp3',
+        avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-01.webp',
+        avatarAlt: 'Professional female commercial voice presenter portrait in violet studio',
+        note: 'Crisp, expressive female English commercial voice tailored for product launches, brand films, and enterprise campaigns.',
+        durationHint: '0:14',
         waveformPeaks: [
-          28, 78, 47, 56, 25, 28, 67, 84, 88, 30, 46, 30, 18, 18, 18, 51,
-          60, 98, 46, 24, 18, 60, 37, 24, 42, 22, 82, 62, 25, 20, 18, 19,
+          96, 75, 80, 82, 67, 85, 55, 79, 86, 45, 72, 96, 83, 83, 84, 60,
+          18, 18, 81, 32, 72, 68, 75, 81, 80, 18, 62, 18, 83, 70, 18, 18,
         ],
       },
       {
-        id: 'studio-narrator',
+        id: 'enterprise-narrator-male',
         label: 'Enterprise Narrator',
-        styleLabel: 'Broadcast Narration',
-        role: 'Broadcast-Normalized Demo · Representative portrait',
+        styleLabel: 'Broadcast English · Male',
+        role: 'Calm Male Broadcast Narration Voice',
         src: '/assets/new-site/enterprise/audio/nunnarivu-voice-narrator.mp3',
         avatarSrc: '/assets/new-site/enterprise/media-v2/images/voice-avatar-04.webp',
-        avatarAlt: 'Representative narrator portrait for Enterprise Narrator',
-        note: 'Measured documentary-style studio narration demonstrating enterprise brand film delivery.',
+        avatarAlt: 'Mature bearded male enterprise broadcast narrator portrait in violet studio',
+        note: 'Measured male English broadcast narration guiding audiences from concept and script to final cinema frame.',
         durationHint: '0:14',
         waveformPeaks: [
           90, 95, 92, 61, 18, 53, 93, 63, 66, 98, 76, 82, 29, 86, 80, 71,
@@ -365,7 +365,7 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
     description:
       'Complete cinematic works directed through Nunnarivu.ai — combining scriptwriting, historical worldbuilding, character continuity, sound design, and theatrical finishing.',
     mediaType: 'video-playlist',
-    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
     ctaLabel: 'Start an AI Film Project',
     contactService: 'AI Movie Creation',
     highlights: [
@@ -379,15 +379,15 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         label: '01 · Chola Maritime & Heritage Epic',
         caption: 'Web preview cut from Nunnarivu’s 4K heritage cinema master',
         videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-preview-v2.mp4',
-        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/img-temple-sunrise-v2.webp',
         caseStudySlug: 'chola-maritime-heritage-film',
       },
       {
         id: 'mahabharata-film',
         label: '02 · Mahabharata — Prompt Engineering Film',
-        caption: 'Original Nunnarivu mythological cinema showcase connecting wisdom and AI',
-        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v2.mp4',
-        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v2.webp',
+        caption: 'Original Nunnarivu mythological cinema showcase uniting Krishna and Arjuna with AI craft',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
         caseStudySlug: 'mahabharata-ai-prompt-engineering',
       },
       {
@@ -531,20 +531,20 @@ export const CINEMA_CONTROLS: CinemaControl[] = [
     id: 'camera-movement',
     label: 'Camera Movement',
     side: 'right',
-    stageTag: 'Directed Cinematography',
-    headline: 'Choreograph motion sequences with intentional lens movement',
-    caption: 'Live motion clip from the Historical Courtyard action production with sunlit atmospheric dust.',
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
-    videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
-    aspectTag: '24fps Motion · Directed Rig',
+    stageTag: 'Multi-Angle Camera Control · 4 Views',
+    headline: 'Direct four cinematic camera views across one cohesive scene',
+    caption: 'Simultaneous Wide Establishing, Medium Tracking, Over-the-Shoulder, and Close-Up perspectives from Nunnarivu’s Mahabharata production.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-cam-02-tracking-v1.webp',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/cam-angle-02-tracking-v1.mp4',
+    aspectTag: '2×2 Multi-Angle · 24fps',
   },
   {
     id: 'lighting',
     label: 'Lighting',
     side: 'right',
-    stageTag: 'Practical & Firelight Key',
-    headline: 'Sculpt molten highlights, lamplight rims, and shadow depth',
-    caption: 'Controlled directional light grounds synthetic frames in tactile photographic realism.',
+    stageTag: 'Lighting Direction · 3 Key Studies',
+    headline: 'Sculpt practical firelight, golden dawn rims, and twilight mood',
+    caption: 'Switch between real Nunnarivu lighting setups to compare practical key light, sunrise rim contrast, and moody twilight.',
     imageSrc: '/assets/new-site/enterprise/media-v2/images/img-molten-foundry-v2.webp',
     aspectTag: 'High-Contrast Practical Key',
   },
@@ -552,11 +552,11 @@ export const CINEMA_CONTROLS: CinemaControl[] = [
     id: 'color-grading',
     label: 'Colour Grading',
     side: 'right',
-    stageTag: 'Monochrome & Theatrical LUTs',
-    headline: 'Shift cleanly between golden cinema warmth and crisp monochrome',
-    caption: 'High-contrast black-and-white tonal grading from the SK Super TMT classroom examination film.',
+    stageTag: 'Theatrical Look & LUTs · 3 Grades',
+    headline: 'Shift cleanly between monochrome drama, golden epic, and indigo twilight',
+    caption: 'Inspect distinct theatrical colour treatments across Nunnarivu’s monochrome, warm amber, and twilight film productions.',
     imageSrc: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
-    aspectTag: 'B&W Cinema Grade',
+    aspectTag: 'B&W & Cinema LUTs',
   },
   {
     id: 'film-sequence',
@@ -564,10 +564,127 @@ export const CINEMA_CONTROLS: CinemaControl[] = [
     side: 'right',
     stageTag: 'Master Film Preview',
     headline: 'Assemble multi-shot sequences into finished widescreen films',
-    caption: 'Preview excerpt from Nunnarivu’s Chola Maritime & Heritage 4K production master.',
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-epic-v2.webp',
-    videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-chola-epic-preview-v2.mp4',
+    caption: 'Full-frame sunrise temple gopuram and heritage sequence from Nunnarivu’s Chola 4K production master.',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-chola-gopuram-v3.webp',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-chola-cinema-gopuram-v3.mp4',
     aspectTag: 'Master Cut · 16:9 Cinema',
+  },
+];
+
+export interface CinemaCameraShot {
+  id: string;
+  technique: string;
+  shortLabel: string;
+  headline: string;
+  explanation: string;
+  lensSpec: string;
+  videoSrc: string;
+  posterSrc: string;
+}
+
+export const CINEMA_CAMERA_SHOTS: CinemaCameraShot[] = [
+  {
+    id: 'wide-establishing',
+    technique: 'Wide Establishing Shot',
+    shortLabel: 'Wide Establishing',
+    headline: 'Wide Establishing Shot',
+    explanation: 'Full Kurukshetra battlefield scale framing legions, banners, and the approaching chariot.',
+    lensSpec: '24mm Wide',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/cam-angle-01-wide-v1.mp4',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-cam-01-wide-v1.webp',
+  },
+  {
+    id: 'medium-tracking',
+    technique: 'Medium / Tracking Shot',
+    shortLabel: 'Medium / Tracking',
+    headline: 'Medium / Tracking Shot',
+    explanation: 'Lateral camera track gliding alongside Krishna and Arjuna aboard the galloping chariot.',
+    lensSpec: '35mm Track',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/cam-angle-02-tracking-v1.mp4',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-cam-02-tracking-v1.webp',
+  },
+  {
+    id: 'over-the-shoulder',
+    technique: 'Over-the-Shoulder Shot',
+    shortLabel: 'Over-the-Shoulder',
+    headline: 'Over-the-Shoulder Shot',
+    explanation: 'Cinematic perspective from behind Krishna and Arjuna looking across the battlefield.',
+    lensSpec: '50mm OTS',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/cam-angle-03-ots-v1.mp4',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-cam-03-ots-v1.webp',
+  },
+  {
+    id: 'closeup-character',
+    technique: 'Close-Up Shot',
+    shortLabel: 'Close-Up',
+    headline: 'Close-Up Shot',
+    explanation: 'Intimate facial detail capturing Krishna’s focused gaze and calm command.',
+    lensSpec: '85mm Close-Up',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/cam-angle-04-closeup-v1.mp4',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-cam-04-closeup-v1.webp',
+  },
+];
+
+export interface CinemaSubPreset {
+  id: string;
+  label: string;
+  headline: string;
+  caption: string;
+  aspectTag: string;
+  imageSrc: string;
+}
+
+export const CINEMA_LIGHTING_PRESETS: CinemaSubPreset[] = [
+  {
+    id: 'firelight-foundry',
+    label: 'Molten Firelight Key',
+    headline: 'Practical firelight & glowing specular shadows',
+    caption: 'Warm practical furnace glow modeling metal surfaces and deep workshop shadows.',
+    aspectTag: 'Practical Firelight Key',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-molten-foundry-v2.webp',
+  },
+  {
+    id: 'golden-sunrise-rim',
+    label: 'Golden Dawn Backlight',
+    headline: 'Directional sunrise flare & warm sandstone rim light',
+    caption: 'Strong solar backlight outlining carved temple silhouettes through atmospheric haze.',
+    aspectTag: 'Sunrise Rim Lighting',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-temple-sunrise-v2.webp',
+  },
+  {
+    id: 'twilight-ambient',
+    label: 'Twilight Soft Fill',
+    headline: 'Cool dusk fill balanced with warm practical accents',
+    caption: 'Low-key twilight ambience preserving fine shadow detail and intimate atmosphere.',
+    aspectTag: 'Blue-Hour Study',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-twilight-study-v2.webp',
+  },
+];
+
+export const CINEMA_GRADING_PRESETS: CinemaSubPreset[] = [
+  {
+    id: 'monochrome-lut',
+    label: 'Monochrome Silver',
+    headline: 'High-contrast black-and-white editorial film grade',
+    caption: 'Crisp tonal separation from the SK Super TMT monochrome classroom drama.',
+    aspectTag: 'B&W Cinema Grade',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-sk-exam-hero-v2.webp',
+  },
+  {
+    id: 'golden-amber-lut',
+    label: 'Golden Epic Amber',
+    headline: 'Warm theatrical gold and teal maritime contrast',
+    caption: 'Rich amber highlights paired with deep ocean shadows from the Chola maritime fleet.',
+    aspectTag: 'Amber / Teal Epic LUT',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-tiger-fleet-v2.webp',
+  },
+  {
+    id: 'indigo-twilight-lut',
+    label: 'Twilight Violet Grade',
+    headline: 'Atmospheric twilight colour palette with luminous golds',
+    caption: 'Deep dusky shadows lifted by warm temple lantern accents for evening sequences.',
+    aspectTag: 'Twilight Cinema LUT',
+    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-temple-twilight-v2.webp',
   },
 ];
 

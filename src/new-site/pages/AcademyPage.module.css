@@ -60,6 +60,11 @@
   object-fit: cover;
 }
 
+video.trackImg {
+  object-fit: contain;
+  background: #141022;
+}
+
 .trackNum {
   position: absolute;
   left: 14px;

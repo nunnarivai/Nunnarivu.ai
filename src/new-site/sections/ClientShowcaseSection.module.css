@@ -39,33 +39,98 @@
   max-width: 560px;
 }
 
+/* Seamless Infinite Carousel Stage with Left/Right Edge Arrows */
 .carouselWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 6px;
 }
 
-.track {
+.marqueeViewport {
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.marqueeViewport:active {
+  cursor: grabbing;
+}
+
+.marqueeTrack {
   display: flex;
+  align-items: stretch;
+  width: max-content;
+  will-change: transform;
+}
+
+.sequenceGroup {
+  display: flex;
+  align-items: stretch;
   gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-inline: max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
-  scrollbar-width: none;
+  margin-right: 16px;
+  flex-shrink: 0;
 }
 
-.track::-webkit-scrollbar {
-  display: none;
+/* Vertically Centered Left & Right Outer-Edge Controls */
+.edgeArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(23, 17, 34, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 167, 255, 0.34);
+  color: #eee8fa;
+  box-shadow: 0 10px 28px rgba(8, 5, 16, 0.48);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edgeArrowLeft {
+  left: clamp(12px, 2vw, 24px);
+}
+
+.edgeArrowRight {
+  right: clamp(12px, 2vw, 24px);
+}
+
+.edgeArrow:hover {
+  background: rgba(45, 32, 69, 0.94);
+  border-color: rgba(223, 186, 131, 0.68);
+  color: var(--btn-gold);
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 12px 32px rgba(98, 80, 216, 0.34);
+}
+
+.edgeArrow:active {
+  transform: translateY(-50%) scale(0.97);
+}
+
+.edgeArrow:focus-visible {
+  outline: 2px solid var(--btn-gold);
+  outline-offset: 2px;
 }
 
 .card {
   position: relative;
   flex: 0 0 348px;
+  width: 348px;
   height: 458px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--violet-border);
-  scroll-snap-align: start;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -92,11 +157,30 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
   transition: transform 0.65s var(--ease-out-expo), filter 0.35s ease;
 }
 
-.card:hover .posterImg {
+.posterVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.65s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.posterVideoVisible {
+  opacity: 1;
+}
+
+.card:hover .posterImg,
+.card:hover .posterVideo {
   transform: scale(1.05);
   filter: brightness(1.08);
 }
@@ -226,54 +310,27 @@
   max-width: 260px;
 }
 
-.controlsRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-}
-
-.navCircle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(184, 167, 255, 0.1);
-  border: 1px solid rgba(184, 167, 255, 0.28);
-  color: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
-}
-
-.navCircle:hover {
-  background: var(--btn-gold);
-  border-color: var(--btn-gold);
-  color: var(--btn-gold-text);
-}
-
-.progressTrack {
-  width: 170px;
-  height: 2px;
-  background: rgba(184, 167, 255, 0.22);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background: var(--btn-gold);
-  border-radius: 999px;
-  transition: transform 0.15s ease-out;
-}
-
 @media (max-width: 640px) {
   .card {
     flex: 0 0 286px;
+    width: 286px;
     height: 396px;
   }
 
   .centerBrandTitle {
     font-size: 22px;
+  }
+
+  .edgeArrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .edgeArrowLeft {
+    left: 8px;
+  }
+
+  .edgeArrowRight {
+    right: 8px;
   }
 }

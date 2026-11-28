@@ -168,6 +168,11 @@
   display: block;
 }
 
+video.heroMedia {
+  object-fit: contain;
+  background: #0e0b16;
+}
+
 .heroMediaContain,
 .heroMediaFrame:fullscreen .heroMedia,
 .heroMediaFrame:-webkit-full-screen .heroMedia {

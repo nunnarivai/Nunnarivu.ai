@@ -63,7 +63,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
   const [tabVisible, setTabVisible] = useState(
     () => (typeof document !== 'undefined' ? document.visibilityState === 'visible' : true)
   );
-  const [autoSequence, setAutoSequence] = useState(() => !reducedMotion);
+  const [autoSequence, setAutoSequence] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Per-category item index
@@ -73,6 +73,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
 
   // Video player state
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [hasStartedVideo, setHasStartedVideo] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [videoProgress, setVideoProgress] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -131,6 +132,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
         setVideoIdx((next + len) % len);
         setVideoProgress(0);
         setVideoError(false);
+        setHasStartedVideo(false);
       } else if (current.mediaType === 'image-slideshow' && current.galleryFrames?.length) {
         const len = current.galleryFrames.length;
         const next = imageIdx + dir;
@@ -183,6 +185,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
     setAudioError(false);
     setVideoProgress(0);
     setVideoDuration(0);
+    setHasStartedVideo(false);
     setSlideProgress(0);
 
     const audio = audioRef.current;
@@ -284,9 +287,12 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
       video.muted = isVideoMuted;
       const p = video.play();
       if (p) {
-        p.then(() => setIsVideoPlaying(true)).catch(() => setIsVideoPlaying(false));
+        p.then(() => {
+          setIsVideoPlaying(true);
+          setHasStartedVideo(true);
+        }).catch(() => setIsVideoPlaying(false));
       }
-    } else {
+    } else if (!inView || !tabVisible) {
       if (!video.paused) video.pause();
       setIsVideoPlaying(false);
     }
@@ -345,7 +351,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
       v.play()
         .then(() => {
           setIsVideoPlaying(true);
-          if (!isFullscreen) setAutoSequence(true);
+          setHasStartedVideo(true);
         })
         .catch(() => setIsVideoPlaying(false));
     } else {
@@ -670,6 +676,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                         onCanPlay={() => setVideoLoading(false)}
                         onPlay={() => {
                           setIsVideoPlaying(true);
+                          setHasStartedVideo(true);
                           setVideoLoading(false);
                         }}
                         onPause={() => setIsVideoPlaying(false)}
@@ -692,6 +699,33 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                       >
                         <source src={activeVideoItem.videoSrc} type="video/mp4" />
                       </video>
+
+                      {/* Clean high-resolution poster cover before explicit playback — eliminates blank/black preview frames */}
+                      <div
+                        className={`${styles.stagePosterCover} ${
+                          hasStartedVideo ? styles.stagePosterCoverHidden : ''
+                        }`}
+                        data-testid="showcase-poster-cover"
+                        aria-hidden={hasStartedVideo}
+                      >
+                        <img
+                          src={activeVideoItem.posterSrc}
+                          alt={activeVideoItem.label}
+                          className={styles.stagePosterImg}
+                        />
+                        <div className={styles.stagePosterScrim} aria-hidden="true" />
+                        <button
+                          type="button"
+                          className={styles.stageCenterPlayBtn}
+                          aria-label={`Play ${activeVideoItem.label}`}
+                          data-testid="showcase-center-play"
+                          tabIndex={hasStartedVideo ? -1 : 0}
+                          onClick={toggleVideoPlay}
+                        >
+                          <Play size={15} fill="currentColor" />
+                          <span>Play Preview</span>
+                        </button>
+                      </div>
 
                       <div className={styles.stageTopOverlay}>
                         <span className={styles.liveItemBadge}>{activeVideoItem.label}</span>
@@ -787,6 +821,7 @@ export const CreativeShowcaseSection: React.FC<CreativeShowcaseSectionProps> = (
                           setVideoIdx(idx);
                           setVideoProgress(0);
                           setVideoError(false);
+                          setHasStartedVideo(false);
                         }}
                       >
                         <img src={item.posterSrc} alt={item.label} loading="lazy" />
