@@ -126,11 +126,30 @@ export const NewSiteApp: React.FC = () => {
   useEffect(() => {
     if (location.hash) {
       const targetId = location.hash.slice(1);
+      try {
+        window.sessionStorage.removeItem('nunnarivu_return_section');
+      } catch {}
       const timer = window.setTimeout(() => {
         document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
       }, 60);
       return () => window.clearTimeout(timer);
     }
+
+    if (location.pathname === '/' || location.pathname === '/enterprise') {
+      let returnSection: string | null = null;
+      try {
+        returnSection = window.sessionStorage.getItem('nunnarivu_return_section');
+        if (returnSection) window.sessionStorage.removeItem('nunnarivu_return_section');
+      } catch {}
+
+      if (returnSection) {
+        const timer = window.setTimeout(() => {
+          document.getElementById(returnSection as string)?.scrollIntoView({ behavior: 'smooth' });
+        }, 70);
+        return () => window.clearTimeout(timer);
+      }
+    }
+
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   }, [location.pathname, location.hash]);
 

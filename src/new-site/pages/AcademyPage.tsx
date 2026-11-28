@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, CheckCircle2, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import type { ContactServiceOption } from '../data/enterpriseData';
 import { ACADEMY_TRACKS } from '../data/academyData';
 import { usePageMeta } from '../../hooks/usePageMeta';
@@ -13,7 +13,9 @@ interface AcademyPageProps {
 
 export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [playingVideoNum, setPlayingVideoNum] = useState<string | null>(null);
+  const [highlightedTrackId, setHighlightedTrackId] = useState<string | null>(null);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [audioMuted, setAudioMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -27,8 +29,34 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  }, []);
+    const hashId = location.hash ? location.hash.slice(1) : '';
+    if (!hashId) {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      setHighlightedTrackId(null);
+      return;
+    }
+
+    let clearHighlightTimer: number | undefined;
+    const scrollTimer = window.setTimeout(() => {
+      const targetEl = document.getElementById(hashId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setHighlightedTrackId(hashId);
+        clearHighlightTimer = window.setTimeout(() => {
+          setHighlightedTrackId((prev) => (prev === hashId ? null : prev));
+        }, 2600);
+      }
+    }, 90);
+
+    return () => {
+      window.clearTimeout(scrollTimer);
+      if (clearHighlightTimer) window.clearTimeout(clearHighlightTimer);
+    };
+  }, [location.hash]);
+
+  const handleGoBack = () => {
+    navigate('/#academy');
+  };
 
   const handleEnquire = () => {
     onSelectService?.('Training / Academy');
@@ -60,6 +88,19 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
       <main id="main" className={styles.main}>
         <section className={`section--light ${styles.tracksSection}`}>
           <div className="hf-container">
+            <div className={styles.topBackRow}>
+              <button
+                type="button"
+                className={styles.backBtn}
+                onClick={handleGoBack}
+                data-testid="academy-go-back"
+                aria-label="Go back to Nunnarivu.ai Academy section on homepage"
+              >
+                <ArrowLeft size={15} aria-hidden="true" />
+                <span>Go Back</span>
+              </button>
+            </div>
+
             <div className={styles.tracksHeader}>
               <span className={styles.monoEyebrow}>Curriculum Tracks</span>
               <h1 className="hf-heading-lg">HANDS-ON TRAINING BUILT ON REAL WORKFLOWS</h1>
@@ -68,8 +109,14 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
             <div className={styles.tracksGrid}>
               {ACADEMY_TRACKS.map((track) => {
                 const isVideoOpen = playingVideoNum === track.num && Boolean(track.videoSrc);
+                const isHighlighted = highlightedTrackId === track.id;
                 return (
-                  <article key={track.num} className={styles.trackCard}>
+                  <article
+                    key={track.num}
+                    id={track.id}
+                    data-track-id={track.id}
+                    className={`${styles.trackCard} ${isHighlighted ? styles.trackCardFocused : ''}`}
+                  >
                     <div className={styles.trackMediaWrap}>
                       {isVideoOpen && track.videoSrc ? (
                         <video
@@ -86,7 +133,7 @@ export const AcademyPage: React.FC<AcademyPageProps> = ({ onSelectService }) => 
                         <>
                           <img
                             src={track.image}
-                            alt={track.title}
+                            alt={track.imageAlt}
                             className={styles.trackImg}
                             loading="lazy"
                           />

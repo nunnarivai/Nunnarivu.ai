@@ -1,53 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Pause, Play } from 'lucide-react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { BrandLogo } from '../../components/common/BrandLogo';
+import { ACADEMY_TRACKS } from '../data/academyData';
+import { AcademyCosmicUniverse } from './AcademyCosmicUniverse';
 import styles from './AcademySection.module.css';
 
-interface AcademyVisualGlimpse {
-  id: string;
-  label: string;
-  imageSrc: string;
-  imageAlt: string;
-}
-
-const ACADEMY_VISUAL_GLIMPSES: AcademyVisualGlimpse[] = [
-  {
-    id: 'audio-studio',
-    label: 'Audio Studio',
-    imageSrc: '/assets/new-site/enterprise/images/voice-studio.webp',
-    imageAlt: 'Studio microphone and acoustic waveform for AI voice and sound production',
-  },
-  {
-    id: 'prompt-cinema',
-    label: 'Prompt Cinema',
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
-    imageAlt: 'Krishna and Arjuna aboard the golden chariot in Nunnarivu Mahabharata film production',
-  },
-  {
-    id: 'visual-systems',
-    label: 'Visual Systems',
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-jewelry-ring-v2.webp',
-    imageAlt: 'Luxury gold and solitaire diamond macro art demonstrating visual systems craft',
-  },
-  {
-    id: 'heritage-cinema',
-    label: 'Heritage Cinema',
-    imageSrc: '/assets/new-site/enterprise/media-v2/images/img-temple-sunrise-v2.webp',
-    imageAlt: 'Radiant golden sunrise over the carved Chola temple Gopuram in heritage cinema',
-  },
-];
+const ACADEMY_RETURN_STORAGE_KEY = 'nunnarivu_return_section';
 
 export const AcademySection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reducedMotion = useReducedMotion();
 
   const [inView, setInView] = useState(false);
+  const [tabVisible, setTabVisible] = useState(
+    () => (typeof document === 'undefined' ? true : document.visibilityState !== 'hidden')
+  );
+  const [userPaused, setUserPaused] = useState(false);
 
+  // Viewport-based animation control: runs while visible, pauses smoothly offscreen preserving exact frame
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el || typeof IntersectionObserver === 'undefined') return;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
     const io = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.08 }
@@ -56,7 +34,26 @@ export const AcademySection: React.FC = () => {
     return () => io.disconnect();
   }, []);
 
-  const animateAura = inView && !reducedMotion;
+  // Browser tab visibility pause/resume control
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const handleVisibility = () => {
+      setTabVisible(document.visibilityState !== 'hidden');
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
+
+  // Animations stay mounted with animation-play-state toggled so resume continues from previous position
+  const isPlaying = inView && tabVisible && !userPaused && !reducedMotion;
+
+  const rememberAcademyReturn = () => {
+    try {
+      window.sessionStorage.setItem(ACADEMY_RETURN_STORAGE_KEY, 'academy');
+    } catch {
+      // Ignore storage errors in private/restricted browser contexts
+    }
+  };
 
   return (
     <section
@@ -66,30 +63,17 @@ export const AcademySection: React.FC = () => {
       aria-labelledby="academy-hero-heading"
     >
       <div className={styles.outerContainer}>
-        {/* Large Premium Rounded Light-Lavender Panel Box over Dark Atmospheric Violet Section */}
-        <div className={styles.bannerPanel} data-testid="academy-banner-panel">
-          {/* Layered Krishna Painterly Brush-Stroke Aura & Soft Ambient Glow
-              originating behind Krishna and sweeping across the right-side showcase cards */}
-          <div
-            className={`${styles.auraCanvas} ${animateAura ? styles.auraCanvasAnimated : ''}`}
-            aria-hidden="true"
-            data-testid="academy-light-pass"
-          >
-            <div className={styles.auraAmbientGlow} />
-            <div className={styles.brushStrokeLayer} data-testid="academy-brush-aura">
-              <img
-                src="/assets/new-site/enterprise/academy/krishna-option-a-brushstrokes.webp"
-                alt=""
-                className={styles.brushStrokeImg}
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-            <div className={styles.auraLightSweep} />
-          </div>
+        {/* LAYER 02 — Light-Violet Rounded Academy Panel Transitioning into Deep Cosmic Universe */}
+        <div
+          className={`${styles.bannerPanel} ${isPlaying ? styles.wallpaperRunning : styles.wallpaperPaused}`}
+          data-testid="academy-banner-panel"
+          data-animation-state={isPlaying ? 'running' : 'paused'}
+        >
+          {/* LAYERS 03–09 & 12 — Animated Cosmic Universe, Nebula, Galaxy, Planets, Energy Streams & Starfield */}
+          <AcademyCosmicUniverse isPlaying={isPlaying} reducedMotion={reducedMotion} />
 
           <div className={styles.heroGrid}>
-            {/* LEFT COLUMN: Brand, Refined Heading & Integrated AI Prompt Engineering */}
+            {/* LAYER 13 — LEFT COLUMN: Preserved Academy Brand, Heading, Verbatim Copy, AI Prompt Engineering & CTA */}
             <div className={styles.leftColumn}>
               <div className={styles.brandRow}>
                 <BrandLogo variant="academy" decorative />
@@ -102,8 +86,9 @@ export const AcademySection: React.FC = () => {
                 </h2>
 
                 <p className={styles.description}>
-                  Explore practical AI learning, creative workflows, and real-world
-                  projects—from your first idea to professional cinematic results.
+                  <strong className={styles.descriptionLead}>We Create We Teach</strong> practical
+                  AI learning, creative workflows, and real-world projects—from your first idea to
+                  professional cinematic results with our Nunnarivu Staffs.
                 </p>
 
                 <div className={styles.promptEditorial} data-promo-title>
@@ -119,19 +104,44 @@ export const AcademySection: React.FC = () => {
                   </p>
                 </div>
 
-                <Link to="/academy" className={styles.ctaBtn}>
+                <Link
+                  to="/academy"
+                  state={{ fromHomeAcademy: true }}
+                  onClick={rememberAcademyReturn}
+                  className={styles.ctaBtn}
+                >
                   <span>Explore Academy</span>
                   <ChevronRight size={15} />
                 </Link>
               </div>
 
-              <p className={styles.learnersText}>
-                Practical AI workshops, studio workflows &amp; guided enterprise training by{' '}
-                <strong>Nunnarivu.ai</strong>
-              </p>
+              <div className={styles.leftFooterRow}>
+                <p className={styles.learnersText}>
+                  Practical AI workshops, studio workflows &amp; guided enterprise training by{' '}
+                  <strong>Nunnarivu.ai</strong>
+                </p>
+
+                {!reducedMotion && (
+                  <button
+                    type="button"
+                    className={styles.motionToggleBtn}
+                    onClick={() => setUserPaused((p) => !p)}
+                    aria-pressed={userPaused}
+                    aria-label={
+                      userPaused
+                        ? 'Resume Academy cosmic universe animation'
+                        : 'Pause Academy cosmic universe animation'
+                    }
+                    data-testid="academy-motion-toggle"
+                  >
+                    {userPaused ? <Play size={11} aria-hidden="true" /> : <Pause size={11} aria-hidden="true" />}
+                    <span>{userPaused ? 'Resume' : 'Pause'}</span>
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* CENTER COLUMN: Complete, Uncropped Krishna & Arjuna Cutout above Painterly Brush Aura */}
+            {/* LAYER 10 — CENTER COLUMN: Existing Static Uncropped Krishna & Arjuna Artwork */}
             <div className={styles.characterColumn} data-testid="academy-character-stage">
               <img
                 src="/assets/new-site/enterprise/academy/krishna-arjuna-promo-tight.webp"
@@ -141,33 +151,59 @@ export const AcademySection: React.FC = () => {
               />
             </div>
 
-            {/* RIGHT COLUMN: Four Floating Creative Showcase Cards over Extended Brush-Stroke Aura */}
-            <div
-              className={styles.glimpsesGrid}
+            {/* LAYER 11 — RIGHT COLUMN: Five Actual Academy Articles in Vertical Zigzag with Sequential Cosmic Energy */}
+            <nav
+              className={styles.glimpsesZigzag}
               data-testid="academy-media-panels"
-              aria-label="Nunnarivu.ai Academy Production Glimpses"
+              aria-label="Nunnarivu.ai Academy Curriculum Articles"
             >
-              {ACADEMY_VISUAL_GLIMPSES.map((glimpse, idx) => (
-                <Link
-                  key={glimpse.id}
-                  to="/academy"
-                  className={`${styles.glimpseTile} ${
-                    idx % 2 === 1 ? styles.glimpseTileOffset : ''
-                  }`}
-                  data-academy-panel={glimpse.id}
-                >
-                  <img
-                    src={glimpse.imageSrc}
-                    alt={glimpse.imageAlt}
-                    className={styles.glimpseImg}
-                    loading="eager"
-                    decoding="async"
-                  />
-                  <div className={styles.glimpseVignette} aria-hidden="true" />
-                  <span className={styles.glimpseLabel}>{glimpse.label}</span>
-                </Link>
-              ))}
-            </div>
+              {ACADEMY_TRACKS.map((track, index) => {
+                const align: 'left' | 'right' = index % 2 === 0 ? 'left' : 'right';
+                const seqStyle = {
+                  '--seq-delay': `${index * 2.8}s`,
+                } as React.CSSProperties;
+                return (
+                  <div
+                    key={track.id}
+                    className={`${styles.glimpseSlot} ${
+                      align === 'left' ? styles.glimpseLeft : styles.glimpseRight
+                    }`}
+                    style={seqStyle}
+                  >
+                    {/* Sequential Cosmic & Golden Backlight Behind Thumbnail */}
+                    <span className={styles.glimpseBackGlow} aria-hidden="true" />
+
+                    <Link
+                      to={`/academy#${track.id}`}
+                      state={{ fromHomeAcademy: true, glimpseId: track.id }}
+                      onClick={rememberAcademyReturn}
+                      className={styles.glimpseTile}
+                      data-academy-panel={track.id}
+                      data-track-num={track.num}
+                      data-zigzag-align={align}
+                      aria-label={`Open ${track.title} article in Nunnarivu.ai Academy`}
+                    >
+                      <img
+                        src={track.image}
+                        alt={track.imageAlt}
+                        className={styles.glimpseImg}
+                        style={
+                          track.imagePosition
+                            ? { objectPosition: track.imagePosition }
+                            : undefined
+                        }
+                        loading="eager"
+                      />
+                      <div className={styles.glimpseVignette} aria-hidden="true" />
+                      {/* Sequential Golden Border & Surface Light Reflection */}
+                      <span className={styles.glimpseSeqRim} aria-hidden="true" />
+                      <span className={styles.glimpseHoverSheen} aria-hidden="true" />
+                      <span className={styles.glimpseLabel}>{track.title}</span>
+                    </Link>
+                  </div>
+                );
+              })}
+            </nav>
           </div>
         </div>
       </div>

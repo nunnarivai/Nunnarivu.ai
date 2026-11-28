@@ -181,7 +181,7 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
     description:
       'Real Nunnarivu.ai generative video clips spanning historical action choreography, product commercials, industrial AI prototypes, and luminous motion art.',
     mediaType: 'video-playlist',
-    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v3.webp',
     ctaLabel: 'Request AI Video Production',
     contactService: 'AI Video Generation',
     highlights: [
@@ -195,7 +195,7 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         label: '01 · Historical Courtyard Action',
         caption: 'Sunlit courtyard martial arts choreography with period costume continuity',
         videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
-        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v3.webp',
         caseStudySlug: 'historical-courtyard-martial-arts',
       },
       {
@@ -211,7 +211,7 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         label: '03 · AI Textile Vision Prototype',
         caption: 'Student demonstrating an industrial defect-detection unit on a live factory loom',
         videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-student-prototype-v2.mp4',
-        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+        posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v3.webp',
         caseStudySlug: 'student-mentorship-innovation',
       },
       {
@@ -386,7 +386,7 @@ export const CREATIVE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
         id: 'mahabharata-film',
         label: '02 · Mahabharata — Prompt Engineering Film',
         caption: 'Original Nunnarivu mythological cinema showcase uniting Krishna and Arjuna with AI craft',
-        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+        videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v4.mp4',
         posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
         caseStudySlug: 'mahabharata-ai-prompt-engineering',
       },

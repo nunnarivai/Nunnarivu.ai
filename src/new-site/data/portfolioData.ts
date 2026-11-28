@@ -335,9 +335,9 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     serviceType: 'AI Video Generation',
     summary:
       'Period action sequences featuring a rugged mentor, wooden Wing Chun dummy, and young trainees practicing inside a sunlit dusty courtyard.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v3.webp',
     cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-preview-v3.mp4',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v3.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-action-v2.mp4',
     clientLabel: 'Nunnarivu.ai Period Action Study',
     year: '2026',
@@ -501,7 +501,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
     cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-mahabharata-preview-v4.mp4',
     heroImage: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
-    heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+    heroVideo: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v4.mp4',
     clientLabel: 'Nunnarivu.ai Academy Showcase',
     year: '2026',
     overview:
@@ -525,7 +525,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     gallery: [
       {
         type: 'video',
-        src: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+        src: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v4.mp4',
         poster: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
         alt: 'Mahabharata AI Prompt Engineering showcase film by Nunnarivu.ai',
         caption: 'Complete 48-second Mahabharata Prompt Engineering film',
@@ -554,9 +554,9 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
     serviceType: 'Training / Academy',
     summary:
       'Nine-clip narrative series capturing students building electronic prototypes, demonstrating textile-defect AI on factory looms, and working with mentors.',
-    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+    thumbnail: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v3.webp',
     cardPreviewVideo: '/assets/new-site/enterprise/media-v2/videos/vid-student-preview-v3.mp4',
-    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+    heroImage: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v3.webp',
     heroVideo: '/assets/new-site/enterprise/media-v2/videos/vid-student-prototype-v2.mp4',
     clientLabel: 'Nunnarivu.ai Innovation & Mentorship',
     year: '2026',
@@ -595,7 +595,7 @@ export const PORTFOLIO_CASE_STUDIES: PortfolioCaseStudy[] = [
       },
       {
         type: 'image',
-        src: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+        src: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v3.webp',
         alt: 'AI defect-detection camera unit mounted on textile loom',
         caption: 'Live textile defect-detection prototype frame',
       },

@@ -61,7 +61,7 @@ const PRODUCTION_CLIPS = [
     label: 'AI Textile Defect Prototype',
     caption: 'Student demonstrating an AI vision camera mounted on a live weaving loom.',
     videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-student-prototype-v2.mp4',
-    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v2.webp',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-student-factory-v3.webp',
   },
   {
     id: 'factory-mentorship',
@@ -82,7 +82,7 @@ const PRODUCTION_CLIPS = [
     label: 'Period Courtyard Action',
     caption: 'Multi-character historical martial arts staging converted to universal H.264.',
     videoSrc: '/assets/new-site/enterprise/media-v2/videos/vid-courtyard-warrior-v2.mp4',
-    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v2.webp',
+    posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-courtyard-v3.webp',
   },
 ];
 
@@ -179,7 +179,7 @@ const ADVERTISING_SPOTS = [
     id: 'mahabharata-spot',
     label: 'Mahabharata Academy Promo',
     caption: 'Mythological widescreen brand film crafted for Nunnarivu.ai Prompt Engineering.',
-    videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v3.mp4',
+    videoSrc: '/assets/new-site/enterprise/media-v2/videos/mov-mahabharata-prompt-v4.mp4',
     posterSrc: '/assets/new-site/enterprise/media-v2/images/poster-mahabharata-v3.webp',
   },
 ];

@@ -87,6 +87,10 @@
   display: block;
 }
 
+.supportTeamImg {
+  object-position: center 22%;
+}
+
 .visualBadgeOverlay {
   position: absolute;
   left: 12px;

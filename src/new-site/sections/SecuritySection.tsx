@@ -151,9 +151,9 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onRequestServi
 
             <div className={styles.supportPhotoBox}>
               <img
-                src="/assets/images/AI Business Solutions.jpeg"
-                alt="Nunnarivu.ai specialists collaborating on an enterprise client consultation"
-                className={styles.cardImage}
+                src="/assets/new-site/enterprise/security/expert-support-team-v2.webp"
+                alt="Representative studio visual of AI engineers and creative specialists collaborating in a Nunnarivu.ai-branded enterprise workspace"
+                className={`${styles.cardImage} ${styles.supportTeamImg}`}
                 loading="lazy"
               />
               <span className={styles.managerBadge}>Nunnarivu Specialist Team</span>
